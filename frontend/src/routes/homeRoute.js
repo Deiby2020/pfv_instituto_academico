@@ -1,6 +1,6 @@
 
 
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import InicioPage from '../screens/inicioPage';
 import AppMain from '../layouts/app';
 
@@ -107,6 +107,11 @@ import CreateTurno from '../screens/modules/estructurainstitucional/turno/turno.
 import ShowTurno from '../screens/modules/estructurainstitucional/turno/turno.show';
 import EditTurno from '../screens/modules/estructurainstitucional/turno/turno.edit';
 
+import IndexAula from '../screens/modules/estructurainstitucional/aula/aula.index';
+import CreateAula from '../screens/modules/estructurainstitucional/aula/aula.create';
+import ShowAula from '../screens/modules/estructurainstitucional/aula/aula.show';
+import EditAula from '../screens/modules/estructurainstitucional/aula/aula.edit';
+
 import IndexDivisionAcademica from '../screens/modules/estructurainstitucional/divisionacademica/division_academica.index';
 import CreateDivisionAcademica from '../screens/modules/estructurainstitucional/divisionacademica/division_academica.create';
 import ShowDivisionAcademica from '../screens/modules/estructurainstitucional/divisionacademica/division_academica.show';
@@ -128,16 +133,39 @@ import CreateTipoIdentificacion from '../screens/modules/persona/tipoidentificac
 import ShowTipoIdentificacion from '../screens/modules/persona/tipoidentificacion/tipo_identificacion.show';
 import EditTipoIdentificacion from '../screens/modules/persona/tipoidentificacion/tipo_identificacion.edit';
 
+import IndexCategoriaDocumento from '../screens/modules/persona/categoriadocumento/categoria_documento.index';
+import CreateCategoriaDocumento from '../screens/modules/persona/categoriadocumento/categoria_documento.create';
+import ShowCategoriaDocumento from '../screens/modules/persona/categoriadocumento/categoria_documento.show';
+import EditCategoriaDocumento from '../screens/modules/persona/categoriadocumento/categoria_documento.edit';
+
 import IndexCargo from '../screens/modules/persona/cargo/cargo.index';
 import CreateCargo from '../screens/modules/persona/cargo/cargo.create';
 import ShowCargo from '../screens/modules/persona/cargo/cargo.show';
 import EditCargo from '../screens/modules/persona/cargo/cargo.edit';
+
+import IndexDocente from '../screens/modules/persona/docente/docente.index';
+import CreateDocente from '../screens/modules/persona/docente/docente.create';
+import ShowDocente from '../screens/modules/persona/docente/docente.show';
+import EditDocente from '../screens/modules/persona/docente/docente.edit';
+
+import IndexEstudiante from '../screens/modules/persona/estudiante/estudiante.index';
+import CreateEstudiante from '../screens/modules/persona/estudiante/estudiante.create';
+import ShowEstudiante from '../screens/modules/persona/estudiante/estudiante.show';
+import EditEstudiante from '../screens/modules/persona/estudiante/estudiante.edit';
+
+import IndexAdministrativo from '../screens/modules/persona/administrativo/administrativo.index';
+import CreateAdministrativo from '../screens/modules/persona/administrativo/administrativo.create';
+import ShowAdministrativo from '../screens/modules/persona/administrativo/administrativo.show';
+import EditAdministrativo from '../screens/modules/persona/administrativo/administrativo.edit';
+
+import LoginPage from '../screens/auth/login.page';
 
 const HomeRoute = (props) => {
     return (
         <>
             <Routes>
                 <Route path="/notFound" element={ <InicioPage { ...props } /> }  />
+                <Route path="/login" element={ <LoginPage { ...props } /> }  />
                 <Route path="/" element={<AppMain />}>
                     <Route index path="/inicio" element={ <InicioPage { ...props } /> }  />
 
@@ -237,10 +265,16 @@ const HomeRoute = (props) => {
                     <Route index path="/responsable/edit/:idresponsable" element={ <EditResponsable { ...props } /> }  />
                     <Route index path="/responsable/show/:idresponsable" element={ <ShowResponsable { ...props } /> }  />
 
+
                     <Route index path="/turno/index" element={ <IndexTurno { ...props } /> }  />
                     <Route index path="/turno/create" element={ <CreateTurno { ...props } /> }  />
                     <Route index path="/turno/edit/:idturno" element={ <EditTurno { ...props } /> }  />
                     <Route index path="/turno/show/:idturno" element={ <ShowTurno { ...props } /> }  />
+
+                    <Route index path="/aula/index" element={ <IndexAula { ...props } /> }  />
+                    <Route index path="/aula/create" element={ <CreateAula { ...props } /> }  />
+                    <Route index path="/aula/edit/:idaula" element={ <EditAula { ...props } /> }  />
+                    <Route index path="/aula/show/:idaula" element={ <ShowAula { ...props } /> }  />
 
                     <Route index path="/divisionacademica/index" element={ <IndexDivisionAcademica { ...props } /> }  />
                     <Route index path="/divisionacademica/create" element={ <CreateDivisionAcademica { ...props } /> }  />
@@ -267,6 +301,26 @@ const HomeRoute = (props) => {
                     <Route index path="/cargo/create" element={ <CreateCargo { ...props } /> }  />
                     <Route index path="/cargo/edit/:idcargo" element={ <EditCargo { ...props } /> }  />
                     <Route index path="/cargo/show/:idcargo" element={ <ShowCargo { ...props } /> }  />
+
+                    <Route index path="/docente/index" element={ <IndexDocente { ...props } /> }  />
+                    <Route index path="/docente/create" element={ <CreateDocente { ...props } /> }  />
+                    <Route index path="/docente/edit/:iddocente" element={ <EditDocente { ...props } /> }  />
+                    <Route index path="/docente/show/:iddocente" element={ <ShowDocente { ...props } /> }  />
+
+                    <Route index path="/estudiante/index" element={ <IndexEstudiante { ...props } /> }  />
+                    <Route index path="/estudiante/create" element={ <CreateEstudiante { ...props } /> }  />
+                    <Route index path="/estudiante/edit/:idestudiante" element={ <EditEstudiante { ...props } /> }  />
+                    <Route index path="/estudiante/show/:idestudiante" element={ <ShowEstudiante { ...props } /> }  />
+
+                    <Route index path="/administrativo/index" element={ <IndexAdministrativo { ...props } /> }  />
+                    <Route index path="/administrativo/create" element={ <CreateAdministrativo { ...props } /> }  />
+                    <Route index path="/administrativo/edit/:idadministrativo" element={ <EditAdministrativo { ...props } /> }  />
+                    <Route index path="/administrativo/show/:idadministrativo" element={ <ShowAdministrativo { ...props } /> }  />
+
+                    <Route index path="/categoriadocumento/index" element={ <IndexCategoriaDocumento { ...props } /> }  />
+                    <Route index path="/categoriadocumento/create" element={ <CreateCategoriaDocumento { ...props } /> }  />
+                    <Route index path="/categoriadocumento/edit/:idcategoriadocumento" element={ <EditCategoriaDocumento { ...props } /> }  />
+                    <Route index path="/categoriadocumento/show/:idcategoriadocumento" element={ <ShowCategoriaDocumento { ...props } /> }  />
 
                     <Route
                         path='*'

@@ -16,6 +16,9 @@ export class DocenteCiudadDetalle {
     @ManyToOne(
         () => Docente,
         (docente) => docente.arraynacionalidad,
+        {
+            onDelete: 'CASCADE',
+        }
     )
     @JoinColumn({ name: 'fkiddocente', })
     fkiddocente: Docente;

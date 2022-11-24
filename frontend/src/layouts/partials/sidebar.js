@@ -3,18 +3,38 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default function SidebarComponent() {
+    const [ subMenu, setSubMenu ] = React.useState( {
+        persona: {
+            active: false,
+        },
+        estructurainstitucional: {
+            active: false,
+        },
+        estructuraacademica: {
+            active: false,
+        },
+        parametros: {
+            active: false,
+        },
+        seguridad: {
+            active: false,
+        },
+    } );
+    
     return (
         <div className="main-sidebar">
             <aside id="sidebar-wrapper">
                 <div className="sidebar-brand">
-                    <a href="index.html">Stisla Lite</a>
+                    <a href="index.html">
+                        SolverTic SRL
+                    </a>
                 </div>
                 <div className="sidebar-user">
                     <div className="sidebar-user-picture">
-                        <img alt="image" src="/assets/dist/img/avatar/avatar-1.jpeg" />
+                        <img alt="image" src="/assets/img/photo_ericka.jpeg" />
                     </div>
                     <div className="sidebar-user-details">
-                        <div className="user-name">Ujang Maman</div>
+                        <div className="user-name">Ericka Lopez</div>
                         <div className="user-role">
                             Administrator
                         </div>
@@ -27,14 +47,33 @@ export default function SidebarComponent() {
                     </li>
 
                     <li className="menu-header">Componentes</li>
-                    <li>
+                    <li className={`${ (subMenu.persona.active === true ) && 'active' }`}>
                         <a href="#" className="has-dropdown pl-3"
-                            onClick={ (evt) => evt.preventDefault() }
+                            onClick={ (evt) => {
+                                evt.preventDefault();
+                                subMenu.persona.active = !subMenu.persona.active;
+                                setSubMenu( { ...subMenu } );
+                            } }
                         >
                             <i className="ion ion-ios-albums-outline"></i>
                             <span style={{ fontSize: 13, }}>Persona</span>
                         </a>
                         <ul className="menu-dropdown">
+                            <li>
+                                <Link to={"/administrativo/index"}>
+                                    <i className="ion ion-ios-circle-outline"></i> Administrativo
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={"/docente/index"}>
+                                    <i className="ion ion-ios-circle-outline"></i> Docente
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={"/estudiante/index"}>
+                                    <i className="ion ion-ios-circle-outline"></i> Estudiante
+                                </Link>
+                            </li>
                             <li>
                                 <Link to={"/cargo/index"}>
                                     <i className="ion ion-ios-circle-outline"></i> Cargo
@@ -45,11 +84,20 @@ export default function SidebarComponent() {
                                     <i className="ion ion-ios-circle-outline"></i> Tipo Identificación
                                 </Link>
                             </li>
+                            <li>
+                                <Link to={"/categoriadocumento/index"}>
+                                    <i className="ion ion-ios-circle-outline"></i> Categoria Documento
+                                </Link>
+                            </li>
                         </ul>
                     </li>
-                    <li>
+                    <li className={`${ (subMenu.estructurainstitucional.active === true ) && 'active' }`}>
                         <a href="#" className="has-dropdown pl-3"
-                            onClick={ (evt) => evt.preventDefault() }
+                            onClick={ (evt) => {
+                                evt.preventDefault();
+                                subMenu.estructurainstitucional.active = !subMenu.estructurainstitucional.active;
+                                setSubMenu( { ...subMenu } );
+                            } }
                         >
                             <i className="ion ion-ios-albums-outline"></i>
                             <span style={{ fontSize: 13, }}>Estructura Institucional</span>
@@ -58,6 +106,11 @@ export default function SidebarComponent() {
                             <li>
                                 <Link to={"/institucion/index"}>
                                     <i className="ion ion-ios-circle-outline"></i> Institución
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={"/aula/index"}>
+                                    <i className="ion ion-ios-circle-outline"></i> Aula
                                 </Link>
                             </li>
                             <li>
@@ -82,9 +135,13 @@ export default function SidebarComponent() {
                             </li> */}
                         </ul>
                     </li>
-                    <li>
+                    <li className={`${ (subMenu.estructuraacademica.active === true ) && 'active' }`}>
                         <a href="#" className="has-dropdown pl-3"
-                            onClick={ (evt) => evt.preventDefault() }
+                            onClick={ (evt) => {
+                                evt.preventDefault();
+                                subMenu.estructuraacademica.active = !subMenu.estructuraacademica.active;
+                                setSubMenu( { ...subMenu } );
+                            } }
                         >
                             <i className="ion ion-ios-albums-outline"></i>
                             <span style={{ fontSize: 13, }}>Estructura Academica</span>
@@ -117,9 +174,13 @@ export default function SidebarComponent() {
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li className={`${ (subMenu.parametros.active === true ) && 'active' }`}>
                         <a href="#" className="has-dropdown pl-3"
-                            onClick={ (evt) => evt.preventDefault() }
+                            onClick={ (evt) => {
+                                evt.preventDefault();
+                                subMenu.parametros.active = !subMenu.parametros.active;
+                                setSubMenu( { ...subMenu } );
+                            } }
                         >
                             <i className="ion ion-ios-albums-outline"></i>
                             <span style={{ fontSize: 13, }}>Parametros</span>
@@ -177,9 +238,13 @@ export default function SidebarComponent() {
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li className={`${ (subMenu.seguridad.active === true ) && 'active' }`}>
                         <a href="#" className="has-dropdown pl-3"
-                            onClick={ (evt) => evt.preventDefault() }
+                            onClick={ (evt) => {
+                                evt.preventDefault();
+                                subMenu.seguridad.active = !subMenu.seguridad.active;
+                                setSubMenu( { ...subMenu } );
+                            } }
                         >
                             <i className="ion ion-ios-albums-outline"></i>
                             <span style={{ fontSize: 13, }}>Seguridad</span>

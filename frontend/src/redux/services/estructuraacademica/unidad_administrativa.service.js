@@ -15,7 +15,16 @@ const getAllUnidadAdministrativa = async ( {
         esPaginate: esPaginate,
     } ).then( (respta) => {
         if ( respta.resp === 1 && respta.error === false ) {
-            toastr.success( respta.message, '', { closeButton: true, progressBar: true, positionClass: "toast-bottom-right", } );
+            // toastr.success( respta.message, '', { closeButton: true, progressBar: true, positionClass: "toast-bottom-right", } );
+        } else if ( respta.error === true && respta.resp === -2 ) {
+            Swal.fire( {
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Usuario no Autorizado',
+                text: respta.message,
+                showConfirmButton: false,
+                timer: 3000,
+            } );
         }
         return respta;
     } );
@@ -27,12 +36,23 @@ const onStore = async (body) => {
         unidadnegocio: body.unidadnegocio,
         sigla: body.sigla,
         descripcion: body.descripcion,
+        arrayturno: body.arrayturno,
+        arrayaula: body.arrayaula,
     } ).then( (respta) => {
         if ( respta.resp === 1 && respta.error === false ) {
             Swal.fire( {
                 position: 'top-end',
                 icon: 'success',
                 title: respta.message,
+                showConfirmButton: false,
+                timer: 3000,
+            } );
+        } else if ( respta.error === true && respta.resp === -2 ) {
+            Swal.fire( {
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Usuario no Autorizado',
+                text: respta.message,
                 showConfirmButton: false,
                 timer: 3000,
             } );
@@ -46,6 +66,15 @@ const onShow = async (idunidadadministrativa) => {
     } ).then( (respta) => {
         if ( respta.resp === 1 && respta.error === false ) {
             toastr.success( respta.message, '', { closeButton: true, progressBar: true, } );
+        } else if ( respta.error === true && respta.resp === -2 ) {
+            Swal.fire( {
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Usuario no Autorizado',
+                text: respta.message,
+                showConfirmButton: false,
+                timer: 3000,
+            } );
         }
         return respta;
     } );
@@ -56,6 +85,15 @@ const onEdit = async (idunidadadministrativa) => {
     } ).then( (respta) => {
         if ( respta.resp === 1 && respta.error === false ) {
             toastr.success( respta.message, '', { closeButton: true, progressBar: true, } );
+        } else if ( respta.error === true && respta.resp === -2 ) {
+            Swal.fire( {
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Usuario no Autorizado',
+                text: respta.message,
+                showConfirmButton: false,
+                timer: 3000,
+            } );
         }
         return respta;
     } );
@@ -68,12 +106,23 @@ const onUpdate = async (body) => {
         sigla: body.sigla,
         descripcion: body.descripcion,
         estado: body.estado,
+        arrayturno: body.arrayturno,
+        arrayaula: body.arrayaula,
     } ).then( (respta) => {
         if ( respta.resp === 1 && respta.error === false ) {
             Swal.fire( {
                 position: 'top-end',
                 icon: 'success',
                 title: respta.message,
+                showConfirmButton: false,
+                timer: 3000,
+            } );
+        } else if ( respta.error === true && respta.resp === -2 ) {
+            Swal.fire( {
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Usuario no Autorizado',
+                text: respta.message,
                 showConfirmButton: false,
                 timer: 3000,
             } );
@@ -90,6 +139,15 @@ const onDelete = async (body) => {
                 position: 'top-end',
                 icon: 'success',
                 title: respta.message,
+                showConfirmButton: false,
+                timer: 3000,
+            } );
+        } else if ( respta.error === true && respta.resp === -2 ) {
+            Swal.fire( {
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Usuario no Autorizado',
+                text: respta.message,
                 showConfirmButton: false,
                 timer: 3000,
             } );

@@ -1,8 +1,10 @@
 
-import ConfirmationComponent from "../../../components/confirmation";
+import Swal from 'sweetalert2';
 import Constants from "../../constants/constans";
+import ConfirmationComponent from "../../../components/confirmation";
 import { MateriaService } from "../../services/parametros/materia.service";
 import { setHiddenLoading, setShowLoading } from "../common/loading.action";
+import { setHiddenSesion, setShowSesion } from '../common/sesion.action';
 
 const setInit = () => ( {
     type: Constants.materia_setInit,
@@ -47,7 +49,7 @@ const onPageMateria = ( page = 1, paginate = 5, search = "" ) => {
         MateriaService.getAllMateria( {
             page: page, paginate: paginate, 
             search: search, esPaginate: true,
-        } ).then( (result) => {
+        } ).then( async (result) => {
             if ( result.resp === 1 ) {
                 let obj = {
                     data: {
@@ -68,6 +70,9 @@ const onPageMateria = ( page = 1, paginate = 5, search = "" ) => {
                     },
                 };
                 dispatch( onPaginateModule(obj) );
+            } else if ( result.resp === -2 ) {
+                await dispatch( setShowSesion() );
+                await dispatch( setHiddenSesion() );
             }
         } ).finally( () => {} );
     };
@@ -75,13 +80,18 @@ const onPageMateria = ( page = 1, paginate = 5, search = "" ) => {
 
 const getAllMateria = () => {
     return ( dispatch ) => {
-        MateriaService.getAllMateria().then( (result) => {
+        MateriaService.getAllMateria(
+
+        ).then( async (result) => {
             if ( result.resp === 1 ) {
                 let obj = {
                     name: 'listMateria',
                     value: result.arrayMateria,
                 };
                 dispatch( onListModule(obj) );
+            } else if ( result.resp === -2 ) {
+                await dispatch( setShowSesion() );
+                await dispatch( setHiddenSesion() );
             }
         } ).finally( () => {} );
     };
@@ -90,16 +100,6 @@ const getAllMateria = () => {
 const onLimpiar = () => {
     return ( dispatch ) => {
         dispatch( setLimpiar() );
-    };
-};
-
-const setFKIDTipoMateria = (materia, tipoMateria) => {
-    return ( dispatch ) => {
-        materia.fkidtipomateria = tipoMateria.idtipomateria;
-        materia.tipomateria = tipoMateria.descripcion;
-        materia.error.fkidtipomateria = false;
-        materia.message.fkidtipomateria = "";
-        dispatch( onChange(materia) );
     };
 };
 
@@ -150,10 +150,15 @@ const setNombreAlternativo = (materia, value) => {
 
 const setCredito = (materia, value) => {
     return ( dispatch ) => {
-        materia.creditos = value;
-        materia.error.creditos = false;
-        materia.message.creditos = "";
-        dispatch( onChange(materia) );
+        if ( value === "" ) value = 0;
+        if ( !isNaN( value ) ) {
+            if ( parseInt( value ) >= 0 ) {
+                materia.creditos = parseInt(value);
+                materia.error.creditos = false;
+                materia.message.creditos = "";
+                dispatch( onChange(materia) );
+            }
+        }
     };
 };
 
@@ -183,9 +188,14 @@ const onCreate = () => {
 
 const onShow = ( idmateria ) => {
     return ( dispatch ) => {
-        MateriaService.onShow( idmateria ).then( (result) => {
+        MateriaService.onShow( 
+            idmateria 
+        ).then( async (result) => {
             if ( result.resp === 1 ) {
                 dispatch( setShowData( result.materia ) );
+            } else if ( result.resp === -2 ) {
+                await dispatch( setShowSesion() );
+                await dispatch( setHiddenSesion() );
             }
         } ).finally( () => {} );
     };
@@ -193,9 +203,14 @@ const onShow = ( idmateria ) => {
 
 const onEdit = ( idmateria ) => {
     return ( dispatch ) => {
-        MateriaService.onEdit( idmateria ).then( (result) => {
+        MateriaService.onEdit( 
+            idmateria 
+        ).then( async (result) => {
             if ( result.resp === 1 ) {
                 dispatch( setShowData( result.materia ) );
+            } else if ( result.resp === -2 ) {
+                await dispatch( setShowSesion() );
+                await dispatch( setHiddenSesion() );
             }
         } ).finally( () => {} );
     };
@@ -209,10 +224,15 @@ const onGrabar = ( materia, onBack ) => {
         }
         let onStore = () => {
             dispatch( setShowLoading() );
-            MateriaService.onStore(materia).then( (result) => {
+            MateriaService.onStore(
+                materia
+            ).then( async (result) => {
                 if ( result.resp === 1 ) {
                     dispatch( onLimpiar() );
                     onBack();
+                } else if ( result.resp === -2 ) {
+                    await dispatch( setShowSesion() );
+                    await dispatch( setHiddenSesion() );
                 }
             } ).finally( () => {
                 dispatch( setHiddenLoading() );
@@ -233,10 +253,15 @@ const onUpdate = ( materia, onBack ) => {
         }
         let onUpdate = () => {
             dispatch( setShowLoading() );
-            MateriaService.onUpdate(materia).then( (result) => {
+            MateriaService.onUpdate(
+                materia
+            ).then( async (result) => {
                 if ( result.resp === 1 ) {
                     dispatch( onLimpiar() );
                     onBack();
+                } else if ( result.resp === -2 ) {
+                    await dispatch( setShowSesion() );
+                    await dispatch( setHiddenSesion() );
                 }
             } ).finally( () => {
                 dispatch( setHiddenLoading() );
@@ -251,11 +276,6 @@ const onUpdate = ( materia, onBack ) => {
 
 function onValidate( data ) {
     let bandera = true;
-    if ( data.fkidtipomateria.toString().trim().length === 0 ) {
-        data.error.fkidtipomateria   = true;
-        data.message.fkidtipomateria = "Campo requerido.";
-        bandera = false;
-    }
     if ( data.codigo.toString().trim().length === 0 ) {
         data.error.codigo   = true;
         data.message.codigo = "Campo requerido.";
@@ -291,6 +311,16 @@ function onValidate( data ) {
         data.message.estado = "Campo requerido.";
         bandera = false;
     }
+    if ( !bandera ) {
+        Swal.fire( {
+            position: 'top-end',
+            icon: 'warning',
+            title: "No se pudo realizar la Funcionalidad",
+            text: "Favor llenar los campos requeridos.",
+            showConfirmButton: false,
+            timer: 3000,
+        } );
+    }
     return bandera;
 };
 
@@ -298,9 +328,14 @@ const onDelete = ( materia ) => {
     return ( dispatch ) => {
         let onDelete = () => {
             dispatch( setShowLoading() );
-            MateriaService.onDelete(materia).then( (result) => {
+            MateriaService.onDelete(
+                materia
+            ).then( async (result) => {
                 if ( result.resp === 1 ) {
                     dispatch( onPageMateria() );
+                } else if ( result.resp === -2 ) {
+                    await dispatch( setShowSesion() );
+                    await dispatch( setHiddenSesion() );
                 }
             } ).finally( () => {
                 dispatch( setHiddenLoading() );
@@ -318,7 +353,6 @@ export const MateriaActions = {
     onPageMateria,
     getAllMateria,
     onLimpiar,
-    setFKIDTipoMateria,
     setCodigo,
     setSigla,
     setNombreLargo,

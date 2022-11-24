@@ -3,43 +3,51 @@ import { UnidadAdministrativaService } from './unidadadministrativa.service';
 import { CreateUnidadAdministrativaDto } from './dto/create-unidadadministrativa.dto';
 import { UpdateUnidadAdministrativaDto } from './dto/update-unidadadministrativa.dto';
 import { PaginationDto } from 'src/common/dtos/pagination.dto';
+import { Auth } from '../../auth/decorators/auth.decorator';
 
 @Controller('unidadadministrativa')
 export class UnidadAdministrativaController {
   constructor(private readonly unidadAdministrativaService: UnidadAdministrativaService) {}
 
   @Get('/index')
+  @Auth( /**  N Permissions */ )
   findAll( @Query() paginationDto: PaginationDto ) {
     return this.unidadAdministrativaService.findAll(paginationDto);
   }
 
   @Post('/store')
-  create(@Body() createUnidadadministrativaDto: CreateUnidadAdministrativaDto) {
-    return this.unidadAdministrativaService.store(createUnidadadministrativaDto);
+  @Auth( /**  N Permissions */ )
+  create(@Body() createUnidadAdministrativaDto: CreateUnidadAdministrativaDto) {
+    return this.unidadAdministrativaService.store(createUnidadAdministrativaDto);
   }
 
   @Get('/edit/:idunidadadministrativa')
-  edit(@Param('idunidadadministrativa') id: string) {
-    return this.unidadAdministrativaService.edit(id);
+  @Auth( /**  N Permissions */ )
+  edit(@Param('idunidadadministrativa') idunidadadministrativa: string) {
+    return this.unidadAdministrativaService.edit(idunidadadministrativa);
   }
 
   @Get('/show/:idunidadadministrativa')
-  show(@Param('idunidadadministrativa') id: string) {
-    return this.unidadAdministrativaService.show(id);
+  @Auth( /**  N Permissions */ )
+  show(@Param('idunidadadministrativa') idunidadadministrativa: string) {
+    return this.unidadAdministrativaService.show(idunidadadministrativa);
   }
 
   @Patch('/update/:idunidadadministrativa')
-  updatePatch(@Param('idunidadadministrativa') id: string, @Body() updateUnidadadministrativaDto: UpdateUnidadAdministrativaDto) {
-    return this.unidadAdministrativaService.update(id, updateUnidadadministrativaDto);
+  @Auth( /**  N Permissions */ )
+  updatePatch(@Param('idunidadadministrativa') idunidadadministrativa: string, @Body() updateUnidadAdministrativaDto: UpdateUnidadAdministrativaDto) {
+    return this.unidadAdministrativaService.update(idunidadadministrativa, updateUnidadAdministrativaDto);
   }
 
   @Put('/update/:idunidadadministrativa')
-  updatePut(@Param('idunidadadministrativa') id: string, @Body() updateUnidadadministrativaDto: UpdateUnidadAdministrativaDto) {
-    return this.unidadAdministrativaService.update(id, updateUnidadadministrativaDto);
+  @Auth( /**  N Permissions */ )
+  updatePut(@Param('idunidadadministrativa') idunidadadministrativa: string, @Body() updateUnidadAdministrativaDto: UpdateUnidadAdministrativaDto) {
+    return this.unidadAdministrativaService.update(idunidadadministrativa, updateUnidadAdministrativaDto);
   }
 
   @Delete('/delete/:idunidadadministrativa')
-  delete(@Param('idunidadadministrativa') id: string) {
-    return this.unidadAdministrativaService.delete(id);
+  @Auth( /**  N Permissions */ )
+  delete(@Param('idunidadadministrativa') idunidadadministrativa: string) {
+    return this.unidadAdministrativaService.delete(idunidadadministrativa);
   }
 }

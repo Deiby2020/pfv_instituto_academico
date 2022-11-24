@@ -1,8 +1,10 @@
 
-import ConfirmationComponent from "../../../components/confirmation";
+import Swal from 'sweetalert2';
 import Constants from "../../constants/constans";
-import { ProgramaService } from "../../services/estructuraacademica/programa.service";
+import ConfirmationComponent from "../../../components/confirmation";
 import { setHiddenLoading, setShowLoading } from "../common/loading.action";
+import { ProgramaService } from "../../services/estructuraacademica/programa.service";
+import { setHiddenSesion, setShowSesion } from '../common/sesion.action';
 
 const setInit = () => ( {
     type: Constants.programa_setInit,
@@ -15,6 +17,25 @@ const setLimpiar = () => ( {
 const onChange = ( data ) => ( {
     type: Constants.programa_onChange,
     payload: data,
+} );
+
+const onAddRowMallaCurricular = ( ) => ( {
+    type: Constants.programa_onAddRowMallaCurricular,
+} );
+
+const onDeleteRowMallaCurricular = ( index ) => ( {
+    type: Constants.programa_onDeleteRowMallaCurricular,
+    payload: index,
+} );
+
+const onAddRowMateriaDetails = ( index, materia ) => ( {
+    type: Constants.programa_onAddRowMateriaDetail,
+    payload: { index, materia, },
+} );
+
+const onDeleteRowMateriaDetails = ( indexMallaCurricular, indexMateria ) => ( {
+    type: Constants.programa_onDeletRowMateriaDetail,
+    payload: { indexMallaCurricular, indexMateria },
 } );
 
 const onListModule = ( data ) => ( {
@@ -47,7 +68,7 @@ const onPagePrograma = ( page = 1, paginate = 5, search = "" ) => {
         ProgramaService.getAllPrograma( {
             page: page, paginate: paginate, 
             search: search, esPaginate: true,
-        } ).then( (result) => {
+        } ).then( async (result) => {
             if ( result.resp === 1 ) {
                 let obj = {
                     data: {
@@ -68,6 +89,9 @@ const onPagePrograma = ( page = 1, paginate = 5, search = "" ) => {
                     },
                 };
                 dispatch( onPaginateModule(obj) );
+            } else if ( result.resp === -2 ) {
+                await dispatch( setShowSesion() );
+                await dispatch( setHiddenSesion() );
             }
         } ).finally( () => {} );
     };
@@ -75,13 +99,18 @@ const onPagePrograma = ( page = 1, paginate = 5, search = "" ) => {
 
 const getAllPrograma = () => {
     return ( dispatch ) => {
-        ProgramaService.getAllPrograma().then( (result) => {
+        ProgramaService.getAllPrograma(
+
+        ).then( async (result) => {
             if ( result.resp === 1 ) {
                 let obj = {
                     name: 'listPrograma',
                     value: result.arrayPrograma,
                 };
                 dispatch( onListModule(obj) );
+            } else if ( result.resp === -2 ) {
+                await dispatch( setShowSesion() );
+                await dispatch( setHiddenSesion() );
             }
         } ).finally( () => {} );
     };
@@ -165,6 +194,14 @@ const setFKIDModalidadAcademica = (programa, modalidadAcademica) => {
     };
 };
 
+const setFKIDDivisionAcademica = (programa, divisionAcademica) => {
+    return ( dispatch ) => {
+        programa.fkiddivisionacademica = divisionAcademica.iddivisionacademica;
+        programa.divisionacademica = divisionAcademica.descripcion;
+        dispatch( onChange(programa) );
+    };
+};
+
 const setEstado = (programa, value) => {
     return ( dispatch ) => {
         programa.estado = value;
@@ -191,9 +228,14 @@ const onCreate = () => {
 
 const onShow = ( idprograma ) => {
     return ( dispatch ) => {
-        ProgramaService.onShow( idprograma ).then( (result) => {
+        ProgramaService.onShow( 
+            idprograma 
+        ).then( async (result) => {
             if ( result.resp === 1 ) {
                 dispatch( setShowData( result.programa ) );
+            } else if ( result.resp === -2 ) {
+                await dispatch( setShowSesion() );
+                await dispatch( setHiddenSesion() );
             }
         } ).finally( () => {} );
     };
@@ -201,9 +243,14 @@ const onShow = ( idprograma ) => {
 
 const onEdit = ( idprograma ) => {
     return ( dispatch ) => {
-        ProgramaService.onEdit( idprograma ).then( (result) => {
+        ProgramaService.onEdit( 
+            idprograma 
+        ).then( async (result) => {
             if ( result.resp === 1 ) {
                 dispatch( setShowData( result.programa ) );
+            } else if ( result.resp === -2 ) {
+                await dispatch( setShowSesion() );
+                await dispatch( setHiddenSesion() );
             }
         } ).finally( () => {} );
     };
@@ -217,10 +264,15 @@ const onGrabar = ( programa, onBack ) => {
         }
         let onStore = () => {
             dispatch( setShowLoading() );
-            ProgramaService.onStore(programa).then( (result) => {
+            ProgramaService.onStore(
+                programa
+            ).then( async (result) => {
                 if ( result.resp === 1 ) {
                     dispatch( onLimpiar() );
                     onBack();
+                } else if ( result.resp === -2 ) {
+                    await dispatch( setShowSesion() );
+                    await dispatch( setHiddenSesion() );
                 }
             } ).finally( () => {
                 dispatch( setHiddenLoading() );
@@ -241,10 +293,15 @@ const onUpdate = ( programa, onBack ) => {
         }
         let onUpdate = () => {
             dispatch( setShowLoading() );
-            ProgramaService.onUpdate(programa).then( (result) => {
+            ProgramaService.onUpdate(
+                programa
+            ).then( async (result) => {
                 if ( result.resp === 1 ) {
                     dispatch( onLimpiar() );
                     onBack();
+                } else if ( result.resp === -2 ) {
+                    await dispatch( setShowSesion() );
+                    await dispatch( setHiddenSesion() );
                 }
             } ).finally( () => {
                 dispatch( setHiddenLoading() );
@@ -304,6 +361,16 @@ function onValidate( data ) {
         data.message.estado = "Campo requerido.";
         bandera = false;
     }
+    if ( !bandera ) {
+        Swal.fire( {
+            position: 'top-end',
+            icon: 'warning',
+            title: "No se pudo realizar la Funcionalidad",
+            text: "Favor llenar los campos requeridos.",
+            showConfirmButton: false,
+            timer: 3000,
+        } );
+    }
     return bandera;
 };
 
@@ -311,9 +378,14 @@ const onDelete = ( programa ) => {
     return ( dispatch ) => {
         let onDelete = () => {
             dispatch( setShowLoading() );
-            ProgramaService.onDelete(programa).then( (result) => {
+            ProgramaService.onDelete(
+                programa
+            ).then( async (result) => {
                 if ( result.resp === 1 ) {
                     dispatch( onPagePrograma() );
+                } else if ( result.resp === -2 ) {
+                    await dispatch( setShowSesion() );
+                    await dispatch( setHiddenSesion() );
                 }
             } ).finally( () => {
                 dispatch( setHiddenLoading() );
@@ -331,12 +403,18 @@ export const ProgramaActions = {
     onPagePrograma,
     getAllPrograma,
     onLimpiar,
+    onChange,
+    onAddRowMallaCurricular,
+    onDeleteRowMallaCurricular,
+    onAddRowMateriaDetails,
+    onDeleteRowMateriaDetails,
     setCodigo,
     setSigla,
     setDescripcion,
     setFKIDUnidadAcademica,
     setFKIDNivelAcademico,
     setFKIDModalidadAcademica,
+    setFKIDDivisionAcademica,
     setEstado,
     setISDelete,
     onCreate,

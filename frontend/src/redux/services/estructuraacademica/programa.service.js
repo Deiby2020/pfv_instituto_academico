@@ -15,7 +15,16 @@ const getAllPrograma = async ( {
         esPaginate: esPaginate,
     } ).then( (respta) => {
         if ( respta.resp === 1 && respta.error === false ) {
-            toastr.success( respta.message, '', { closeButton: true, progressBar: true, positionClass: "toast-bottom-right", } );
+            // toastr.success( respta.message, '', { closeButton: true, progressBar: true, positionClass: "toast-bottom-right", } );
+        } else if ( respta.error === true && respta.resp === -2 ) {
+            Swal.fire( {
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Usuario no Autorizado',
+                text: respta.message,
+                showConfirmButton: false,
+                timer: 3000,
+            } );
         }
         return respta;
     } );
@@ -36,12 +45,23 @@ const onStore = async (body) => {
         codigo: body.codigo,
         sigla: body.sigla,
         descripcion: body.descripcion,
+        arraydivisionacademica: body.arraymallacurricular,
     } ).then( (respta) => {
+        console.log(respta)
         if ( respta.resp === 1 && respta.error === false ) {
             Swal.fire( {
                 position: 'top-end',
                 icon: 'success',
                 title: respta.message,
+                showConfirmButton: false,
+                timer: 3000,
+            } );
+        } else if ( respta.error === true && respta.resp === -2 ) {
+            Swal.fire( {
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Usuario no Autorizado',
+                text: respta.message,
                 showConfirmButton: false,
                 timer: 3000,
             } );
@@ -53,8 +73,18 @@ const onStore = async (body) => {
 const onShow = async (idprograma) => {
     return await httpRequest('get', apiServices.apiestructuraacademicaprograma_show + `/${idprograma}`, {
     } ).then( (respta) => {
+        console.log(respta)
         if ( respta.resp === 1 && respta.error === false ) {
             toastr.success( respta.message, '', { closeButton: true, progressBar: true, } );
+        } else if ( respta.error === true && respta.resp === -2 ) {
+            Swal.fire( {
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Usuario no Autorizado',
+                text: respta.message,
+                showConfirmButton: false,
+                timer: 3000,
+            } );
         }
         return respta;
     } );
@@ -65,6 +95,15 @@ const onEdit = async (idprograma) => {
     } ).then( (respta) => {
         if ( respta.resp === 1 && respta.error === false ) {
             toastr.success( respta.message, '', { closeButton: true, progressBar: true, } );
+        } else if ( respta.error === true && respta.resp === -2 ) {
+            Swal.fire( {
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Usuario no Autorizado',
+                text: respta.message,
+                showConfirmButton: false,
+                timer: 3000,
+            } );
         }
         return respta;
     } );
@@ -86,12 +125,23 @@ const onUpdate = async (body) => {
         sigla: body.sigla,
         descripcion: body.descripcion,
         estado: body.estado,
+        arraydivisionacademica: body.arraymallacurricular,
     } ).then( (respta) => {
+        console.log(respta)
         if ( respta.resp === 1 && respta.error === false ) {
             Swal.fire( {
                 position: 'top-end',
                 icon: 'success',
                 title: respta.message,
+                showConfirmButton: false,
+                timer: 3000,
+            } );
+        } else if ( respta.error === true && respta.resp === -2 ) {
+            Swal.fire( {
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Usuario no Autorizado',
+                text: respta.message,
                 showConfirmButton: false,
                 timer: 3000,
             } );
@@ -108,6 +158,15 @@ const onDelete = async (body) => {
                 position: 'top-end',
                 icon: 'success',
                 title: respta.message,
+                showConfirmButton: false,
+                timer: 3000,
+            } );
+        } else if ( respta.error === true && respta.resp === -2 ) {
+            Swal.fire( {
+                position: 'top-end',
+                icon: 'warning',
+                title: 'Usuario no Autorizado',
+                text: respta.message,
                 showConfirmButton: false,
                 timer: 3000,
             } );

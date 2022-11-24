@@ -1,4 +1,5 @@
 import toastr from 'toastr';
+import { EstadoCivilData } from '../data/estado_civil.data';
 
 const cleanObejct = ( object = {} ) => {
     for (let index in object) {
@@ -28,6 +29,17 @@ const cleanObejct = ( object = {} ) => {
     }
 };
 
+const getValueConfirmacion = ( estado ) => {
+    if ( estado === 'S' ) return 'Si';
+    return 'No';
+};
+
+const getValueTipoEmpleado = ( estado ) => {
+    if ( estado === 'N' ) return 'Ninguno';
+    if ( estado === 'D' ) return 'Dependiente';
+    return 'Independiente';
+};
+
 const getValueEstado = ( estado ) => {
     if ( estado === 'A' ) return 'Activo';
     return 'InActivo';
@@ -36,6 +48,14 @@ const getValueEstado = ( estado ) => {
 const getValueGenero = ( genero ) => {
     if ( genero === 'M' ) return 'Masculino';
     return 'Femenino';
+};
+
+const getValueEstadoCivil = ( estadocivil ) => {
+    for (let index = 0; index < EstadoCivilData.length; index++) {
+        const element = EstadoCivilData[index];
+        if ( element.value === estadocivil ) return element.title;
+    }
+    return '';
 };
 
 const convertDMYToYMD = ( date ) => {
@@ -71,11 +91,46 @@ const compareFinishDateString = (fechainicio, fechafinal) => {
 
 };
 
+const dateToString = ( date = new Date() ) => {
+    let year  = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day   = date.getDate();
+
+    month = month < 10 ? "0" + month : month;
+    day   = day   < 10 ? "0" + day : day;
+
+    return year + "-" + month + "-" + day;
+};
+
+const dateToYear = ( date = new Date() ) => {
+    let year  = date.getFullYear();
+    return year;
+};
+
+const validateEmail = ( value ) => {
+    let email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if ( !email.test(value) ) return false;
+    return true;
+};
+
+const validatePassword = ( value ) => {
+    let password = /(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+    if ( !password.test(value) ) return false;
+    return true;
+};
+
 export const Functions = {
+    dateToString,
+    dateToYear,
     cleanObejct,
+    getValueTipoEmpleado,
+    getValueConfirmacion,
     getValueEstado,
     getValueGenero,
+    getValueEstadoCivil,
     convertDMYToYMD,
     compareInitDateString,
     compareFinishDateString,
+    validateEmail,
+    validatePassword,
 };

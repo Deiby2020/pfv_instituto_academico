@@ -1,10 +1,39 @@
 
 const PaginationModule = {
 
+    listAdministrativo: [],
+    pageAdministrativo: 1,
+    paginateAdministrativo: 1,
+    paginationAdministrativo: {
+        total: 0,
+    },
+
+    listDocente: [],
+    pageDocente: 1,
+    paginateDocente: 1,
+    paginationDocente: {
+        total: 0,
+    },
+
+    listEstudiante: [],
+    pageEstudiante: 1,
+    paginateEstudiante: 1,
+    paginationEstudiante: {
+        total: 0,
+    },
+
     listCargo: [],
     pageCargo: 1,
     paginateCargo: 1,
     paginationCargo: {
+        total: 0,
+    },
+
+    
+    listCategoriaDocumento: [],
+    pageCategoriaDocumento: 1,
+    paginateCategoriaDocumento: 1,
+    paginationCategoriaDocumento: {
         total: 0,
     },
 
@@ -15,6 +44,13 @@ const PaginationModule = {
         total: 0,
     },
 
+
+    listAula: [],
+    pageAula: 1,
+    paginateAula: 1,
+    paginationAula: {
+        total: 0,
+    },
 
     listTurno: [],
     pageTurno: 1,

@@ -42,6 +42,10 @@ import { GestionPeriodoModule } from './module/estructurainstitucional/gestionpe
 import { DocenteModule } from './module/persona/docente/docente.module';
 import { TipoIdentificacionModule } from './module/persona/tipoidentificacion/tipoidentificacion.module';
 import { CargoModule } from './module/persona/cargo/cargo.module';
+import { AdministrativoModule } from './module/persona/administrativo/administrativo.module';
+import { CategoriaDocumentoModule } from './module/persona/categoriadocumento/categoriadocumento.module';
+import { AuthModule } from './module/auth/auth.module';
+import { EstudianteModule } from './module/persona/estudiante/estudiante.module';
 
 // npm i -g @nestjs/cli
 // nest new project-name 
@@ -57,6 +61,7 @@ import { CargoModule } from './module/persona/cargo/cargo.module';
     ConfigModule.forRoot( {
       load: [ EnvConfiguration ],
       validationSchema: JoiValidationSchema,
+      // expandVariables: true,
     } ),
 
     TypeOrmModule.forRoot( {
@@ -91,7 +96,9 @@ import { CargoModule } from './module/persona/cargo/cargo.module';
     RolPermisoDetalleModule, UnidadacademicaModule, ProgramaModule, PensumModule, ResponsableModule, 
     ReferenciaContactoModule, TipoCiudadModule, ResponsableUnidadAcademicaDetalleModule, 
     ResponsablereferenciacontactodetalleModule, CommonModule, TurnoModule, AulaModule, 
-    DivisionAcademicaModule, InstitucionModule, GestionPeriodoModule, DocenteModule, TipoIdentificacionModule, CargoModule,
+    DivisionAcademicaModule, InstitucionModule, GestionPeriodoModule, DocenteModule, 
+    TipoIdentificacionModule, CargoModule, AdministrativoModule, CategoriaDocumentoModule, 
+    AuthModule, EstudianteModule,
   ],
   controllers: [],
   providers: [],

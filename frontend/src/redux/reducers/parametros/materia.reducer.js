@@ -22,13 +22,12 @@ export const MateriaReducer = ( state = inititalState, action ) => {
             state.concurrencia = 1;
             state.estado = 'A';
             state.isdelete = 'A';
+            state.creditos = 0;
             state = Object.assign( {}, state );
             return state;
 
         case Constants.materia_onShow:
             state.idmateria = action.payload.idmateria;
-            state.fkidtipomateria = action.payload.fkidtipomateria;
-            state.tipomateria = action.payload.tipomateria;
             state.codigo = action.payload.codigo;
             state.sigla = action.payload.sigla;
             state.nombrelargo = action.payload.nombrelargo;

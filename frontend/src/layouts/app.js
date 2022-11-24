@@ -1,20 +1,26 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import LoadingComponent from '../components/loading';
+import { Functions } from '../utils/functions';
 import HeaderComponent from './partials/header';
 import SidebarComponent from './partials/sidebar';
 
 
 const AppMain = ( props ) => {
-    const { loading } = props;
+    const { loading, sesion } = props;
+    const navigate = useNavigate();
 
     const setLoading = () => {
         return (
             <LoadingComponent visible={loading.visible} />
         );
     };
+
+    if ( sesion.isSesion ) {
+        navigate('/login');
+    }
 
     return (
         <>
@@ -27,7 +33,7 @@ const AppMain = ( props ) => {
                     <Outlet />
                     <footer className="main-footer card card-body" style={{ width: '100%', position: 'fixed', bottom: -30, right: 0, zIndex: 10, }}>
                         <div className="footer-left">
-                            Copyright &copy; 2018 <div className="bullet"></div> Design By <a href="https://multinity.com/">Multinity</a>
+                            Copyright &copy; { Functions.dateToYear() } <div className="bullet"></div> Design By <a href="https://multinity.com/">Solvertic SRL</a>
                         </div>
                         <div className="footer-right"></div>
                     </footer>
@@ -39,6 +45,7 @@ const AppMain = ( props ) => {
 
 const mapStateToProps = ( state ) => ( {
     loading: state.Loading,
+    sesion: state.Sesion,
 } );
 
 const mapDispatchToProps = null;

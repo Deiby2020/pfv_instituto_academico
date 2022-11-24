@@ -1,6 +1,9 @@
 import { Entity, OneToMany, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { DocenteReferenciaContactoDetalle } from './docentereferenciacontacto.entity';
 import { DocenteCiudadDetalle } from './docenteciudaddetalle.entity';
+import { DocenteMateriaDetalle } from './docentemateriadetalle.entity';
+import { DocenteCategoriaDocumentoDetalle } from './docentecategoriadocumentodetalle.entity';
+import { DocenteEstudioDetalle } from './docenteestudiodetalle.entity';
 
 @Entity('docente')
 export class Docente {
@@ -29,16 +32,37 @@ export class Docente {
     @OneToMany(
         () => DocenteReferenciaContactoDetalle,
         ( docentereferenciacontactodetalle ) => docentereferenciacontactodetalle.fkiddocente,
-        { cascade: true, },
+        { cascade: true, eager: true, },
     )
-    arrayreferenciacontactos?: DocenteReferenciaContactoDetalle;
+    arrayreferenciacontactos?: DocenteReferenciaContactoDetalle[];
 
     @OneToMany(
         () => DocenteCiudadDetalle,
         ( docenteciudaddetalle ) => docenteciudaddetalle.fkiddocente,
-        { cascade: true, },
+        { cascade: true, eager: true, },
     )
-    arraynacionalidad?: DocenteCiudadDetalle;
+    arraynacionalidad?: DocenteCiudadDetalle[];
+
+    @OneToMany(
+        () => DocenteMateriaDetalle,
+        ( docentemateriadetalle ) => docentemateriadetalle.fkiddocente,
+        { cascade: true, eager: true, },
+    )
+    arraymateria?: DocenteMateriaDetalle[];
+
+    @OneToMany(
+        () => DocenteCategoriaDocumentoDetalle,
+        ( docentecategoriadocumentodetalle ) => docentecategoriadocumentodetalle.fkiddocente,
+        { cascade: true, eager: true, },
+    )
+    arraycategoriadocumento?: DocenteCategoriaDocumentoDetalle[];
+
+    @OneToMany(
+        () => DocenteEstudioDetalle,
+        ( docenteestudiodetalle ) => docenteestudiodetalle.fkiddocente,
+        { cascade: true, eager: true, },
+    )
+    arrayestudio?: DocenteEstudioDetalle[];
 
     @Column( 'text' )
     nombreprincipal: string;
@@ -47,10 +71,10 @@ export class Docente {
     nombreadicional?: string;
 
     @Column( 'text', { default: '', nullable: true, } )
-    apellidopaterno?: string;
+    apellidoprimero?: string;
 
     @Column( 'text', { default: '', nullable: true, } )
-    apellidomaterno?: string;
+    apellidosegundo?: string;
 
     @Column( 'text' )
     numeroidentificacion: string;

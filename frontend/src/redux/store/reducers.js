@@ -36,8 +36,20 @@ import { TurnoReducer } from '../reducers/estructurainstitucional/turno.reducer'
 import { TipoIdentificacionReducer } from '../reducers/persona/tipo_identificacion.reducer';
 import { LoadingReducer } from '../reducers/loading.reducer';
 import { CargoReducer } from '../reducers/persona/cargo.reducer';
+import { DocenteReducer } from '../reducers/persona/docente.reducer';
+import { AdministrativoReducer } from '../reducers/persona/administrativo.reducer';
+import { CategoriaDocumentoReducer } from '../reducers/persona/categoria_documento.reducer';
+import { AulaReducer } from '../reducers/estructurainstitucional/aula.reducer';
+import { EstudianteReducer } from '../reducers/persona/estudiante.reducer';
+import { LoginReducer } from '../reducers/auth/login.reducer';
+import { SesionReducer } from '../reducers/sesion.reducer';
+import { RegisterReducer } from '../reducers/auth/register.reducer';
 
 const RootReducer = combineReducers( {
+    Login: LoginReducer,
+    Register: RegisterReducer,
+    Sesion: SesionReducer,
+    
     Rol: RolReducer,
     Permiso: PermisoReducer,
     TipoPermiso: TipoPermisoReducer,
@@ -67,13 +79,18 @@ const RootReducer = combineReducers( {
     UnidadAcademica: UnidadAcademicaReducer,
     UnidadAdministrativa: UnidadAdministrativaReducer,
 
+    Aula: AulaReducer,
     DivisionAcademica: DivisionAcademicaReducer,
     GestionPeriodo: GestionPeriodoReducer,
     Institucion: InstitucionReducer,
     Turno: TurnoReducer,
     
-    TipoIdentificacion: TipoIdentificacionReducer,
+    Administrativo: AdministrativoReducer,
     Cargo: CargoReducer,
+    CategoriaDocumento: CategoriaDocumentoReducer,
+    Docente: DocenteReducer,
+    Estudiante: EstudianteReducer,
+    TipoIdentificacion: TipoIdentificacionReducer,
 } );
 
 export default RootReducer;

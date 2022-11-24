@@ -7,13 +7,11 @@ import { ButtonComponent ,InputComponent, SelectComponent } from '../../../../co
 import PaperComponent from '../../../../components/paper';
 import { EstadoData } from '../../../../data/estado.data';
 import { MateriaActions } from '../../../../redux/actions/parametros/materia.action';
-import ListadoTipoMateriaModal from '../tipomateria/modal/listado.modal';
 
 function EditMateria( props ) {
     const { materia } = props;
     const navigate = useNavigate();
     const params = useParams();
-    const [ visibleTipoMateria, setVisibleTipoMateria ] = React.useState( false );
 
     React.useEffect( () => {
         props.onEdit( params.idmateria );
@@ -23,20 +21,6 @@ function EditMateria( props ) {
         props.onLimpiar();
         navigate(-1);
     }
-
-    function onComponentTipoMateria() {
-        if ( !visibleTipoMateria ) return null;
-        return (
-            <ListadoTipoMateriaModal
-                visible={visibleTipoMateria}
-                onClose={ () => setVisibleTipoMateria(false) }
-                onSelect={ (tipoMateria) => {
-                    props.setFKIDTipoMateria(materia, tipoMateria);
-                    setVisibleTipoMateria(false);
-                } }
-            />
-        );
-    };
 
     return (
         <>
@@ -59,9 +43,10 @@ function EditMateria( props ) {
                     }
                 >
                     <div className="row">
+                        <div className="form-group col-2"></div>
                         <div className="form-group col-4">
                             <InputComponent
-                                label="Código"
+                                label="Código*"
                                 value={materia.codigo}
                                 onChange={ (value) => props.setCodigo(materia, value) }
                                 error={materia.error.codigo}
@@ -70,29 +55,18 @@ function EditMateria( props ) {
                         </div>
                         <div className="form-group col-4">
                             <InputComponent
-                                label="Sigla"
+                                label="Sigla*"
                                 value={materia.sigla}
                                 onChange={ (value) => props.setSigla(materia, value) }
                                 error={materia.error.sigla}
                                 message={materia.message.sigla}
                             />
                         </div>
-                        <div className="form-group col-4">
-                            <InputComponent
-                                label="Tipo"
-                                value={materia.tipomateria}
-                                onClick={ () => setVisibleTipoMateria(true) }
-                                error={materia.error.fkidtipomateria}
-                                message={materia.message.fkidtipomateria}
-                                readOnly
-                                style={{ background: 'white', cursor: 'pointer', }}
-                            />
-                        </div>
                     </div>
                     <div className="row">
                         <div className="form-group col-4">
                             <InputComponent
-                                label="Nombre Largo"
+                                label="Nombre Largo*"
                                 value={materia.nombrelargo}
                                 onChange={ (value) => props.setNombreLargo(materia, value) }
                                 error={materia.error.nombrelargo}
@@ -101,7 +75,7 @@ function EditMateria( props ) {
                         </div>
                         <div className="form-group col-4">
                             <InputComponent
-                                label="Nombre Corto"
+                                label="Nombre Corto*"
                                 value={materia.nombrecorto}
                                 onChange={ (value) => props.setNombreCorto(materia, value) }
                                 error={materia.error.nombrecorto}
@@ -110,7 +84,7 @@ function EditMateria( props ) {
                         </div>
                         <div className="form-group col-4">
                             <InputComponent
-                                label="Nombre Alternativo"
+                                label="Nombre Alternativo*"
                                 value={materia.nombrealternativo}
                                 onChange={ (value) => props.setNombreAlternativo(materia, value) }
                                 error={materia.error.nombrealternativo}
@@ -122,7 +96,7 @@ function EditMateria( props ) {
                         <div className="form-group col-2"></div>
                         <div className="form-group col-4">
                             <InputComponent
-                                label="Créditos"
+                                label="Créditos*"
                                 value={materia.creditos}
                                 onChange={ (value) => props.setCredito(materia, value) }
                                 error={materia.error.creditos}
@@ -132,7 +106,7 @@ function EditMateria( props ) {
                         <div className="form-group col-4">
                             <SelectComponent 
                                 data={EstadoData}
-                                label={"Estado"}
+                                label={"Estado*"}
                                 value={materia.estado}
                                 onChange={ (value) => props.setEstado(materia, value) }
                                 error={materia.error.estado}

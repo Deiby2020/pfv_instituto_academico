@@ -1,9 +1,11 @@
 
 // const linkBackend = 'http://localhost:5000/api/v1';
-//const linkBackend = 'https://instituto-academico-backend.herokuapp.com/api/v1';
-const linkBackend = 'https://pfvinstitutoacademico-production.up.railway.app/api/v1';
+const linkBackend = 'https://instituto-academico-backend.herokuapp.com/api/v1';
+
 const module = {
     // seguridad: linkBackend + '/seguridad',
+    
+    auth: linkBackend + '',
     seguridad: linkBackend + '',
     admin: linkBackend + '',
     parametros: linkBackend + '',
@@ -13,6 +15,9 @@ const module = {
 };
 
 const apiServices = {
+    apiauth_login:  `${module.auth}/auth/login`,
+    apiauth_register:  `${module.auth}/auth/register`,
+
     apiseguridadtiporol_index:  `${module.seguridad}/tiporol/index`,
     apiseguridadtiporol_create: `${module.seguridad}/tiporol/create`,
     apiseguridadtiporol_store:  `${module.seguridad}/tiporol/store`,
@@ -179,6 +184,14 @@ const apiServices = {
 
 
 
+    apiestructurainstitucionalaula_index:  `${module.estructurainstitucional}/aula/index`,
+    apiestructurainstitucionalaula_create: `${module.estructurainstitucional}/aula/create`,
+    apiestructurainstitucionalaula_store:  `${module.estructurainstitucional}/aula/store`,
+    apiestructurainstitucionalaula_edit:   `${module.estructurainstitucional}/aula/edit`,
+    apiestructurainstitucionalaula_show:   `${module.estructurainstitucional}/aula/show`,
+    apiestructurainstitucionalaula_update: `${module.estructurainstitucional}/aula/update`,
+    apiestructurainstitucionalaula_delete: `${module.estructurainstitucional}/aula/delete`,
+
     apiestructurainstitucionalturno_index:  `${module.estructurainstitucional}/turno/index`,
     apiestructurainstitucionalturno_create: `${module.estructurainstitucional}/turno/create`,
     apiestructurainstitucionalturno_store:  `${module.estructurainstitucional}/turno/store`,
@@ -221,6 +234,14 @@ const apiServices = {
     apipersonatipoidentificacion_update: `${module.persona}/tipoidentificacion/update`,
     apipersonatipoidentificacion_delete: `${module.persona}/tipoidentificacion/delete`,
 
+    apipersonacategoriadocumento_index:  `${module.persona}/categoriadocumento/index`,
+    apipersonacategoriadocumento_create: `${module.persona}/categoriadocumento/create`,
+    apipersonacategoriadocumento_store:  `${module.persona}/categoriadocumento/store`,
+    apipersonacategoriadocumento_edit:   `${module.persona}/categoriadocumento/edit`,
+    apipersonacategoriadocumento_show:   `${module.persona}/categoriadocumento/show`,
+    apipersonacategoriadocumento_update: `${module.persona}/categoriadocumento/update`,
+    apipersonacategoriadocumento_delete: `${module.persona}/categoriadocumento/delete`,
+
     apipersonacargo_index:  `${module.persona}/cargo/index`,
     apipersonacargo_create: `${module.persona}/cargo/create`,
     apipersonacargo_store:  `${module.persona}/cargo/store`,
@@ -228,6 +249,30 @@ const apiServices = {
     apipersonacargo_show:   `${module.persona}/cargo/show`,
     apipersonacargo_update: `${module.persona}/cargo/update`,
     apipersonacargo_delete: `${module.persona}/cargo/delete`,
+
+    apipersonadocente_index:  `${module.persona}/docente/index`,
+    apipersonadocente_create: `${module.persona}/docente/create`,
+    apipersonadocente_store:  `${module.persona}/docente/store`,
+    apipersonadocente_edit:   `${module.persona}/docente/edit`,
+    apipersonadocente_show:   `${module.persona}/docente/show`,
+    apipersonadocente_update: `${module.persona}/docente/update`,
+    apipersonadocente_delete: `${module.persona}/docente/delete`,
+
+    apipersonaestudiante_index:  `${module.persona}/estudiante/index`,
+    apipersonaestudiante_create: `${module.persona}/estudiante/create`,
+    apipersonaestudiante_store:  `${module.persona}/estudiante/store`,
+    apipersonaestudiante_edit:   `${module.persona}/estudiante/edit`,
+    apipersonaestudiante_show:   `${module.persona}/estudiante/show`,
+    apipersonaestudiante_update: `${module.persona}/estudiante/update`,
+    apipersonaestudiante_delete: `${module.persona}/estudiante/delete`,
+
+    apipersonaadministrativo_index:  `${module.persona}/administrativo/index`,
+    apipersonaadministrativo_create: `${module.persona}/administrativo/create`,
+    apipersonaadministrativo_store:  `${module.persona}/administrativo/store`,
+    apipersonaadministrativo_edit:   `${module.persona}/administrativo/edit`,
+    apipersonaadministrativo_show:   `${module.persona}/administrativo/show`,
+    apipersonaadministrativo_update: `${module.persona}/administrativo/update`,
+    apipersonaadministrativo_delete: `${module.persona}/administrativo/delete`,
 };
 
 export default apiServices;
