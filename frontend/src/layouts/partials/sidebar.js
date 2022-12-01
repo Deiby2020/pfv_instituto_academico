@@ -4,6 +4,12 @@ import { Link } from 'react-router-dom';
 
 export default function SidebarComponent() {
     const [ subMenu, setSubMenu ] = React.useState( {
+        oportunidad: {
+            active: false,
+        },
+        ofertaacademica: {
+            active: false,
+        },
         persona: {
             active: false,
         },
@@ -25,9 +31,9 @@ export default function SidebarComponent() {
         <div className="main-sidebar">
             <aside id="sidebar-wrapper">
                 <div className="sidebar-brand">
-                    <a href="index.html">
+                    <Link to={"/"}>
                         SolverTic SRL
-                    </a>
+                    </Link>
                 </div>
                 <div className="sidebar-user">
                     <div className="sidebar-user-picture">
@@ -36,17 +42,95 @@ export default function SidebarComponent() {
                     <div className="sidebar-user-details">
                         <div className="user-name">Ericka Lopez</div>
                         <div className="user-role">
-                            Administrator
+                            Administrador
                         </div>
                     </div>
                 </div>
                 <ul className="sidebar-menu">
                     <li className="menu-header">Dashboard</li>
                     <li className="active">
-                        <a href="index.html"><i className="ion ion-speedometer"></i><span>Dashboard</span></a>
+                        <Link to={"/"}>
+                            <i className="ion ion-speedometer"></i><span>Dashboard</span>
+                        </Link>
                     </li>
 
                     <li className="menu-header">Componentes</li>
+
+                    <li className={`${ (subMenu.oportunidad.active === true ) && 'active' }`}>
+                        <a href="#" className="has-dropdown pl-3"
+                            onClick={ (evt) => {
+                                evt.preventDefault();
+                                subMenu.oportunidad.active = !subMenu.oportunidad.active;
+                                setSubMenu( { ...subMenu } );
+                            } }
+                        >
+                            <i className="ion ion-ios-albums-outline"></i>
+                            <span style={{ fontSize: 13, }}>Oportunidad</span>
+                        </a>
+                        <ul className="menu-dropdown">
+                            <li>
+                                <Link to={"/tipoactividad/index"}>
+                                    <i className="ion ion-ios-circle-outline"></i> Tipo Actividad
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={"/tipomediopublicitario/index"}>
+                                    <i className="ion ion-ios-circle-outline"></i> Tipo Medio Publicitario
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={"/tipocontacto/index"}>
+                                    <i className="ion ion-ios-circle-outline"></i> Tipo Contacto
+                                </Link>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li className={`${ (subMenu.ofertaacademica.active === true ) && 'active' }`}>
+                        <a href="#" className="has-dropdown pl-3"
+                            onClick={ (evt) => {
+                                evt.preventDefault();
+                                subMenu.ofertaacademica.active = !subMenu.ofertaacademica.active;
+                                setSubMenu( { ...subMenu } );
+                            } }
+                        >
+                            <i className="ion ion-ios-albums-outline"></i>
+                            <span style={{ fontSize: 13, }}>Oferta Academica</span>
+                        </a>
+                        <ul className="menu-dropdown">
+                            <li>
+                                <Link to={"/grupo/index"}>
+                                    <i className="ion ion-ios-circle-outline"></i> Grupo
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={"/curso/index"}>
+                                    <i className="ion ion-ios-circle-outline"></i> Curso
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={"/aperturacierrecurso/index"}>
+                                    <i className="ion ion-ios-circle-outline"></i> Apertura Cierre Curso
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={"/cierrecurso/index"}>
+                                    <i className="ion ion-ios-circle-outline"></i> Cerrar Curso
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={"/curso_horario/index"}>
+                                    <i className="ion ion-ios-circle-outline"></i> Horario
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={"/motivoaperturacierrecurso/index"}>
+                                    <i className="ion ion-ios-circle-outline"></i> Motivo Apertura Cierre
+                                </Link>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li className={`${ (subMenu.persona.active === true ) && 'active' }`}>
                         <a href="#" className="has-dropdown pl-3"
                             onClick={ (evt) => {
@@ -167,11 +251,11 @@ export default function SidebarComponent() {
                                     <i className="ion ion-ios-circle-outline"></i> Pensum
                                 </Link>
                             </li>
-                            <li>
+                            {/* <li>
                                 <Link to={"/responsable/index"}>
                                     <i className="ion ion-ios-circle-outline"></i> Responsable
                                 </Link>
-                            </li>
+                            </li> */}
                         </ul>
                     </li>
                     <li className={`${ (subMenu.parametros.active === true ) && 'active' }`}>
@@ -219,11 +303,6 @@ export default function SidebarComponent() {
                             <li>
                                 <Link to={"/tipomateria/index"}>
                                     <i className="ion ion-ios-circle-outline"></i> Tipo Materia
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to={"/referenciacontacto/index"}>
-                                    <i className="ion ion-ios-circle-outline"></i> Referencia Contacto
                                 </Link>
                             </li>
                             <li>

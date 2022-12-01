@@ -12,11 +12,14 @@ const module = {
     estructuraacademica: linkBackend + '',
     estructurainstitucional: linkBackend + '',
     persona: linkBackend + '',
+    ofertaacademica: linkBackend + '',
+    oportunidad: linkBackend + '',
 };
 
 const apiServices = {
     apiauth_login:  `${module.auth}/auth/login`,
     apiauth_register:  `${module.auth}/auth/register`,
+    apiauth_validateToken:  `${module.auth}/auth/validateToken`,
 
     apiseguridadtiporol_index:  `${module.seguridad}/tiporol/index`,
     apiseguridadtiporol_create: `${module.seguridad}/tiporol/create`,
@@ -133,14 +136,6 @@ const apiServices = {
     apiparametrosadminciudad_show:   `${module.parametros}/ciudad/show`,
     apiparametrosadminciudad_update: `${module.parametros}/ciudad/update`,
     apiparametrosadminciudad_delete: `${module.parametros}/ciudad/delete`,
-
-    apiparametrosadminreferenciacontacto_index:  `${module.parametros}/referenciacontacto/index`,
-    apiparametrosadminreferenciacontacto_create: `${module.parametros}/referenciacontacto/create`,
-    apiparametrosadminreferenciacontacto_store:  `${module.parametros}/referenciacontacto/store`,
-    apiparametrosadminreferenciacontacto_edit:   `${module.parametros}/referenciacontacto/edit`,
-    apiparametrosadminreferenciacontacto_show:   `${module.parametros}/referenciacontacto/show`,
-    apiparametrosadminreferenciacontacto_update: `${module.parametros}/referenciacontacto/update`,
-    apiparametrosadminreferenciacontacto_delete: `${module.parametros}/referenciacontacto/delete`,
 
     apiestructuraacademicaunidadadministrativa_index:  `${module.estructuraacademica}/unidadadministrativa/index`,
     apiestructuraacademicaunidadadministrativa_create: `${module.estructuraacademica}/unidadadministrativa/create`,
@@ -273,6 +268,59 @@ const apiServices = {
     apipersonaadministrativo_show:   `${module.persona}/administrativo/show`,
     apipersonaadministrativo_update: `${module.persona}/administrativo/update`,
     apipersonaadministrativo_delete: `${module.persona}/administrativo/delete`,
+
+
+    apiofertaacademicacurso_index:  `${module.ofertaacademica}/curso/index`,
+    apiofertaacademicacurso_create: `${module.ofertaacademica}/curso/create`,
+    apiofertaacademicacurso_store:  `${module.ofertaacademica}/curso/store`,
+    apiofertaacademicacurso_edit:   `${module.ofertaacademica}/curso/edit`,
+    apiofertaacademicacurso_show:   `${module.ofertaacademica}/curso/show`,
+    apiofertaacademicacurso_update: `${module.ofertaacademica}/curso/update`,
+    apiofertaacademicacurso_delete: `${module.ofertaacademica}/curso/delete`,
+    apiofertaacademicacurso_aperturarcerrarcurso: `${module.ofertaacademica}/curso/aperturarcerrarcurso`,
+    apiofertaacademicacurso_cierrecurso: `${module.ofertaacademica}/curso/cierrecurso`,
+
+    apiofertaacademicamotivoaperturacierrecurso_index:  `${module.ofertaacademica}/motivoaperturacierrecurso/index`,
+    apiofertaacademicamotivoaperturacierrecurso_create: `${module.ofertaacademica}/motivoaperturacierrecurso/create`,
+    apiofertaacademicamotivoaperturacierrecurso_store:  `${module.ofertaacademica}/motivoaperturacierrecurso/store`,
+    apiofertaacademicamotivoaperturacierrecurso_edit:   `${module.ofertaacademica}/motivoaperturacierrecurso/edit`,
+    apiofertaacademicamotivoaperturacierrecurso_show:   `${module.ofertaacademica}/motivoaperturacierrecurso/show`,
+    apiofertaacademicamotivoaperturacierrecurso_update: `${module.ofertaacademica}/motivoaperturacierrecurso/update`,
+    apiofertaacademicamotivoaperturacierrecurso_delete: `${module.ofertaacademica}/motivoaperturacierrecurso/delete`,
+
+    apiofertaacademicagrupo_index:  `${module.ofertaacademica}/grupo/index`,
+    apiofertaacademicagrupo_create: `${module.ofertaacademica}/grupo/create`,
+    apiofertaacademicagrupo_store:  `${module.ofertaacademica}/grupo/store`,
+    apiofertaacademicagrupo_edit:   `${module.ofertaacademica}/grupo/edit`,
+    apiofertaacademicagrupo_show:   `${module.ofertaacademica}/grupo/show`,
+    apiofertaacademicagrupo_update: `${module.ofertaacademica}/grupo/update`,
+    apiofertaacademicagrupo_delete: `${module.ofertaacademica}/grupo/delete`,
+
+
+
+    apioportunidadtipoactividad_index:  `${module.oportunidad}/tipoactividad/index`,
+    apioportunidadtipoactividad_create: `${module.oportunidad}/tipoactividad/create`,
+    apioportunidadtipoactividad_store:  `${module.oportunidad}/tipoactividad/store`,
+    apioportunidadtipoactividad_edit:   `${module.oportunidad}/tipoactividad/edit`,
+    apioportunidadtipoactividad_show:   `${module.oportunidad}/tipoactividad/show`,
+    apioportunidadtipoactividad_update: `${module.oportunidad}/tipoactividad/update`,
+    apioportunidadtipoactividad_delete: `${module.oportunidad}/tipoactividad/delete`,
+
+    apioportunidadtipomediopublicitario_index:  `${module.oportunidad}/tipomediopublicitario/index`,
+    apioportunidadtipomediopublicitario_create: `${module.oportunidad}/tipomediopublicitario/create`,
+    apioportunidadtipomediopublicitario_store:  `${module.oportunidad}/tipomediopublicitario/store`,
+    apioportunidadtipomediopublicitario_edit:   `${module.oportunidad}/tipomediopublicitario/edit`,
+    apioportunidadtipomediopublicitario_show:   `${module.oportunidad}/tipomediopublicitario/show`,
+    apioportunidadtipomediopublicitario_update: `${module.oportunidad}/tipomediopublicitario/update`,
+    apioportunidadtipomediopublicitario_delete: `${module.oportunidad}/tipomediopublicitario/delete`,
+
+    apioportunidadtipocontacto_index:  `${module.parametros}/referenciacontacto/index`,
+    apioportunidadtipocontacto_create: `${module.parametros}/referenciacontacto/create`,
+    apioportunidadtipocontacto_store:  `${module.parametros}/referenciacontacto/store`,
+    apioportunidadtipocontacto_edit:   `${module.parametros}/referenciacontacto/edit`,
+    apioportunidadtipocontacto_show:   `${module.parametros}/referenciacontacto/show`,
+    apioportunidadtipocontacto_update: `${module.parametros}/referenciacontacto/update`,
+    apioportunidadtipocontacto_delete: `${module.parametros}/referenciacontacto/delete`,
 };
 
 export default apiServices;

@@ -9,7 +9,6 @@ const ListModules = {
     listTipoMateria: [],
     listMateria: [],
     listTipoCiudad: [],
-    listReferenciaContacto: [],
 
     listRol: [],
     listPermiso: [],
@@ -36,6 +35,16 @@ const ListModules = {
     listEstudiante: [],
     listAdministrativo: [],
     listCategoriaDocumento: [],
+
+
+    listCurso: [],
+    listMotivoAperturaCierreCurso: [],
+    listGrupo: [],
+
+
+    listTipoActividad: [],
+    listTipoMedioPublicitario: [],
+    listTipoContacto: [],
 };
 
 export default ListModules;

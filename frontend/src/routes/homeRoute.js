@@ -55,11 +55,6 @@ import CreateMateria from '../screens/modules/parametro/materia/materia.create';
 import EditMateria from '../screens/modules/parametro/materia/materia.edit';
 import ShowMateria from '../screens/modules/parametro/materia/materia.show';
 
-import IndexReferenciaContacto from '../screens/modules/persona/referenciacontacto/referencia_contacto.index';
-import CreateReferenciaContacto from '../screens/modules/persona/referenciacontacto/referencia_contacto.create';
-import EditReferenciaContacto from '../screens/modules/persona/referenciacontacto/referencia_contacto.edit';
-import ShowReferenciaContacto from '../screens/modules/persona/referenciacontacto/referencia_contacto.show';
-
 import IndexTipoCiudad from '../screens/modules/parametro/tipociudad/tipo_ciudad.index';
 import CreateTipoCiudad from '../screens/modules/parametro/tipociudad/tipo_ciudad.create';
 import EditTipoCiudad from '../screens/modules/parametro/tipociudad/tipo_ciudad.edit';
@@ -158,6 +153,44 @@ import CreateAdministrativo from '../screens/modules/persona/administrativo/admi
 import ShowAdministrativo from '../screens/modules/persona/administrativo/administrativo.show';
 import EditAdministrativo from '../screens/modules/persona/administrativo/administrativo.edit';
 
+
+import IndexCurso from '../screens/modules/ofertaacademica/curso/curso.index';
+import CreateCurso from '../screens/modules/ofertaacademica/curso/curso.create';
+import ShowCurso from '../screens/modules/ofertaacademica/curso/curso.show';
+import EditCurso from '../screens/modules/ofertaacademica/curso/curso.edit';
+
+import IndexCursoHorario from '../screens/modules/ofertaacademica/horario/horario.index';
+
+import IndexMotivoAperturaCierreCurso from '../screens/modules/ofertaacademica/motivoaperturacierrecurso/motivoaperturacierrecurso.index';
+import CreateMotivoAperturaCierreCurso from '../screens/modules/ofertaacademica/motivoaperturacierrecurso/motivoaperturacierrecurso.create';
+import ShowMotivoAperturaCierreCurso from '../screens/modules/ofertaacademica/motivoaperturacierrecurso/motivoaperturacierrecurso.show';
+import EditMotivoAperturaCierreCurso from '../screens/modules/ofertaacademica/motivoaperturacierrecurso/motivoaperturacierrecurso.edit';
+
+import IndexAperturaCierreCurso from '../screens/modules/ofertaacademica/aperturacierrecurso/aperturacierrecurso.index';
+
+import IndexCierreCurso from '../screens/modules/ofertaacademica/cierrecurso/cierrecurso.index';
+
+import IndexGrupo from '../screens/modules/ofertaacademica/grupo/grupo.index';
+import CreateGrupo from '../screens/modules/ofertaacademica/grupo/grupo.create';
+import ShowGrupo from '../screens/modules/ofertaacademica/grupo/grupo.show';
+import EditGrupo from '../screens/modules/ofertaacademica/grupo/grupo.edit';
+
+
+import IndexTipoActividad from '../screens/modules/oportunidad/tipoactividad/tipoactividad.index';
+import CreateTipoActividad from '../screens/modules/oportunidad/tipoactividad/tipoactividad.create';
+import ShowTipoActividad from '../screens/modules/oportunidad/tipoactividad/tipoactividad.show';
+import EditTipoActividad from '../screens/modules/oportunidad/tipoactividad/tipoactividad.edit';
+
+import IndexTipoMedioPublicitario from '../screens/modules/oportunidad/tipomediopublicitario/tipomediopublicitario.index';
+import CreateTipoMedioPublicitario from '../screens/modules/oportunidad/tipomediopublicitario/tipomediopublicitario.create';
+import ShowTipoMedioPublicitario from '../screens/modules/oportunidad/tipomediopublicitario/tipomediopublicitario.show';
+import EditTipoMedioPublicitario from '../screens/modules/oportunidad/tipomediopublicitario/tipomediopublicitario.edit';
+
+import IndexTipoContacto from '../screens/modules/oportunidad/tipocontacto/tipocontacto.index';
+import CreateTipoContacto from '../screens/modules/oportunidad/tipocontacto/tipocontacto.create';
+import EditTipoContacto from '../screens/modules/oportunidad/tipocontacto/tipocontacto.edit';
+import ShowTipoContacto from '../screens/modules/oportunidad/tipocontacto/tipocontacto.show';
+
 import LoginPage from '../screens/auth/login.page';
 
 const HomeRoute = (props) => {
@@ -167,7 +200,7 @@ const HomeRoute = (props) => {
                 <Route path="/notFound" element={ <InicioPage { ...props } /> }  />
                 <Route path="/login" element={ <LoginPage { ...props } /> }  />
                 <Route path="/" element={<AppMain />}>
-                    <Route index path="/inicio" element={ <InicioPage { ...props } /> }  />
+                    <Route index path="/" element={ <InicioPage { ...props } /> }  />
 
                     <Route index path="/tipo_rol/index" element={ <IndexTipoRol { ...props } /> }  />
                     <Route index path="/tipo_rol/create" element={ <CreateTipoRol { ...props } /> }  />
@@ -217,11 +250,6 @@ const HomeRoute = (props) => {
                     <Route index path="/materia/create" element={ <CreateMateria { ...props } /> }  />
                     <Route index path="/materia/edit/:idmateria" element={ <EditMateria { ...props } /> }  />
                     <Route index path="/materia/show/:idmateria" element={ <ShowMateria { ...props } /> }  />
-
-                    <Route index path="/referenciacontacto/index" element={ <IndexReferenciaContacto { ...props } /> }  />
-                    <Route index path="/referenciacontacto/create" element={ <CreateReferenciaContacto { ...props } /> }  />
-                    <Route index path="/referenciacontacto/edit/:idreferenciacontacto" element={ <EditReferenciaContacto { ...props } /> }  />
-                    <Route index path="/referenciacontacto/show/:idreferenciacontacto" element={ <ShowReferenciaContacto { ...props } /> }  />
 
                     <Route index path="/tipociudad/index" element={ <IndexTipoCiudad { ...props } /> }  />
                     <Route index path="/tipociudad/create" element={ <CreateTipoCiudad { ...props } /> }  />
@@ -321,6 +349,44 @@ const HomeRoute = (props) => {
                     <Route index path="/categoriadocumento/create" element={ <CreateCategoriaDocumento { ...props } /> }  />
                     <Route index path="/categoriadocumento/edit/:idcategoriadocumento" element={ <EditCategoriaDocumento { ...props } /> }  />
                     <Route index path="/categoriadocumento/show/:idcategoriadocumento" element={ <ShowCategoriaDocumento { ...props } /> }  />
+
+
+                    <Route index path="/curso/index" element={ <IndexCurso { ...props } /> }  />
+                    <Route index path="/curso/create" element={ <CreateCurso { ...props } /> }  />
+                    <Route index path="/curso/edit/:idcurso" element={ <EditCurso { ...props } /> }  />
+                    <Route index path="/curso/show/:idcurso" element={ <ShowCurso { ...props } /> }  />
+
+                    <Route index path="/curso_horario/index" element={ <IndexCursoHorario { ...props } /> }  />
+
+                    <Route index path="/motivoaperturacierrecurso/index" element={ <IndexMotivoAperturaCierreCurso { ...props } /> }  />
+                    <Route index path="/motivoaperturacierrecurso/create" element={ <CreateMotivoAperturaCierreCurso { ...props } /> }  />
+                    <Route index path="/motivoaperturacierrecurso/edit/:idmotivoaperturacierrecurso" element={ <EditMotivoAperturaCierreCurso { ...props } /> }  />
+                    <Route index path="/motivoaperturacierrecurso/show/:idmotivoaperturacierrecurso" element={ <ShowMotivoAperturaCierreCurso { ...props } /> }  />
+
+                    <Route index path="/aperturacierrecurso/index" element={ <IndexAperturaCierreCurso { ...props } /> }  />
+
+                    <Route index path="/cierrecurso/index" element={ <IndexCierreCurso { ...props } /> }  />
+
+                    <Route index path="/grupo/index" element={ <IndexGrupo { ...props } /> }  />
+                    <Route index path="/grupo/create" element={ <CreateGrupo { ...props } /> }  />
+                    <Route index path="/grupo/edit/:idgrupo" element={ <EditGrupo { ...props } /> }  />
+                    <Route index path="/grupo/show/:idgrupo" element={ <ShowGrupo { ...props } /> }  />
+
+
+                    <Route index path="/tipoactividad/index" element={ <IndexTipoActividad { ...props } /> }  />
+                    <Route index path="/tipoactividad/create" element={ <CreateTipoActividad { ...props } /> }  />
+                    <Route index path="/tipoactividad/edit/:idtipoactividad" element={ <EditTipoActividad { ...props } /> }  />
+                    <Route index path="/tipoactividad/show/:idtipoactividad" element={ <ShowTipoActividad { ...props } /> }  />
+
+                    <Route index path="/tipomediopublicitario/index" element={ <IndexTipoMedioPublicitario { ...props } /> }  />
+                    <Route index path="/tipomediopublicitario/create" element={ <CreateTipoMedioPublicitario { ...props } /> }  />
+                    <Route index path="/tipomediopublicitario/edit/:idtipomediopublicitario" element={ <EditTipoMedioPublicitario { ...props } /> }  />
+                    <Route index path="/tipomediopublicitario/show/:idtipomediopublicitario" element={ <ShowTipoMedioPublicitario { ...props } /> }  />
+
+                    <Route index path="/tipocontacto/index" element={ <IndexTipoContacto { ...props } /> }  />
+                    <Route index path="/tipocontacto/create" element={ <CreateTipoContacto { ...props } /> }  />
+                    <Route index path="/tipocontacto/edit/:idtipocontacto" element={ <EditTipoContacto { ...props } /> }  />
+                    <Route index path="/tipocontacto/show/:idtipocontacto" element={ <ShowTipoContacto { ...props } /> }  />
 
                     <Route
                         path='*'

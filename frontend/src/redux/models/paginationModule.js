@@ -1,6 +1,51 @@
 
 const PaginationModule = {
 
+    listTipoActividad: [],
+    pageTipoActividad: 1,
+    paginateTipoActividad: 1,
+    paginationTipoActividad: {
+        total: 0,
+    },
+
+    listTipoMedioPublicitario: [],
+    pageTipoMedioPublicitario: 1,
+    paginateTipoMedioPublicitario: 1,
+    paginationTipoMedioPublicitario: {
+        total: 0,
+    },
+
+    listTipoContacto: [],
+    pageTipoContacto: 1,
+    paginateTipoContacto: 1,
+    paginationTipoContacto: {
+        total: 0,
+    },
+
+
+
+    listCurso: [],
+    pageCurso: 1,
+    paginateCurso: 1,
+    paginationCurso: {
+        total: 0,
+    },
+
+    listMotivoAperturaCierreCurso: [],
+    pageMotivoAperturaCierreCurso: 1,
+    paginateMotivoAperturaCierreCurso: 1,
+    paginationMotivoAperturaCierreCurso: {
+        total: 0,
+    },
+
+    listGrupo: [],
+    pageGrupo: 1,
+    paginateGrupo: 1,
+    paginationGrupo: {
+        total: 0,
+    },
+
+
     listAdministrativo: [],
     pageAdministrativo: 1,
     paginateAdministrativo: 1,
@@ -110,12 +155,6 @@ const PaginationModule = {
     },
 
     
-    listReferenciaContacto: [],
-    pageReferenciaContacto: 1,
-    paginateReferenciaContacto: 1,
-    paginationReferenciaContacto: {
-        total: 0,
-    },
 
     listTipoMateria: [],
     pageTipoMateria: 1,

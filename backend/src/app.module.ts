@@ -29,7 +29,7 @@ import { UnidadacademicaModule } from './module/estructuraacademica/unidadacadem
 import { ProgramaModule } from './module/estructuraacademica/programa/programa.module';
 import { PensumModule } from './module/estructuraacademica/pensum/pensum.module';
 import { ResponsableModule } from './module/estructuraacademica/responsable/responsable.module';
-import { ReferenciaContactoModule } from './module/persona/referenciacontacto/referenciacontacto.module';
+import { ReferenciaContactoModule } from './module/oportunidad/referenciacontacto/referenciacontacto.module';
 import { TipoCiudadModule } from './module/parametro/tipociudad/tipociudad.module';
 import { ResponsableUnidadAcademicaDetalleModule } from './module/estructuraacademica/responsableunidadacademicadetalle/responsableunidadacademicadetalle.module';
 import { ResponsablereferenciacontactodetalleModule } from './module/estructuraacademica/responsablereferenciacontactodetalle/responsablereferenciacontactodetalle.module';
@@ -46,6 +46,11 @@ import { AdministrativoModule } from './module/persona/administrativo/administra
 import { CategoriaDocumentoModule } from './module/persona/categoriadocumento/categoriadocumento.module';
 import { AuthModule } from './module/auth/auth.module';
 import { EstudianteModule } from './module/persona/estudiante/estudiante.module';
+import { CursoModule } from './module/ofertaacademica/curso/curso.module';
+import { MotivoAperturaCierreCursoModule } from './module/ofertaacademica/motivoaperturacierrecurso/motivoaperturacierrecurso.module';
+import { GrupoModule } from './module/ofertaacademica/grupo/grupo.module';
+import { TipoActividadModule } from './module/oportunidad/tipoactividad/tipoactividad.module';
+import { TipomediopublicitarioModule } from './module/oportunidad/tipomediopublicitario/tipomediopublicitario.module';
 
 // npm i -g @nestjs/cli
 // nest new project-name 
@@ -98,7 +103,8 @@ import { EstudianteModule } from './module/persona/estudiante/estudiante.module'
     ResponsablereferenciacontactodetalleModule, CommonModule, TurnoModule, AulaModule, 
     DivisionAcademicaModule, InstitucionModule, GestionPeriodoModule, DocenteModule, 
     TipoIdentificacionModule, CargoModule, AdministrativoModule, CategoriaDocumentoModule, 
-    AuthModule, EstudianteModule,
+    AuthModule, EstudianteModule, CursoModule, MotivoAperturaCierreCursoModule, GrupoModule, 
+    TipoActividadModule, TipomediopublicitarioModule,
   ],
   controllers: [],
   providers: [],

@@ -100,12 +100,6 @@ const Constants = {
     ciudad_onShow: "[ON SHOW] Ciudad",
     ciudad_onLimpiar: "[ON LIMPIAR] Ciudad",
 
-    referenciaContacto_setInit: "[SET INIT] Referencia Contacto",
-    referenciaContacto_onChange: "[ON CHANGE] Referencia Contacto",
-    referenciaContacto_onCreate: "[ON CREATE] Referencia Contacto",
-    referenciaContacto_onShow: "[ON SHOW] Referencia Contacto",
-    referenciaContacto_onLimpiar: "[ON LIMPIAR] Referencia Contacto",
-
     unidadadministrativa_setInit: "[SET INIT] Unidad Administtrativa",
     unidadadministrativa_onChange: "[ON CHANGE] Unidad Administtrativa",
     unidadadministrativa_onCreate: "[ON CREATE] Unidad Administtrativa",
@@ -238,6 +232,53 @@ const Constants = {
     administrativo_onDeleteRowCategoriaDocumento: "[ON DELETE ROW CATEGORIA DOCUMENTO] Administrativo",
     administrativo_onAddRowEstudio: "[ON ADD ROW ESTUDIO] Administrativo",
     administrativo_onDeleteRowEstudio: "[ON DELETE ROW ESTUDIO] Administrativo",
+
+
+    curso_setInit: "[SET INIT] Curso",
+    curso_onChange: "[ON CHANGE] Curso",
+    curso_onCreate: "[ON CREATE] Curso",
+    curso_onShow: "[ON SHOW] Curso",
+    curso_onLimpiar: "[ON LIMPIAR] Curso",
+    curso_onAddRowDocente: "[ON ADD ROW DOCENTE] Curso",
+    curso_onDeleteRowDocente: "[ON DELETE ROW DOCENTE] Curso",
+
+    cursohorario_onChange: "[ON CHANGE] Curso Horario",
+    cursohorario_onLimpiar: "[ON LIMPIAR] Curso Horario",
+    cursohorario_onAddRowHorario: "[ON ADD ROW HORARIO] Curso Horario",
+    cursohorario_onDeleteRowHorario: "[ON DELETE ROW HORARIO] Curso Horario",
+
+    motivoaperturacierrecurso_setInit: "[SET INIT] Motivo Apertura Cierre Curso",
+    motivoaperturacierrecurso_onChange: "[ON CHANGE] Motivo Apertura Cierre Curso",
+    motivoaperturacierrecurso_onCreate: "[ON CREATE] Motivo Apertura Cierre Curso",
+    motivoaperturacierrecurso_onShow: "[ON SHOW] Motivo Apertura Cierre Curso",
+    motivoaperturacierrecurso_onLimpiar: "[ON LIMPIAR] Motivo Apertura Cierre Curso",
+
+    grupo_setInit: "[SET INIT] Grupo",
+    grupo_onChange: "[ON CHANGE] Grupo",
+    grupo_onCreate: "[ON CREATE] Grupo",
+    grupo_onShow: "[ON SHOW] Grupo",
+    grupo_onLimpiar: "[ON LIMPIAR] Grupo",
+    grupo_onAddRowPensum: "[ON ADD ROW PENSUM] Grupo",
+    grupo_onDeleteRowPensum: "[ON DELETE ROW PENSUM] Grupo",
+
+    tipoactividad_setInit: "[SET INIT] Tipo Actividad",
+    tipoactividad_onChange: "[ON CHANGE] Tipo Actividad",
+    tipoactividad_onCreate: "[ON CREATE] Tipo Actividad",
+    tipoactividad_onShow: "[ON SHOW] Tipo Actividad",
+    tipoactividad_onLimpiar: "[ON LIMPIAR] Tipo Actividad",
+
+    tipomediopublicitario_setInit: "[SET INIT] Tipo Medio Publicitario",
+    tipomediopublicitario_onChange: "[ON CHANGE] Tipo Medio Publicitario",
+    tipomediopublicitario_onCreate: "[ON CREATE] Tipo Medio Publicitario",
+    tipomediopublicitario_onShow: "[ON SHOW] Tipo Medio Publicitario",
+    tipomediopublicitario_onLimpiar: "[ON LIMPIAR] Tipo Medio Publicitario",
+
+    tipocontacto_setInit: "[SET INIT] Tipo Contacto",
+    tipocontacto_onChange: "[ON CHANGE] Tipo Contacto",
+    tipocontacto_onCreate: "[ON CREATE] Tipo Contacto",
+    tipocontacto_onShow: "[ON SHOW] Tipo Contacto",
+    tipocontacto_onLimpiar: "[ON LIMPIAR] Tipo Contacto",
+
 };
 
 export default Constants;
