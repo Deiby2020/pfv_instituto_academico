@@ -29,6 +29,41 @@ const cleanObejct = ( object = {} ) => {
     }
 };
 
+const onDefaultDays = () => {
+    return [1, 2, 3, 4, 5, 6, 7].map( (item) => {
+        switch (item) {
+            case 1:
+                return {
+                    codigo: 'lu', descripcion: 'Lunes',
+                };
+            case 2:
+                return {
+                    codigo: 'ma', descripcion: 'Martes',
+                };
+            case 3:
+                return {
+                    codigo: 'mi', descripcion: 'Miércoles',
+                };
+            case 4:
+                return {
+                    codigo: 'ju', descripcion: 'Jueves',
+                };
+            case 5:
+                return {
+                    codigo: 'vi', descripcion: 'Viernes',
+                };
+            case 6:
+                return {
+                    codigo: 'sá', descripcion: 'Sábado',
+                };
+            default:
+                return {
+                    codigo: 'do', descripcion: 'Domingo',
+                };
+        }
+    } );
+};
+
 const getValueConfirmacion = ( estado ) => {
     if ( estado === 'S' ) return 'Si';
     return 'No';
@@ -119,8 +154,21 @@ const validatePassword = ( value ) => {
     return true;
 };
 
+const dateCurrentToString = ( date = new Date() ) => {
+    let year  = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day   = date.getDate();
+
+    month = month < 10 ? "0" + month : month;
+    day   = day   < 10 ? "0" + day : day;
+
+    return `${day}/${month}/${year}`;
+};
+
 export const Functions = {
+    onDefaultDays,
     dateToString,
+    dateCurrentToString,
     dateToYear,
     cleanObejct,
     getValueTipoEmpleado,

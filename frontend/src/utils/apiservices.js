@@ -2,6 +2,7 @@
 // const linkBackend = 'http://localhost:5000/api/v1';
 const linkBackend = 'https://pfvinstitutoacademico-production.up.railway.app/api/v1';
 
+
 const module = {
     // seguridad: linkBackend + '/seguridad',
     
@@ -321,6 +322,46 @@ const apiServices = {
     apioportunidadtipocontacto_show:   `${module.parametros}/referenciacontacto/show`,
     apioportunidadtipocontacto_update: `${module.parametros}/referenciacontacto/update`,
     apioportunidadtipocontacto_delete: `${module.parametros}/referenciacontacto/delete`,
+
+    apioportunidadestadonegocio_index:  `${module.parametros}/estadonegocio/index`,
+    apioportunidadestadonegocio_create: `${module.parametros}/estadonegocio/create`,
+    apioportunidadestadonegocio_store:  `${module.parametros}/estadonegocio/store`,
+    apioportunidadestadonegocio_edit:   `${module.parametros}/estadonegocio/edit`,
+    apioportunidadestadonegocio_show:   `${module.parametros}/estadonegocio/show`,
+    apioportunidadestadonegocio_update: `${module.parametros}/estadonegocio/update`,
+    apioportunidadestadonegocio_delete: `${module.parametros}/estadonegocio/delete`,
+
+    apioportunidadasesorresponsable_index:  `${module.parametros}/asesorresponsable/index`,
+    apioportunidadasesorresponsable_create: `${module.parametros}/asesorresponsable/create`,
+    apioportunidadasesorresponsable_store:  `${module.parametros}/asesorresponsable/store`,
+    apioportunidadasesorresponsable_edit:   `${module.parametros}/asesorresponsable/edit`,
+    apioportunidadasesorresponsable_show:   `${module.parametros}/asesorresponsable/show`,
+    apioportunidadasesorresponsable_update: `${module.parametros}/asesorresponsable/update`,
+    apioportunidadasesorresponsable_delete: `${module.parametros}/asesorresponsable/delete`,
+
+    apioportunidadnegocio_index:  `${module.parametros}/negocio/index`,
+    apioportunidadnegocio_create: `${module.parametros}/negocio/create`,
+    apioportunidadnegocio_store:  `${module.parametros}/negocio/store`,
+    apioportunidadnegocio_edit:   `${module.parametros}/negocio/edit`,
+    apioportunidadnegocio_show:   `${module.parametros}/negocio/show`,
+    apioportunidadnegocio_update: `${module.parametros}/negocio/update`,
+    apioportunidadnegocio_delete: `${module.parametros}/negocio/delete`,
+
+    apioportunidadactividad_index:  `${module.parametros}/actividad/index`,
+    apioportunidadactividad_create: `${module.parametros}/actividad/create`,
+    apioportunidadactividad_store:  `${module.parametros}/actividad/store`,
+    apioportunidadactividad_edit:   `${module.parametros}/actividad/edit`,
+    apioportunidadactividad_show:   `${module.parametros}/actividad/show`,
+    apioportunidadactividad_update: `${module.parametros}/actividad/update`,
+    apioportunidadactividad_delete: `${module.parametros}/actividad/delete`,
+
+    apioportunidadoportunidad_index:  `${module.parametros}/oportunidad/index`,
+    apioportunidadoportunidad_create: `${module.parametros}/oportunidad/create`,
+    apioportunidadoportunidad_store:  `${module.parametros}/oportunidad/store`,
+    apioportunidadoportunidad_edit:   `${module.parametros}/oportunidad/edit`,
+    apioportunidadoportunidad_show:   `${module.parametros}/oportunidad/show`,
+    apioportunidadoportunidad_update: `${module.parametros}/oportunidad/update`,
+    apioportunidadoportunidad_delete: `${module.parametros}/oportunidad/delete`,
 };
 
 export default apiServices;

@@ -21,7 +21,7 @@ export default function ListadoTipoContactoModal( props ) {
         httpRequest( 'get', apiServices.apioportunidadtipocontacto_index, {
         } ) . then( (result) => {
             if ( result.resp === 1 ) {
-                setArrayData( result.arrayReferenciaContacto );
+                setArrayData( result.arrayTipoContacto );
             } else if ( result.error === true && result.resp === -2 ) {
                 Swal.fire( {
                     position: 'top-end',
@@ -44,7 +44,7 @@ export default function ListadoTipoContactoModal( props ) {
                 visible={props.visible}
                 onClose={props.onClose}
                 footer={null} width={400} centered
-                title={"LISTA REFERENCIA CONTACTO"}
+                title={"LISTA TIPO CONTACTO"}
             >
                 <div className="row">
                     <div className="col-12">

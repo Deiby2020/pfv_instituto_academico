@@ -129,7 +129,7 @@ export class TipoActividadService {
       }
       return {
         resp: 0, error: false,
-        message: 'Tipo Actividad Curso no existe.',
+        message: 'Tipo Actividad no existe.',
       };
     } catch (error) {
       this.logger.error(error);
@@ -152,7 +152,7 @@ export class TipoActividadService {
       }
       return {
         resp: 0, error: false,
-        message: 'Tipo Actividad Curso no existe.',
+        message: 'Tipo Actividad no existe.',
       };
     } catch (error) {
       this.logger.error(error);

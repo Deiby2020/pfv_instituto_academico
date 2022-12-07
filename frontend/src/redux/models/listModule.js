@@ -45,6 +45,11 @@ const ListModules = {
     listTipoActividad: [],
     listTipoMedioPublicitario: [],
     listTipoContacto: [],
+    listEstadoNegocio: [],
+    listAsesorResponsable: [],
+    listNegocio: [],
+    listActividad: [],
+    listOportunidad: [],
 };
 
 export default ListModules;
