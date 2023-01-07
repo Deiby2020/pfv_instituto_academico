@@ -1,10 +1,33 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { InscripcionCurso } from 'src/module/inscripcion/inscripcioncurso/entities/inscripcioncurso.entity';
+import { InscripcionPrograma } from '../../../inscripcion/inscripcionprograma/entities/inscripcionprograma.entity';
+import { InscripcionGrupo } from '../../../inscripcion/inscripciongrupo/entities/inscripciongrupo.entity';
 
 @Entity('unidadacademica')
 export class UnidadAcademica {
 
     @PrimaryGeneratedColumn('uuid')
     idunidadacademica: string;
+
+
+    @OneToMany(
+        () => InscripcionPrograma,
+        ( inscripcionPrograma ) => inscripcionPrograma.unidadacademica,
+    )
+    arrayinscripcionprograma?: InscripcionPrograma[];
+
+    @OneToMany(
+        () => InscripcionCurso,
+        ( inscripcionCurso ) => inscripcionCurso.unidadacademica,
+    )
+    arrayinscripcioncurso?: InscripcionCurso[];
+
+    @OneToMany(
+        () => InscripcionGrupo,
+        ( inscripcionGrupo ) => inscripcionGrupo.unidadacademica,
+    )
+    arrayinscripciongrupo?: InscripcionGrupo[];
+
 
     @Column('text')
     fkidunidadnegocio: string;

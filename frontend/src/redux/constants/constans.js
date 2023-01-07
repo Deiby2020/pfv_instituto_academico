@@ -7,6 +7,11 @@ const Constants = {
     register_onChange: "[ON CHANGE] REGISTER",
     register_onLimpiar: "[ON LIMPIAR] REGISTER",
 
+    profile_onChange: "[ON CHANGE] Profile",
+    profile_onCreate: "[ON CREATE] Profile",
+    profile_onShow: "[ON SHOW] Profile",
+    profile_onLimpiar: "[ON LIMPIAR] Profile",
+
     setShowSesion: "[SESION] Set Show",
     setHiddenSesion: "[SESION] Set Hidden",
 
@@ -15,6 +20,9 @@ const Constants = {
 
     listModules_onChange: "[ON CHANGE] List Modules",
     paginationModules_onChange: "[ON CHANGE] Pagination Modules",
+
+    bitacora_onShow: "[ON SHOW] Bitacora",
+    bitacora_onLimpiar: "[ON LIMPIAR] Bitacora",
 
     tipoRol_setInit: "[SET INIT] Tipo Rol",
     tipoRol_onChange: "[ON CHANGE] Tipo Rol",
@@ -322,6 +330,25 @@ const Constants = {
     oportundiad_onDeleteRowTipoMedioPublicitario: "[ON DELETE ROW TIPO MEDIO PUBLICITARIO] Oportunidad",
     oportundiad_onAddRowNegocio: "[ON ADD ROW NEGOCIO] Oportunidad",
     oportundiad_onDeleteRowNegocio: "[ON DELETE ROW NEGOCIO] Oportunidad",
+
+
+    inscripcionprograma_setInit: "[SET INIT] Inscripción Programa",
+    inscripcionprograma_onChange: "[ON CHANGE] Inscripción Programa",
+    inscripcionprograma_onCreate: "[ON CREATE] Inscripción Programa",
+    inscripcionprograma_onShow: "[ON SHOW] Inscripción Programa",
+    inscripcionprograma_onLimpiar: "[ON LIMPIAR] Inscripción Programa",
+
+    inscripcioncurso_setInit: "[SET INIT] Inscripción Curso",
+    inscripcioncurso_onChange: "[ON CHANGE] Inscripción Curso",
+    inscripcioncurso_onCreate: "[ON CREATE] Inscripción Curso",
+    inscripcioncurso_onShow: "[ON SHOW] Inscripción Curso",
+    inscripcioncurso_onLimpiar: "[ON LIMPIAR] Inscripción Curso",
+
+    inscripciongrupo_setInit: "[SET INIT] Inscripción Grupo",
+    inscripciongrupo_onChange: "[ON CHANGE] Inscripción Grupo",
+    inscripciongrupo_onCreate: "[ON CREATE] Inscripción Grupo",
+    inscripciongrupo_onShow: "[ON SHOW] Inscripción Grupo",
+    inscripciongrupo_onLimpiar: "[ON LIMPIAR] Inscripción Grupo",
 
 };
 

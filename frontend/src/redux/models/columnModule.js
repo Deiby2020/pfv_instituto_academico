@@ -1,6 +1,40 @@
 
 const ColumnModules = {
 
+    columnInscripcionPrograma: [
+        {
+            id: 'registroestudiante',
+            label: 'Registro',
+        },
+        {
+            id: 'nameestudiante',
+            label: 'Estudiante',
+        },
+    ],
+
+    columnInscripcionCurso: [
+        {
+            id: 'registroestudiante',
+            label: 'Registro',
+        },
+        {
+            id: 'nameestudiante',
+            label: 'Estudiante',
+        },
+    ],
+
+    columnInscripcionGrupo: [
+        {
+            id: 'registroestudiante',
+            label: 'Registro',
+        },
+        {
+            id: 'nameestudiante',
+            label: 'Estudiante',
+        },
+    ],
+
+
     columnUnidadNegocio: [
         {
             id: 'sigla',
@@ -222,6 +256,37 @@ const ColumnModules = {
             visible: true,
             width: null,
             state: true,
+        },
+    ],
+
+
+
+    columnBitacora: [
+        {
+            id: 'usuario',
+            label: 'Usuario',
+            object: true,
+            value: 'nombreprincipal',
+        },
+        {
+            id: 'ip',
+            label: 'IP',
+        },
+        {
+            id: 'accion',
+            label: 'Acción',
+        },
+        {
+            id: 'descripcion',
+            label: 'Descripción',
+        },
+        {
+            id: 'x_fecha',
+            label: 'Fecha',
+        },
+        {
+            id: 'x_hora',
+            label: 'Hora',
         },
     ],
 

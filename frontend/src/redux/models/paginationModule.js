@@ -1,6 +1,28 @@
 
 const PaginationModule = {
 
+    listInscripcionPrograma: [],
+    pageInscripcionPrograma: 1,
+    paginateInscripcionPrograma: 1,
+    paginationInscripcionPrograma: {
+        total: 0,
+    },
+
+    listInscripcionCurso: [],
+    pageInscripcionCurso: 1,
+    paginateInscripcionCurso: 1,
+    paginationInscripcionCurso: {
+        total: 0,
+    },
+
+    listInscripcionGrupo: [],
+    pageInscripcionGrupo: 1,
+    paginateInscripcionGrupo: 1,
+    paginationInscripcionGrupo: {
+        total: 0,
+    },
+
+
     listTipoResultado: [],
     pageTipoResultado: 1,
     paginateTipoResultado: 1,
@@ -254,6 +276,13 @@ const PaginationModule = {
         total: 0,
     },
 
+
+    listBitacora: [],
+    pageBitacora: 1,
+    paginateBitacora: 1,
+    paginationBitacora: {
+        total: 0,
+    },
 
     listTipoPermiso: [],
     pageTipoPermiso: 1,

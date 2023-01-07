@@ -1,13 +1,13 @@
-import { Repository, Like, DataSource } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, Logger } from '@nestjs/common';
+import { Repository, DataSource, ILike } from 'typeorm';
 import { Estudiante } from './entities/estudiante.entity';
 import { CreateEstudianteDto } from './dto/create-estudiante.dto';
 import { UpdateEstudianteDto } from './dto/update-estudiante.dto';
 import { PaginationDto } from '../../../common/dtos/pagination.dto';
-import { EstudianteCategoriaDocumentoDetalle } from './entities/estudiantecategoriadocumentodetalle.entity';
 import { EstudianteCiudadDetalle } from './entities/estudianteciudaddetalle.entity';
 import { EstudianteFamiliarDetalle } from './entities/estudiantefamiliardetalle.entity';
+import { EstudianteCategoriaDocumentoDetalle } from './entities/estudiantecategoriadocumentodetalle.entity';
 
 @Injectable()
 export class EstudianteService {
@@ -38,14 +38,26 @@ export class EstudianteService {
         [listEstudiante, totalPagination] = await this.estudianteRepository.findAndCount( {
           take: limit, skip: offset,
           where: [
-            { nombreprincipal: Like( '%' + search + '%', ), },
+            { nombreprincipal: ILike( '%' + search + '%', ), },
+            { nombreadicional: ILike( '%' + search + '%', ), },
+            { apellidoprimero: ILike( '%' + search + '%', ), },
+            { apellidosegundo: ILike( '%' + search + '%', ), },
+            { tipoidentificacion: ILike( '%' + search + '%', ), },
+            { numeroidentificacion: ILike( '%' + search + '%', ), },
+            { ciudadnacimiento: ILike( '%' + search + '%', ), },
           ],
           order: { created_at: "DESC", },
         } );
       } else {
         [listEstudiante, totalPagination] = await this.estudianteRepository.findAndCount( {
           where: [
-            { nombreprincipal: Like( '%' + search + '%', ), },
+            { nombreprincipal: ILike( '%' + search + '%', ), },
+            { nombreadicional: ILike( '%' + search + '%', ), },
+            { apellidoprimero: ILike( '%' + search + '%', ), },
+            { apellidosegundo: ILike( '%' + search + '%', ), },
+            { tipoidentificacion: ILike( '%' + search + '%', ), },
+            { numeroidentificacion: ILike( '%' + search + '%', ), },
+            { ciudadnacimiento: ILike( '%' + search + '%', ), },
           ],
           order: { created_at: "DESC", },
         } );
@@ -157,13 +169,17 @@ export class EstudianteService {
   }
 
   async findOne(idestudiante: string) {
-    const estudiante = await this.estudianteRepository.findOne( {
-      where: { idestudiante: idestudiante },
-      relations: {
-        arraycategoriadocumento: true, arraynacionalidad: true,
-      }
-    } );
-    return estudiante;
+    try {
+      const estudiante = await this.estudianteRepository.findOne( {
+        where: { idestudiante: idestudiante },
+        relations: {
+          arraycategoriadocumento: true, arraynacionalidad: true,
+        }
+      } );
+      return estudiante;
+    } catch (error) {
+      return null;
+    }
   }
 
   async edit(idestudiante: string) {

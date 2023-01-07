@@ -2,32 +2,10 @@
 import React from 'react';
 import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export default function SidebarComponent() {
-    const [ subMenu, setSubMenu ] = React.useState( {
-        oportunidad: {
-            active: false,
-        },
-        ofertaacademica: {
-            active: false,
-        },
-        persona: {
-            active: false,
-        },
-        estructurainstitucional: {
-            active: false,
-        },
-        estructuraacademica: {
-            active: false,
-        },
-        parametros: {
-            active: false,
-        },
-        seguridad: {
-            active: false,
-        },
-    } );
-    
+const SidebarComponent = (props) => {
+    const { profile } = props;
     return (
         <div className="main-sidebar">
             <aside id="sidebar-wrapper">
@@ -38,10 +16,14 @@ export default function SidebarComponent() {
                 </div>
                 <div className="sidebar-user">
                     <div className="sidebar-user-picture">
-                        <img alt="image" src="/assets/img/photo_ericka.jpeg" />
+                        <img alt="image" 
+                            src={ `${ (profile.imagen !== null && profile.imagen !== "") ? profile.imagen : '/assets/img/profile.png'}` } 
+                        />
                     </div>
                     <div className="sidebar-user-details">
-                        <div className="user-name">Ericka Lopez</div>
+                        <div className="user-name">
+                            { props.profile.nombreprincipal ?? 'S/N' }
+                        </div>
                         <div className="user-role">
                             Administrador
                         </div>
@@ -148,6 +130,42 @@ export default function SidebarComponent() {
                                 style={{ lineHeight: 0, height: 50, }}
                             >
                                 <i className="ion ion-ios-albums-outline"></i>
+                                <span style={{ fontSize: 13, }}>Inscripción</span>
+                            </a>
+                        }
+                        className="p-0"
+                    >
+                        <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
+                            <Link to={"/inscripcionprograma/index"} className="d-flex align-items-center" 
+                                style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
+                            >
+                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Programa
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
+                            <Link to={"/inscripciongrupo/index"} className="d-flex align-items-center" 
+                                style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
+                            >
+                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Grupo
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
+                            <Link to={"/inscripcioncurso/index"} className="d-flex align-items-center" 
+                                style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
+                            >
+                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Curso
+                            </Link>
+                        </Menu.Item>
+                    </Menu.SubMenu>
+                    <Menu.SubMenu 
+                        title={
+                            <a href="#" className="p-0 d-flex align-items-center"
+                                onClick={ (evt) => {
+                                    evt.preventDefault();
+                                } }
+                                style={{ lineHeight: 0, height: 50, }}
+                            >
+                                <i className="ion ion-ios-albums-outline"></i>
                                 <span style={{ fontSize: 13, }}>Oferta Academica</span>
                             </a>
                         }
@@ -181,13 +199,13 @@ export default function SidebarComponent() {
                                 <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Cierre Curso
                             </Link>
                         </Menu.Item>
-                        <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
+                        {/* <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
                             <Link to={"/curso_horario/index"} className="d-flex align-items-center" 
                                 style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
                             >
                                 <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Horario
                             </Link>
-                        </Menu.Item>
+                        </Menu.Item> */}
                         <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
                             <Link to={"/motivoaperturacierrecurso/index"} className="d-flex align-items-center" 
                                 style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
@@ -875,7 +893,7 @@ export default function SidebarComponent() {
                             </Link>
                         </Menu.Item>
                         <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
-                            <Link to={"/calificacion/index"} className="d-flex align-items-center" 
+                            <Link to={"/bitacora/index"} className="d-flex align-items-center" 
                                 style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
                             >
                                 <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Bitacora
@@ -951,3 +969,11 @@ export default function SidebarComponent() {
         </div>
     );
 };
+
+const mapStateToProps = ( state ) => ( {
+    profile: state.Profile,
+} );
+  
+const mapDispatchToProps = null;
+
+export default connect(mapStateToProps, mapDispatchToProps)( SidebarComponent );

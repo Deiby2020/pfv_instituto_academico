@@ -1,9 +1,9 @@
-import { Repository } from 'typeorm';
+import { Repository, ILike } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, Logger } from '@nestjs/common';
-import { CreateTipoPermisoDto, UpdateTipoPermisoDto } from './dto';
-import { PaginationDto } from 'src/common/dtos/pagination.dto';
 import { TipoPermiso } from './entities/tipoPermiso.entity';
+import { PaginationDto } from 'src/common/dtos/pagination.dto';
+import { CreateTipoPermisoDto, UpdateTipoPermisoDto } from './dto';
 
 @Injectable()
 export class TipoPermisoService {
@@ -21,21 +21,18 @@ export class TipoPermisoService {
             let totalPagination = 0;
             if ( esPaginate ) {
                 [listTipoPermiso, totalPagination] = await this.tipoPermisoRepository.findAndCount( {
-                    take: limit,
-                    skip: offset,
-                    where: {
-                    },
-                    order: {
-                        created_at: "DESC",
-                    },
+                    take: limit, skip: offset,
+                    where: [
+                        { descripcion: ILike( '%' + search + '%', ), },
+                    ],
+                    order: { created_at: "DESC", },
                 } );
             } else {
                 [listTipoPermiso, totalPagination] = await this.tipoPermisoRepository.findAndCount( {
-                    where: {
-                    },
-                    order: {
-                        created_at: "DESC",
-                    },
+                    where: [
+                        { descripcion: ILike( '%' + search + '%', ), },
+                    ],
+                    order: { created_at: "DESC", },
                 } );
             }
             return {
@@ -98,10 +95,14 @@ export class TipoPermisoService {
     }
 
     async findOne(idtipopermiso: string) {
-        const tipoPermiso = await this.tipoPermisoRepository.findOneBy( {
-            idtipopermiso: idtipopermiso,
-        } );
-        return tipoPermiso;
+        try {
+            const tipoPermiso = await this.tipoPermisoRepository.findOneBy( {
+                idtipopermiso: idtipopermiso,
+            } );
+            return tipoPermiso;
+        } catch (error) {
+            return null;
+        }
     }
 
     async edit( idtipopermiso: string ) {

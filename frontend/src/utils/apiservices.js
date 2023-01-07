@@ -21,6 +21,10 @@ const apiServices = {
     apiauth_login:  `${module.auth}/auth/login`,
     apiauth_register:  `${module.auth}/auth/register`,
     apiauth_validateToken:  `${module.auth}/auth/validateToken`,
+    apiauth_updateProfile:  `${module.auth}/profile/store`,
+
+    apiseguridadbitacora_index:  `${module.seguridad}/bitacora/index`,
+    apiseguridadbitacora_show:  `${module.seguridad}/bitacora/show`,
 
     apiseguridadtiporol_index:  `${module.seguridad}/tiporol/index`,
     apiseguridadtiporol_create: `${module.seguridad}/tiporol/create`,
@@ -290,6 +294,8 @@ const apiServices = {
     apiofertaacademicamotivoaperturacierrecurso_delete: `${module.ofertaacademica}/motivoaperturacierrecurso/delete`,
 
     apiofertaacademicagrupo_index:  `${module.ofertaacademica}/grupo/index`,
+    apiofertaacademicagrupo_findgrupoforpensum:  `${module.ofertaacademica}/grupo/findgrupoforpensum`,
+    apiofertaacademicagrupo_findmateriaforgrupo:  `${module.ofertaacademica}/grupo/findmateriaforgrupo`,
     apiofertaacademicagrupo_create: `${module.ofertaacademica}/grupo/create`,
     apiofertaacademicagrupo_store:  `${module.ofertaacademica}/grupo/store`,
     apiofertaacademicagrupo_edit:   `${module.ofertaacademica}/grupo/edit`,
@@ -370,6 +376,31 @@ const apiServices = {
     apioportunidadoportunidad_show:   `${module.parametros}/oportunidad/show`,
     apioportunidadoportunidad_update: `${module.parametros}/oportunidad/update`,
     apioportunidadoportunidad_delete: `${module.parametros}/oportunidad/delete`,
+
+
+    apiinscripcioninscripcionprograma_index:  `${module.parametros}/inscripcionprograma/index`,
+    apiinscripcioninscripcionprograma_create: `${module.parametros}/inscripcionprograma/create`,
+    apiinscripcioninscripcionprograma_store:  `${module.parametros}/inscripcionprograma/store`,
+    apiinscripcioninscripcionprograma_edit:   `${module.parametros}/inscripcionprograma/edit`,
+    apiinscripcioninscripcionprograma_show:   `${module.parametros}/inscripcionprograma/show`,
+    apiinscripcioninscripcionprograma_update: `${module.parametros}/inscripcionprograma/update`,
+    apiinscripcioninscripcionprograma_delete: `${module.parametros}/inscripcionprograma/delete`,
+
+    apiinscripcioninscripcioncurso_index:  `${module.parametros}/inscripcioncurso/index`,
+    apiinscripcioninscripcioncurso_create: `${module.parametros}/inscripcioncurso/create`,
+    apiinscripcioninscripcioncurso_store:  `${module.parametros}/inscripcioncurso/store`,
+    apiinscripcioninscripcioncurso_edit:   `${module.parametros}/inscripcioncurso/edit`,
+    apiinscripcioninscripcioncurso_show:   `${module.parametros}/inscripcioncurso/show`,
+    apiinscripcioninscripcioncurso_update: `${module.parametros}/inscripcioncurso/update`,
+    apiinscripcioninscripcioncurso_delete: `${module.parametros}/inscripcioncurso/delete`,
+
+    apiinscripcioninscripciongrupo_index:  `${module.parametros}/inscripciongrupo/index`,
+    apiinscripcioninscripciongrupo_create: `${module.parametros}/inscripciongrupo/create`,
+    apiinscripcioninscripciongrupo_store:  `${module.parametros}/inscripciongrupo/store`,
+    apiinscripcioninscripciongrupo_edit:   `${module.parametros}/inscripciongrupo/edit`,
+    apiinscripcioninscripciongrupo_show:   `${module.parametros}/inscripciongrupo/show`,
+    apiinscripcioninscripciongrupo_update: `${module.parametros}/inscripciongrupo/update`,
+    apiinscripcioninscripciongrupo_delete: `${module.parametros}/inscripciongrupo/delete`,
 };
 
 export default apiServices;

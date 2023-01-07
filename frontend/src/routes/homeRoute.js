@@ -6,6 +6,9 @@ import AppMain from '../layouts/app';
 
 import Error404 from '../errors/errors404';
 
+import IndexBitacora from '../screens/modules/seguridad/bitacora/bitacora.index';
+import ShowBitacora from '../screens/modules/seguridad/bitacora/bitacora.show';
+
 import IndexTipoRol from '../screens/modules/seguridad/tiporol/tipo_rol.index';
 import CreateTipoRol from '../screens/modules/seguridad/tiporol/tipo_rol.create';
 import EditTipoRol from '../screens/modules/seguridad/tiporol/tipo_rol.edit';
@@ -221,7 +224,12 @@ import CreateTipoResultado from '../screens/modules/oportunidad/tiporesultado/ti
 import EditTipoResultado from '../screens/modules/oportunidad/tiporesultado/tiporesultado.edit';
 import ShowTipoResultado from '../screens/modules/oportunidad/tiporesultado/tiporesultado.show';
 
+import CreateInscripcionPrograma from '../screens/modules/inscripcion/inscripcionprograma/inscripcionprograma.create';
+import CreateInscripcionCurso from '../screens/modules/inscripcion/inscripcioncurso/inscripcioncurso.create';
+import CreateInscripcionGrupo from '../screens/modules/inscripcion/inscripciongrupo/inscripciongrupo.create';
+
 import LoginPage from '../screens/auth/login.page';
+import ProfilePage from '../screens/profile/profile.screen';
 
 const HomeRoute = (props) => {
     return (
@@ -231,6 +239,10 @@ const HomeRoute = (props) => {
                 <Route path="/login" element={ <LoginPage { ...props } /> }  />
                 <Route path="/" element={<AppMain />}>
                     <Route index path="/" element={ <InicioPage { ...props } /> }  />
+                    <Route index path="/profile" element={ <ProfilePage { ...props } /> }  />
+
+                    <Route index path="/bitacora/index" element={ <IndexBitacora { ...props } /> }  />
+                    <Route index path="/bitacora/show/:idbitacora" element={ <ShowBitacora { ...props } /> }  />
 
                     <Route index path="/tipo_rol/index" element={ <IndexTipoRol { ...props } /> }  />
                     <Route index path="/tipo_rol/create" element={ <CreateTipoRol { ...props } /> }  />
@@ -447,6 +459,10 @@ const HomeRoute = (props) => {
                     <Route index path="/oportunidad/create" element={ <CreateOportunidad { ...props } /> }  />
                     <Route index path="/oportunidad/edit/:idoportunidad" element={ <EditOportunidad { ...props } /> }  />
                     <Route index path="/oportunidad/show/:idoportunidad" element={ <ShowOportunidad { ...props } /> }  />
+
+                    <Route index path="/inscripcionprograma/index" element={ <CreateInscripcionPrograma { ...props } /> }  />
+                    <Route index path="/inscripcioncurso/index" element={ <CreateInscripcionCurso { ...props } /> }  />
+                    <Route index path="/inscripciongrupo/index" element={ <CreateInscripcionGrupo { ...props } /> }  />
 
                     <Route
                         path='*'

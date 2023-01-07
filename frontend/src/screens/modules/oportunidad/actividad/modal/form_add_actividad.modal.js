@@ -41,6 +41,7 @@ const FormAddActividadModal = ( props ) => {
                     props.setFKIDTipoActividad(actividad, tipoActividad);
                     setVisibleTipoActividad(false);
                 } }
+                valueSelect={actividad?.fkidtipoactividad}
             />
         );
     };
@@ -55,6 +56,7 @@ const FormAddActividadModal = ( props ) => {
                     props.setFKIDTipoResultado(actividad, tipoActividad);
                     setVisibleTipoResultado(false);
                 } }
+                valueSelect={actividad?.fkidtiporesultado}
             />
         );
     };
@@ -69,6 +71,7 @@ const FormAddActividadModal = ( props ) => {
                     props.setFKIDAsesorResponsable(actividad, asesorResponsable);
                     setVisibleAsesorResponsable(false);
                 } }
+                valueSelect={actividad?.fkidasesorresponsable}
             />
         );
     };
@@ -129,8 +132,8 @@ const FormAddActividadModal = ( props ) => {
                                         placeholder="SELECCIONAR TIPO ACTIVIDAD"
                                     />
                                 </div> : actividad.descripcion === "COMPLETADA" ? 
-                                    <>
-                                        <div className="form-group col-12">
+                                <>
+                                    <div className="form-group col-12">
                                         <InputComponent
                                             label="Tipo Actividad*"
                                             value={actividad.tipoactividad}
@@ -142,19 +145,19 @@ const FormAddActividadModal = ( props ) => {
                                             placeholder="SELECCIONAR TIPO ACTIVIDAD"
                                         />
                                     </div>
-                                        <div className="form-group col-12">
-                                            <InputComponent
-                                                label="Tipo Resultado*"
-                                                value={actividad.tiporesultado}
-                                                onClick={ () => setVisibleTipoResultado(true) }
-                                                error={actividad.error.fkidtiporesultado}
-                                                message={actividad.message.fkidtiporesultado}
-                                                readOnly
-                                                style={{ background: 'white', cursor: 'pointer', }}
-                                                placeholder="SELECCIONAR TIPO RESULTADO"
-                                            />
-                                        </div>
-                                    </> : null
+                                    <div className="form-group col-12">
+                                        <InputComponent
+                                            label="Tipo Resultado*"
+                                            value={actividad.tiporesultado}
+                                            onClick={ () => setVisibleTipoResultado(true) }
+                                            error={actividad.error.fkidtiporesultado}
+                                            message={actividad.message.fkidtiporesultado}
+                                            readOnly
+                                            style={{ background: 'white', cursor: 'pointer', }}
+                                            placeholder="SELECCIONAR TIPO RESULTADO"
+                                        />
+                                    </div>
+                                </> : null
                             }
                             <div className="form-group col-12">
                                 <InputComponent

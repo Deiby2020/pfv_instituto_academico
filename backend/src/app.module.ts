@@ -28,7 +28,7 @@ import { RolPermisoDetalleModule } from './module/seguridad/rolpermisodetalle/ro
 import { UnidadacademicaModule } from './module/estructuraacademica/unidadacademica/unidadacademica.module';
 import { ProgramaModule } from './module/estructuraacademica/programa/programa.module';
 import { PensumModule } from './module/estructuraacademica/pensum/pensum.module';
-import { ReferenciaContactoModule } from './module/oportunidad/referenciacontacto/referenciacontacto.module';
+import { ReferenciaContactoModule } from './module/oportunidad/tipocontacto/referenciacontacto.module';
 import { TipoCiudadModule } from './module/parametro/tipociudad/tipociudad.module';
 import { CommonModule } from './common/common.module';
 import { TurnoModule } from './module/estructurainstitucional/turno/turno.module';
@@ -54,6 +54,11 @@ import { NegocioModule } from './module/oportunidad/negocio/negocio.module';
 import { ActividadModule } from './module/oportunidad/actividad/actividad.module';
 import { OportunidadModule } from './module/oportunidad/oportunidad/oportunidad.module';
 import { TipoResultadoModule } from './module/oportunidad/tiporesultado/tiporesultado.module';
+import { InscripcionProgramaModule } from './module/inscripcion/inscripcionprograma/inscripcionprograma.module';
+import { InscripcionGrupoModule } from './module/inscripcion/inscripciongrupo/inscripciongrupo.module';
+import { InscripcioncursoModule } from './module/inscripcion/inscripcioncurso/inscripcioncurso.module';
+import { ProfileModule } from './module/seguridad/profile/profile.module';
+import { BitacoraModule } from './module/seguridad/bitacora/bitacora.module';
 
 // npm i -g @nestjs/cli
 // nest new project-name 
@@ -107,7 +112,8 @@ import { TipoResultadoModule } from './module/oportunidad/tiporesultado/tiporesu
     TipoIdentificacionModule, CargoModule, AdministrativoModule, CategoriaDocumentoModule, 
     AuthModule, EstudianteModule, CursoModule, MotivoAperturaCierreCursoModule, GrupoModule, 
     TipoActividadModule, TipomediopublicitarioModule, EstadoNegocioModule, 
-    AsesorResponsableModule, NegocioModule, ActividadModule, OportunidadModule, TipoResultadoModule,
+    AsesorResponsableModule, NegocioModule, ActividadModule, OportunidadModule, 
+    TipoResultadoModule, InscripcionProgramaModule, InscripcionGrupoModule, InscripcioncursoModule, ProfileModule, BitacoraModule,
   ],
   controllers: [],
   providers: [],

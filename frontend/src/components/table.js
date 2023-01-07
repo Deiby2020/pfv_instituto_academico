@@ -44,11 +44,9 @@ export default function TableComponent( props ) {
                                 return (
                                     <th key={index}
                                         style={{ 
-                                            width: column.width ? 'auto' : column.width,
+                                            width: column.width === null ? 'auto' : column.width,
                                             textAlign: `${column.numeric === true ? 'right' : 'left'}`,
-                                            paddingRight: 10,
-                                            paddingLeft: 10,
-                                            fontSize: 12,
+                                            paddingRight: 10, paddingLeft: 10, fontSize: 12,
                                         }}
                                     >
                                         { column.label }
@@ -61,10 +59,14 @@ export default function TableComponent( props ) {
                                 </th>
                             }
                         </tr>
-                        {/* e0f3ff */}
                         { props.dataSource.map( ( row, index ) => {
                             let style = {};
-                            if ( props.select === true ) style = { cursor: 'pointer', };
+                            if ( props.select === true ) {
+                                style = { cursor: 'pointer', };
+                                if ( row[props.iddata] === props.valueSelect ) {
+                                    style = Object.assign( style, { backgroundColor: '#E0F3FF', } );
+                                }
+                            }
                             return (
                                 <tr key={index}
                                     onClick={ () => {
@@ -120,9 +122,11 @@ export default function TableComponent( props ) {
                                                                 'Aperturado' : row[column.id] === 'N' ? 'Sin Aperturar o Cerrar' : 'Cerrado' 
                                                             }` }
                                                         </Tag>
-                                                    : isNaN(row[column.id]) ? 
-                                                        column.amountday === true ? amountday : row[column.id] : 
-                                                    parseFloat(row[column.id]).toFixed(2) 
+                                                    : column.numeric === true ? 
+                                                        parseFloat(row[column.id]).toFixed(2) :
+                                                        column.amountday === true ? amountday 
+                                                    : column.object === true ? row[column.id][column.value] : row[column.id] 
+                                                    
                                                 }
                                                 { column.suffix && column.suffix }
                                             </td>
@@ -130,33 +134,39 @@ export default function TableComponent( props ) {
                                     } ) }
                                     { props.option === true &&
                                         <td>
-                                            <Tooltip placement="top" title={"Ver"}>
-                                                <Button 
-                                                    onClick={ () => props.onShow( row ) }
-                                                    size={"small"}
-                                                    style={{ marginLeft: 1, marginRight: 1, }}
-                                                >
-                                                    <EyeOutlined />
-                                                </Button>
-                                            </Tooltip>
-                                            <Tooltip placement="top" title={"Editar"}>
-                                                <Button 
-                                                    onClick={() => props.onEditar( row )}
-                                                    size={"small"}
-                                                    style={{ marginLeft: 1, marginRight: 1, }}
-                                                >
-                                                    <EditOutlined />
-                                                </Button>
-                                            </Tooltip>
-                                            <Tooltip placement="top" title={"Eliminar"}>
-                                                <Button 
-                                                    onClick={() => props.onDelete( row )}
-                                                    size={"small"}
-                                                    style={{ marginLeft: 1, marginRight: 1, }}
-                                                >
-                                                    <DeleteOutlined />
-                                                </Button>
-                                            </Tooltip>
+                                            { props.isSearch === true &&
+                                                <Tooltip placement="top" title={"Ver"}>
+                                                    <Button 
+                                                        onClick={ () => props.onShow( row ) }
+                                                        size={"small"}
+                                                        style={{ marginLeft: 1, marginRight: 1, }}
+                                                    >
+                                                        <EyeOutlined />
+                                                    </Button>
+                                                </Tooltip>
+                                            }
+                                            { props.isEdit === true &&
+                                                <Tooltip placement="top" title={"Editar"}>
+                                                    <Button 
+                                                        onClick={() => props.onEditar( row )}
+                                                        size={"small"}
+                                                        style={{ marginLeft: 1, marginRight: 1, }}
+                                                    >
+                                                        <EditOutlined />
+                                                    </Button>
+                                                </Tooltip>
+                                            }
+                                            { props.isDelete === true && 
+                                                <Tooltip placement="top" title={"Eliminar"}>
+                                                    <Button 
+                                                        onClick={() => props.onDelete( row )}
+                                                        size={"small"}
+                                                        style={{ marginLeft: 1, marginRight: 1, }}
+                                                    >
+                                                        <DeleteOutlined />
+                                                    </Button>
+                                                </Tooltip>
+                                            }
                                         </td>
                                     }
                                 </tr>
@@ -259,6 +269,9 @@ TableComponent.propTypes = {
     option: PropTypes.bool,
     select: PropTypes.bool,
     isPagination: PropTypes.bool,
+    isSearch: PropTypes.bool,
+    isEdit: PropTypes.bool,
+    isDelete: PropTypes.bool,
 
     paginate: PropTypes.number,
     page: PropTypes.number,
@@ -266,6 +279,9 @@ TableComponent.propTypes = {
 
     setPage: PropTypes.func,
     setPaginate: PropTypes.func,
+
+    iddata: PropTypes.any,
+    valueSelect: PropTypes.any,
 }
 
 TableComponent.defaultProps = {
@@ -279,6 +295,12 @@ TableComponent.defaultProps = {
     option: true,
     select: false,
     isPagination: false,
+    isSearch: true,
+    isEdit: true,
+    isDelete: true,
+
+    iddata: 'iddata',
+    valueSelect: null,
 
     paginate: 25,
     page: 0,
