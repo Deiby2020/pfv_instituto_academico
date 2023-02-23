@@ -59,6 +59,10 @@ import { InscripcionGrupoModule } from './module/inscripcion/inscripciongrupo/in
 import { InscripcioncursoModule } from './module/inscripcion/inscripcioncurso/inscripcioncurso.module';
 import { ProfileModule } from './module/seguridad/profile/profile.module';
 import { BitacoraModule } from './module/seguridad/bitacora/bitacora.module';
+import { DateModule } from './module/config/date/date.module';
+import { ParametroCalificacionModule } from './module/nota/parametrocalificacion/parametrocalificacion.module';
+import { CalendarioacademicoModule } from './module/nota/calendarioacademico/calendarioacademico.module';
+import { AsignarrolModule } from './module/seguridad/asignarrol/asignarrol.module';
 
 // npm i -g @nestjs/cli
 // nest new project-name 
@@ -101,7 +105,6 @@ import { BitacoraModule } from './module/seguridad/bitacora/bitacora.module';
       rootPath: join(__dirname, '..', 'public'),
     } ),
 
-
     TipoRolModule, TipoPermisoModule, TipoMateriaModule, SeedModule, RolModule, 
     UsuarioModule, UnidadNegocioModule, OfertaAcademicaModule, NivelAcademicoModule, 
     ModalidadAcademicaModule, PeriodoModule, MateriaModule, CiudadModule, PermisoModule, 
@@ -110,10 +113,13 @@ import { BitacoraModule } from './module/seguridad/bitacora/bitacora.module';
     ReferenciaContactoModule, TipoCiudadModule, CommonModule, TurnoModule, AulaModule, 
     DivisionAcademicaModule, InstitucionModule, GestionPeriodoModule, DocenteModule, 
     TipoIdentificacionModule, CargoModule, AdministrativoModule, CategoriaDocumentoModule, 
-    AuthModule, EstudianteModule, CursoModule, MotivoAperturaCierreCursoModule, GrupoModule, 
+    EstudianteModule, CursoModule, MotivoAperturaCierreCursoModule, GrupoModule, 
     TipoActividadModule, TipomediopublicitarioModule, EstadoNegocioModule, 
     AsesorResponsableModule, NegocioModule, ActividadModule, OportunidadModule, 
-    TipoResultadoModule, InscripcionProgramaModule, InscripcionGrupoModule, InscripcioncursoModule, ProfileModule, BitacoraModule,
+    TipoResultadoModule, InscripcionProgramaModule, InscripcionGrupoModule, InscripcioncursoModule, 
+    ProfileModule, BitacoraModule, DateModule, ParametroCalificacionModule, CalendarioacademicoModule,
+    AuthModule,
+    AsignarrolModule,
   ],
   controllers: [],
   providers: [],

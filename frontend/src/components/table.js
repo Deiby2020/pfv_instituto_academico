@@ -54,7 +54,7 @@ export default function TableComponent( props ) {
                                 );
                             } ) }
                             { props.option === true &&
-                                <th align='left' style={{ fontSize: 12, }}>
+                                <th align='left' style={{ fontSize: 12, width: 120, }}>
                                     Opción
                                 </th>
                             }
@@ -192,7 +192,7 @@ export default function TableComponent( props ) {
                             </span>
                         }
                         page={props.page}
-                        rowsPerPageOptions={ [ 1, 5, 25, 50, 100, 200 ] }
+                        rowsPerPageOptions={ [ 1, 5, 10, 25, 50, 100, 200 ] }
                         rowsPerPage={props.paginate}
 
                         onPageChange={handleChangePage}

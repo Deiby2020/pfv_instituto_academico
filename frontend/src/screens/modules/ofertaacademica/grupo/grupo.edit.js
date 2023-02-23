@@ -16,6 +16,7 @@ import ListadoPensumModal from '../../estructuraacademica/pensum/modal/pensum_li
 import ListadoTurnoModal from '../../estructurainstitucional/turno/modal/turno_listado.modal';
 import ListadoGestionPeriodoModal from '../../estructurainstitucional/gestionperiodo/modal/gestionperiodo_listado.modal';
 import FormHorarioGrupoModal from './modal/form_horario.modal';
+import FormAddGrupoParametroCalificacionModal from './modal/form_add_parametrocalificacion.modal';
 
 function EditGrupo( props ) {
     const { grupo } = props;
@@ -39,6 +40,9 @@ function EditGrupo( props ) {
 
     const [ indexDetailsHorario, setIndexDestailsHorario ] = React.useState(-1);
     const [ visibleDetailsHorario, setVisibleDetailsHorario ] = React.useState(false);
+
+    const [ indexDetailsCalificacion, setIndexDetailsCalificacion ] = React.useState(-1);
+    const [ visibleDetailsCalificacion, setVisibleDetailsCalificacion ] = React.useState(false);
 
     React.useEffect( () => {
         props.onLimpiar();
@@ -213,9 +217,46 @@ function EditGrupo( props ) {
                     detalle.arraydia[index].arrayhorario = [ ...detalle.arraydia[index].arrayhorario, data ];
                     props.onChange(grupo);
                 } }
+                onChange={ () => {
+                    props.onChange(grupo);
+                } }
                 arraydia={detalle ? detalle.arraydia: []}
                 materia={ detalle ? detalle.materia : "" }
                 docente={ detalle ? detalle.docente : "" }
+            />
+        );
+    };
+
+    const onComponentDetailsParametroCalificacion = () => {
+        if ( !visibleDetailsCalificacion ) return null;
+        return (
+            <FormAddGrupoParametroCalificacionModal 
+                visible={visibleDetailsCalificacion}
+                onClose={ () => setVisibleDetailsCalificacion(false) }
+                arrayparametrocalificacion={grupo.arraypensum[indexDetailsCalificacion]?.arrayparametrocalificacion}
+                onChange={ () => props.onChange(grupo) }
+                onAddRow={ () => {
+                    if ( Array.isArray(grupo.arraypensum[indexDetailsCalificacion]?.arrayparametrocalificacion) ) {
+                        grupo.arraypensum[indexDetailsCalificacion].arrayparametrocalificacion = [
+                            ...grupo.arraypensum[indexDetailsCalificacion].arrayparametrocalificacion,
+                            {
+                                fkidparametrocalificacion: null,
+                                parametrocalificacion: null,
+                                valorporcentaje: null,
+                            }
+                        ];
+                        props.onChange(grupo);
+                    }
+                } }
+                onDeleteRow={ (index) => {
+                    if ( Array.isArray(grupo.arraypensum[indexDetailsCalificacion]?.arrayparametrocalificacion) ) {
+                        grupo.arraypensum[indexDetailsCalificacion].arrayparametrocalificacion = grupo.arraypensum[indexDetailsCalificacion].arrayparametrocalificacion
+                        .filter( 
+                            (item, pos) => pos !== index 
+                        );
+                        props.onChange(grupo)
+                    }
+                } }
             />
         );
     };
@@ -228,23 +269,10 @@ function EditGrupo( props ) {
             { onComponentDetailsGestionPeriodo() }
             { onComponentDetailsMateria() }
             { onComponentDetailsHorario() }
+            { onComponentDetailsParametroCalificacion() }
             <PaperComponent>
                 <CardComponent
                     header={"Editar Grupo"}
-                    footer={
-                        <>
-                            <ButtonComponent
-                                onClick={ () => props.onUpdate(grupo, onBack) }
-                            >
-                                Editar
-                            </ButtonComponent>
-                            <ButtonComponent
-                                type='danger' onClick={onBack}
-                            >
-                                Cancelar
-                            </ButtonComponent>
-                        </>
-                    }
                 >
                     <ul className="nav nav-tabs" id="myTab" role="tablist">
                         <li className="nav-item">
@@ -285,6 +313,20 @@ function EditGrupo( props ) {
                                         error={grupo.error.estado}
                                         message={grupo.message.estado}
                                     />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className='form-group col-12'>
+                                    <ButtonComponent
+                                        onClick={ () => props.onUpdate(grupo, onBack) }
+                                    >
+                                        Editar
+                                    </ButtonComponent>
+                                    <ButtonComponent
+                                        type='danger' onClick={onBack}
+                                    >
+                                        Cancelar
+                                    </ButtonComponent>
                                 </div>
                             </div>
                         </div>
@@ -445,7 +487,7 @@ function EditGrupo( props ) {
                                                         </div>
                                                         <div className='row'>
                                                             <div className="form-group col-6">
-                                                                { (item.fkidpensum === null || item.disabled === true) ? 
+                                                                { (item.fkidpensum === null) ? 
                                                                     <InputComponent
                                                                         label="Materia*"
                                                                         value={item.materia}
@@ -458,9 +500,9 @@ function EditGrupo( props ) {
                                                                             setIndexDestailsMateria(key);
                                                                             setVisibleDetailsMateria(true);
                                                                         } }
+                                                                        readOnly
                                                                         error={item.error?.fkidmateria}
                                                                         message={item.message?.fkidmateria}
-                                                                        readOnly
                                                                         style={{ background: 'white', cursor: 'pointer', }}
                                                                         placeholder="SELECCIONAR MATERIA"
                                                                     />
@@ -496,7 +538,6 @@ function EditGrupo( props ) {
                                                         <div className='row'>
                                                             <div className="form-group col-12">
                                                                 <ButtonComponent
-                                                                    fullWidth
                                                                     onClick={ () => {
                                                                         if ( item.fkidpensum !== null ) {
                                                                             setVisibleDetailsHorario(true);
@@ -509,6 +550,19 @@ function EditGrupo( props ) {
                                                                 >
                                                                     Asignar Horarios
                                                                 </ButtonComponent>
+                                                                <ButtonComponent
+                                                                    onClick={ () => {
+                                                                        if ( item.fkidpensum !== null ) {
+                                                                            setVisibleDetailsCalificacion(true);
+                                                                            setIndexDetailsCalificacion(key);
+                                                                        } else {
+                                                                            toastr.warning( 'Pensum No Seleccionado.', '' );
+                                                                        }
+                                                                    } }
+                                                                    disabled={ (item.fkidpensum === null) }
+                                                                >
+                                                                    Asignar Calificaciones
+                                                                </ButtonComponent>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -516,6 +570,20 @@ function EditGrupo( props ) {
                                             </div>
                                         );
                                     } ) }
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className='form-group col-12'>
+                                    <ButtonComponent
+                                        onClick={ () => props.onUpdate(grupo, onBack) }
+                                    >
+                                        Editar
+                                    </ButtonComponent>
+                                    <ButtonComponent
+                                        type='danger' onClick={onBack}
+                                    >
+                                        Cancelar
+                                    </ButtonComponent>
                                 </div>
                             </div>
                         </div>

@@ -22,7 +22,7 @@ export class AulaService {
       let totalPagination = 0;
       if ( esPaginate ) {
         [listAula, totalPagination] = await this.aulaRepository.findAndCount( {
-          take: limit, skip: offset,
+          take: limit, skip: offset * limit,
           where: [
             { sigla: ILike( '%' + search + '%', ), },
             { descripcion: ILike( '%' + search + '%', ), },
@@ -98,10 +98,14 @@ export class AulaService {
   }
 
   async findOne(idaula: string) {
-    const aula = await this.aulaRepository.findOneBy( {
-      idaula: idaula,
-    } );
-    return aula;
+    try {
+      const aula = await this.aulaRepository.findOneBy( {
+        idaula: idaula,
+      } );
+      return aula;
+    } catch (error) {
+      return null;
+    }
   }
 
   async edit(idaula: string) {

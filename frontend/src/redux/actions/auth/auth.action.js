@@ -1,7 +1,7 @@
 
 import ConfirmationComponent from '../../../components/confirmation';
 import { KeysStorage } from '../../../utils/keysStorage';
-import { removeAllData, saveData } from '../../../utils/toolsStorage';
+import { readData, removeAllData, saveData } from '../../../utils/toolsStorage';
 import Constants from '../../constants/constans';
 import { AuthService } from '../../services/auth/auth.service';
 import { setHiddenLoading, setShowLoading } from '../common/loading.action';
@@ -31,17 +31,37 @@ const onLimpiar = () => {
     };
 };
 
+const logout = ( loading = true ) => {
+    return async ( dispatch ) => {
+        if ( loading ) {
+            dispatch( setShowLoading() );
+        }
+        const usuario = readData(KeysStorage.usuario);
+        return await AuthService.onLogout(usuario.idusuario).then( (respta) => {
+            return respta;
+        } ).finally( () => {
+            if ( loading ) {
+                dispatch( setHiddenLoading() );
+            }
+        } );
+    };
+};
+
 const onValidateToken = ( onBack ) => {
     return async ( dispatch ) => {
         return await AuthService.onValidateToken().then( (respta) => {
             if ( respta.resp === 1 ) {
                 saveData( KeysStorage.usuario, respta.usuario );
                 saveData( KeysStorage.token, respta.token );
+                respta.usuario.arrayrol = respta.arrayRol;
                 dispatch( setShowData( respta.usuario ) );
                 return respta;
             } else if ( respta.resp === -2 ) {
-                removeAllData();
-                onBack();
+                dispatch( logout(false) )
+                setTimeout(() => {
+                    removeAllData();
+                    onBack();
+                }, 500);
             }
             return null;
         } ).finally( () => {
@@ -79,4 +99,5 @@ export const AuthActions = {
     onLimpiar,
     onValidateToken,
     updateProfile,
+    logout,
 };

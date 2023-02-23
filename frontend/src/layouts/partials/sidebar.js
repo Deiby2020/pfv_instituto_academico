@@ -25,7 +25,7 @@ const SidebarComponent = (props) => {
                             { props.profile.nombreprincipal ?? 'S/N' }
                         </div>
                         <div className="user-role">
-                            Administrador
+                            { props.profile.arrayrol?.map( (item) => `${item.rol.descripcion}, ` ) }
                         </div>
                     </div>
                 </div>
@@ -380,10 +380,17 @@ const SidebarComponent = (props) => {
                         className="p-0"
                     >
                         <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
-                            <Link to={"/calificacion/index"} className="d-flex align-items-center" 
+                            <Link to={"/parametrocalificacion/index"} className="d-flex align-items-center" 
                                 style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
                             >
-                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Calificaciones
+                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Parametro Calificación
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
+                            <Link to={"/calendarioacademico/index"} className="d-flex align-items-center" 
+                                style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
+                            >
+                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> calendario Academico
                             </Link>
                         </Menu.Item>
                         <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
@@ -408,7 +415,7 @@ const SidebarComponent = (props) => {
                             </Link>
                         </Menu.Item>
                         <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
-                            <Link to={"/asistenciadegrupo/index"} className="d-flex align-items-center" 
+                            <Link to={"/asistenciagrupo/index"} className="d-flex align-items-center" 
                                 style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
                             >
                                 <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Asistencias de Grupos
@@ -914,7 +921,7 @@ const SidebarComponent = (props) => {
                             </Link>
                         </Menu.Item>
                         <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
-                            <Link to={"/asignar_rol"} className="d-flex align-items-center" 
+                            <Link to={"/asignarrol/index"} className="d-flex align-items-center" 
                                 style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
                             >
                                 <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Asignar Rol

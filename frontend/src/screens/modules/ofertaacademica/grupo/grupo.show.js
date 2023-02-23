@@ -8,11 +8,19 @@ import { ButtonComponent ,InputComponent } from '../../../../components/componen
 import { Functions } from '../../../../utils/functions';
 import { AuthActions } from '../../../../redux/actions/auth/auth.action';
 import { GrupoActions } from '../../../../redux/actions/ofertaacademica/grupo.action';
+import FormHorarioGrupoModal from './modal/form_horario.modal';
+import FormAddGrupoParametroCalificacionModal from './modal/form_add_parametrocalificacion.modal';
 
 function ShowGrupo( props ) {
     const { grupo } = props;
     const navigate = useNavigate();
     const params = useParams();
+
+    const [ indexDetailsHorario, setIndexDestailsHorario ] = React.useState(-1);
+    const [ visibleDetailsHorario, setVisibleDetailsHorario ] = React.useState(false);
+
+    const [ indexDetailsCalificacion, setIndexDetailsCalificacion ] = React.useState(-1);
+    const [ visibleDetailsCalificacion, setVisibleDetailsCalificacion ] = React.useState(false);
 
     React.useEffect( () => {
         props.onLimpiar();
@@ -33,20 +41,39 @@ function ShowGrupo( props ) {
         navigate(-1);
     }
 
+    const onComponentDetailsHorario = () => {
+        if ( !visibleDetailsHorario ) return null;
+        let detalle = grupo.arraypensum[indexDetailsHorario];
+        return (
+            <FormHorarioGrupoModal
+                visible={visibleDetailsHorario}
+                onClose={ () => setVisibleDetailsHorario(false) }
+                arraydia={detalle ? detalle.arraydia: []}
+                materia={ detalle ? detalle.materia : "" }
+                disabled={true}
+            />
+        );
+    };
+
+    const onComponentDetailsParametroCalificacion = () => {
+        if ( !visibleDetailsCalificacion ) return null;
+        return (
+            <FormAddGrupoParametroCalificacionModal 
+                visible={visibleDetailsCalificacion}
+                onClose={ () => setVisibleDetailsCalificacion(false) }
+                arrayparametrocalificacion={grupo.arraypensum[indexDetailsCalificacion]?.arrayparametrocalificacion}
+                disabled={true}
+            />
+        );
+    };
+
     return (
         <>
+            { onComponentDetailsHorario() }
+            { onComponentDetailsParametroCalificacion() }
             <PaperComponent>
                 <CardComponent
                     header={"Detalle Grupo"}
-                    footer={
-                        <>
-                            <ButtonComponent
-                                onClick={onBack}
-                            >
-                                Aceptar
-                            </ButtonComponent>
-                        </>
-                    }
                 >
                     <ul className="nav nav-tabs" id="myTab" role="tablist">
                         <li className="nav-item">
@@ -82,6 +109,15 @@ function ShowGrupo( props ) {
                                         value={ Functions.getValueEstado( grupo.estado ) }
                                         readOnly={true}
                                     />
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className='form-group col-12'>
+                                    <ButtonComponent
+                                        onClick={onBack}
+                                    >
+                                        Aceptar
+                                    </ButtonComponent>
                                 </div>
                             </div>
                         </div>
@@ -188,11 +224,40 @@ function ShowGrupo( props ) {
                                                                 />
                                                             </div>
                                                         </div>
+                                                        <div className='row'>
+                                                            <div className="form-group col-12">
+                                                                <ButtonComponent
+                                                                    onClick={ () => {
+                                                                        setVisibleDetailsHorario(true);
+                                                                        setIndexDestailsHorario(key);
+                                                                    } }
+                                                                >
+                                                                    Ver Horarios
+                                                                </ButtonComponent>
+                                                                <ButtonComponent
+                                                                    onClick={ () => {
+                                                                        setVisibleDetailsCalificacion(true);
+                                                                        setIndexDetailsCalificacion(key);
+                                                                    } }
+                                                                >
+                                                                    Ver Parametros de Calificaciones
+                                                                </ButtonComponent>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         );
                                     } ) }
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className='form-group col-12'>
+                                    <ButtonComponent
+                                        onClick={onBack}
+                                    >
+                                        Aceptar
+                                    </ButtonComponent>
                                 </div>
                             </div>
                         </div>

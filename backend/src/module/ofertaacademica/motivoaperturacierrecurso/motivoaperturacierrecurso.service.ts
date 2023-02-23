@@ -22,7 +22,7 @@ export class MotivoAperturaCierreCursoService {
       let totalPagination = 0;
       if ( esPaginate ) {
         [listMotivoAperturaCierreCurso, totalPagination] = await this.motivoAperturaCierreCursoRepository.findAndCount( {
-          take: limit, skip: offset,
+          take: limit, skip: offset * limit,
           where: [
             { sigla: ILike( '%' + search + '%', ), },
             { descripcion: ILike( '%' + search + '%', ), },
@@ -98,10 +98,14 @@ export class MotivoAperturaCierreCursoService {
   }
 
   async findOne(idmotivoaperturacierrecurso: string) {
-    const motivoAperturaCierreCurso = await this.motivoAperturaCierreCursoRepository.findOneBy( {
-      idmotivoaperturacierrecurso,
-    } );
-    return motivoAperturaCierreCurso;
+    try {
+      const motivoAperturaCierreCurso = await this.motivoAperturaCierreCursoRepository.findOneBy( {
+        idmotivoaperturacierrecurso,
+      } );
+      return motivoAperturaCierreCurso;
+    } catch (error) {
+      return null;
+    }
   }
 
   async edit(idmotivoaperturacierrecurso: string) {

@@ -61,6 +61,9 @@ import { InscripcionCursoReducer } from '../reducers/inscripcion/inscripcioncurs
 import { InscripcionGrupoReducer } from '../reducers/inscripcion/inscripciongrupo.reducer';
 import { ProfileReducer } from '../reducers/auth/profile.reducer';
 import { BitacoraReducer } from '../reducers/seguridad/bitacora.reducer';
+import { ParametroCalificacionReducer } from '../reducers/nota/parametrocalificacion.reducer';
+import { CalendarioAcademicoReducer } from '../reducers/nota/calendarioacademico.reducer';
+import { AsignarRolReducer } from '../reducers/seguridad/asignarrol.reducer';
 
 const RootReducer = combineReducers( {
     Login: LoginReducer,
@@ -74,6 +77,7 @@ const RootReducer = combineReducers( {
     TipoPermiso: TipoPermisoReducer,
     TipoRol: TipoRolReducer,
     Usuario: UsuarioReducer,
+    AsignarRol: AsignarRolReducer,
 
     ColumnModule: ColumnModuleReducer,
     ListModule: ListModuleReducer,
@@ -129,6 +133,10 @@ const RootReducer = combineReducers( {
     InscripcionPrograma: InscripcionProgramaReducer,
     InscripcionCurso: InscripcionCursoReducer,
     InscripcionGrupo: InscripcionGrupoReducer,
+
+
+    ParametroCalificacion: ParametroCalificacionReducer,
+    CalendarioAcademico: CalendarioAcademicoReducer,
 } );
 
 export default RootReducer;

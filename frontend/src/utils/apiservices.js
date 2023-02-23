@@ -15,13 +15,18 @@ const module = {
     persona: linkBackend + '',
     ofertaacademica: linkBackend + '',
     oportunidad: linkBackend + '',
+    nota: linkBackend + '',
+    config: linkBackend + '',
 };
 
 const apiServices = {
     apiauth_login:  `${module.auth}/auth/login`,
+    apiauth_logout:  `${module.auth}/auth/logout`,
     apiauth_register:  `${module.auth}/auth/register`,
     apiauth_validateToken:  `${module.auth}/auth/validateToken`,
     apiauth_updateProfile:  `${module.auth}/profile/store`,
+
+    apidate_findAllDays:  `${module.config}/date/findAllDays`,
 
     apiseguridadbitacora_index:  `${module.seguridad}/bitacora/index`,
     apiseguridadbitacora_show:  `${module.seguridad}/bitacora/show`,
@@ -57,6 +62,10 @@ const apiServices = {
     apiseguridadpermiso_show:   `${module.seguridad}/permiso/show`,
     apiseguridadpermiso_update: `${module.seguridad}/permiso/update`,
     apiseguridadpermiso_delete: `${module.seguridad}/permiso/delete`,
+
+    apiseguridadasignarrol_index:  `${module.seguridad}/asignarrol/index`,
+    apiseguridadasignarrol_asignar:  `${module.seguridad}/asignarrol/asignar`,
+    apiseguridadasignarrol_delete:  `${module.seguridad}/asignarrol/delete`,
 
     apiseguridadusuarioroldetalle_rolusuario:  `${module.seguridad}/usuarioroldetalle/rol_usuario`,
     apiseguridadusuarioroldetalle_store:  `${module.seguridad}/usuarioroldetalle/store`,
@@ -401,6 +410,23 @@ const apiServices = {
     apiinscripcioninscripciongrupo_show:   `${module.parametros}/inscripciongrupo/show`,
     apiinscripcioninscripciongrupo_update: `${module.parametros}/inscripciongrupo/update`,
     apiinscripcioninscripciongrupo_delete: `${module.parametros}/inscripciongrupo/delete`,
+
+
+    apinotaparametrocalificacion_index:  `${module.nota}/parametrocalificacion/index`,
+    apinotaparametrocalificacion_create: `${module.nota}/parametrocalificacion/create`,
+    apinotaparametrocalificacion_store:  `${module.nota}/parametrocalificacion/store`,
+    apinotaparametrocalificacion_edit:   `${module.nota}/parametrocalificacion/edit`,
+    apinotaparametrocalificacion_show:   `${module.nota}/parametrocalificacion/show`,
+    apinotaparametrocalificacion_update: `${module.nota}/parametrocalificacion/update`,
+    apinotaparametrocalificacion_delete: `${module.nota}/parametrocalificacion/delete`,
+
+    apinotacalendarioacademico_index:  `${module.nota}/calendarioacademico/index`,
+    apinotacalendarioacademico_create: `${module.nota}/calendarioacademico/create`,
+    apinotacalendarioacademico_store:  `${module.nota}/calendarioacademico/store`,
+    apinotacalendarioacademico_edit:   `${module.nota}/calendarioacademico/edit`,
+    apinotacalendarioacademico_show:   `${module.nota}/calendarioacademico/show`,
+    apinotacalendarioacademico_update: `${module.nota}/calendarioacademico/update`,
+    apinotacalendarioacademico_delete: `${module.nota}/calendarioacademico/delete`,
 };
 
 export default apiServices;

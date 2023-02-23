@@ -54,6 +54,13 @@ const Constants = {
     usuario_onShow: "[ON SHOW] Usuario",
     usuario_onLimpiar: "[ON LIMPIAR] Usuario",
 
+    asignarrol_setInit: "[SET INIT] Asignar Rol",
+    asignarrol_onChange: "[ON CHANGE] Asignar Rol",
+    asignarrol_onCreate: "[ON CREATE] Asignar Rol",
+    asignarrol_onShow: "[ON SHOW] Asignar Rol",
+    asignarrol_onLimpiar: "[ON LIMPIAR] Asignar Rol",
+
+
     nivelAcademico_setInit: "[SET INIT] Nivel Academico",
     nivelAcademico_onChange: "[ON CHANGE] Nivel Academico",
     nivelAcademico_onCreate: "[ON CREATE] Nivel Academico",
@@ -349,6 +356,20 @@ const Constants = {
     inscripciongrupo_onCreate: "[ON CREATE] Inscripción Grupo",
     inscripciongrupo_onShow: "[ON SHOW] Inscripción Grupo",
     inscripciongrupo_onLimpiar: "[ON LIMPIAR] Inscripción Grupo",
+
+
+
+    parametrocalificacion_setInit: "[SET INIT] Parametro Calificacion",
+    parametrocalificacion_onChange: "[ON CHANGE] Parametro Calificacion",
+    parametrocalificacion_onCreate: "[ON CREATE] Parametro Calificacion",
+    parametrocalificacion_onShow: "[ON SHOW] Parametro Calificacion",
+    parametrocalificacion_onLimpiar: "[ON LIMPIAR] Parametro Calificacion",
+
+    calendarioacademico_setInit: "[SET INIT] Calendario Academico",
+    calendarioacademico_onChange: "[ON CHANGE] Calendario Academico",
+    calendarioacademico_onCreate: "[ON CREATE] Calendario Academico",
+    calendarioacademico_onShow: "[ON SHOW] Calendario Academico",
+    calendarioacademico_onLimpiar: "[ON LIMPIAR] Calendario Academico",
 
 };
 
