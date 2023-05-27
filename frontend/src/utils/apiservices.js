@@ -1,6 +1,6 @@
 
-// const linkBackend = 'http://localhost:5000/api/v1';
-const linkBackend = 'https://pfvinstitutoacademico-production.up.railway.app/api/v1';
+ const linkBackend = 'http://localhost:5000/api/v1';
+//const linkBackend = 'https://pfvinstitutoacademico-production.up.railway.app/api/v1';
 
 
 const module = {
