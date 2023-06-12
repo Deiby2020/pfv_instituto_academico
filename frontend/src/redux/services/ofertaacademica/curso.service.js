@@ -57,12 +57,18 @@ const onStore = async (body) => {
             return item;
         } ),
 
+        arrayparametrocalificacion: body.arrayparametrocalificacion,
+
         sigla: body.sigla,
         descripcion: body.descripcion,
 
         cupo: parseInt(body.cupo),
         fechainicio: body.fechainicio,
         fechafinal: body.fechafinal,
+
+        horainicio: body.horainicio,
+        horafinal: body.horafinal,
+        fkidaula: body.fkidaula,
 
         prerequisito: body.prerequisito,
         objetivo: body.objetivo,
@@ -157,12 +163,19 @@ const onUpdate = async (body) => {
             return item;
         } ),
 
+        arrayparametrocalificacion: body.arrayparametrocalificacion,
+        arrayparametrocalificaciondelete: body.arrayparametrocalificaciondelete,
+
         sigla: body.sigla,
         descripcion: body.descripcion,
 
         cupo: parseInt(body.cupo),
         fechainicio: body.fechainicio,
         fechafinal: body.fechafinal,
+
+        horainicio: body.horainicio,
+        horafinal: body.horafinal,
+        fkidaula: body.fkidaula,
 
         prerequisito: body.prerequisito,
         objetivo: body.objetivo,

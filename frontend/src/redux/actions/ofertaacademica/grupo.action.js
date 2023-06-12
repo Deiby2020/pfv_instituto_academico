@@ -327,6 +327,42 @@ function onValidate( data ) {
                 element.message.cupomaximo = "Campo requerido.";
                 bandera = false;
             }
+            let cont = 0;
+            for (let pos = 0; pos < element.arraydia.length; pos++) {
+                const dia = element.arraydia[pos];
+                if ( dia.arrayhorario.length > 0 ) {
+                    cont++;
+                }
+            }
+            if ( cont === 0 ) {
+                Swal.fire( {
+                    position: 'top-end',
+                    icon: 'error',
+                    title: "No se pudo realizar la Funcionalidad",
+                    text: `Favor de revisar y agregar los horarios de la fila ${index + 1}.`,
+                    showConfirmButton: false,
+                    timer: 3000,
+                } );
+                return false;
+            }
+            let totalCalificacion = 0;
+            for (let pos = 0; pos < element.arrayparametrocalificacion.length; pos++) {
+                const calificacion = element.arrayparametrocalificacion[pos];
+                if ( typeof calificacion.valorporcentaje === 'number' ) {
+                    totalCalificacion += parseInt(calificacion.valorporcentaje);
+                }
+            }
+            if ( totalCalificacion < 100 ) {
+                Swal.fire( {
+                    position: 'top-end',
+                    icon: 'warning',
+                    title: "No se pudo realizar la Funcionalidad",
+                    text: `Favor llenar los campos requeridos y Asignar calificaciones con una suma de 100 de la fila ${index + 1}.`,
+                    showConfirmButton: false,
+                    timer: 3000,
+                } );
+                return false;
+            }
         }
     }
     if ( !bandera ) {

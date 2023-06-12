@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, JoinColumn, ManyToOne, Column, OneToMany } from 'typeorm';
 import { UnidadAdministrativa } from '../../../estructuraacademica/unidadadministrativa/entities/unidadadministrativa.entity';
 import { UnidadAcademica } from '../../../estructuraacademica/unidadacademica/entities/unidadacademica.entity';
 import { UnidadNegocio } from '../../../parametro/unidadnegocio/entities/unidadnegocio.entity';
@@ -7,12 +7,29 @@ import { Estudiante } from '../../../persona/estudiante/entities/estudiante.enti
 import { GestionPeriodo } from '../../../estructurainstitucional/gestionperiodo/entities/gestionperiodo.entity';
 import { Turno } from '../../../estructurainstitucional/turno/entities/turno.entity';
 import { ModalidadAcademica } from '../../../parametro/modalidadacademica/entities/modalidadacademica.entity';
+import { AsistenciaCurso } from '../../../nota/asistenciacurso/entities/asistenciacurso.entity';
+import { NotaCurso } from '../../../nota/notacurso/entities/notacurso.entity';
 
 @Entity('inscripcioncurso')
 export class InscripcionCurso {
 
     @PrimaryGeneratedColumn('uuid')
     idinscripcioncurso: string;
+
+    @OneToMany(
+        () => NotaCurso,
+        ( item ) => item.inscripcionCurso,
+        { cascade: true, },
+    )
+    arrayNotaCurso?: NotaCurso[];
+
+    @OneToMany(
+        () => AsistenciaCurso,
+        ( item ) => item.inscripcionCurso,
+        { cascade: true, },
+    )
+    arrayAsistenciaCurso?: AsistenciaCurso[];
+
 
     @ManyToOne(
         ( ) => UnidadAdministrativa,

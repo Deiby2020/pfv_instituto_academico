@@ -254,6 +254,8 @@ const Constants = {
     curso_onCreate: "[ON CREATE] Curso",
     curso_onShow: "[ON SHOW] Curso",
     curso_onLimpiar: "[ON LIMPIAR] Curso",
+    curso_onAddRowParametroCalificacion: "[ON ADD ROW PARAMETRO CALIFICACION] Curso",
+    curso_onDeleteRowParametroCalificacion: "[ON DELETE ROW PARAMETRO CALIFICACION] Curso",
     curso_onAddRowDocente: "[ON ADD ROW DOCENTE] Curso",
     curso_onDeleteRowDocente: "[ON DELETE ROW DOCENTE] Curso",
 
@@ -370,6 +372,18 @@ const Constants = {
     calendarioacademico_onCreate: "[ON CREATE] Calendario Academico",
     calendarioacademico_onShow: "[ON SHOW] Calendario Academico",
     calendarioacademico_onLimpiar: "[ON LIMPIAR] Calendario Academico",
+
+    asistenciagrupo_onChange: "[ON CHANGE] Asistencia Grupo",
+    asistenciagrupo_onLimpiar: "[ON LIMPIAR] Asistencia Grupo",
+
+    asistenciacurso_onChange: "[ON CHANGE] Asistencia Curso",
+    asistenciacurso_onLimpiar: "[ON LIMPIAR] Asistencia Curso",
+
+    notacurso_onChange: "[ON CHANGE] Nota Curso",
+    notacurso_onLimpiar: "[ON LIMPIAR] Nota Curso",
+
+    notagrupo_onChange: "[ON CHANGE] Nota Grupo",
+    notagrupo_onLimpiar: "[ON LIMPIAR] Nota Grupo",
 
 };
 

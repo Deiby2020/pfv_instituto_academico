@@ -293,6 +293,7 @@ const apiServices = {
     apiofertaacademicacurso_delete: `${module.ofertaacademica}/curso/delete`,
     apiofertaacademicacurso_aperturarcerrarcurso: `${module.ofertaacademica}/curso/aperturarcerrarcurso`,
     apiofertaacademicacurso_cierrecurso: `${module.ofertaacademica}/curso/cierrecurso`,
+    apiofertaacademicacurso_findmateriafordocente:  `${module.ofertaacademica}/curso/findmateriafordocente`,
 
     apiofertaacademicamotivoaperturacierrecurso_index:  `${module.ofertaacademica}/motivoaperturacierrecurso/index`,
     apiofertaacademicamotivoaperturacierrecurso_create: `${module.ofertaacademica}/motivoaperturacierrecurso/create`,
@@ -305,6 +306,7 @@ const apiServices = {
     apiofertaacademicagrupo_index:  `${module.ofertaacademica}/grupo/index`,
     apiofertaacademicagrupo_findgrupoforpensum:  `${module.ofertaacademica}/grupo/findgrupoforpensum`,
     apiofertaacademicagrupo_findmateriaforgrupo:  `${module.ofertaacademica}/grupo/findmateriaforgrupo`,
+    apiofertaacademicagrupo_findmateriafordocente:  `${module.ofertaacademica}/grupo/findmateriafordocente`,
     apiofertaacademicagrupo_create: `${module.ofertaacademica}/grupo/create`,
     apiofertaacademicagrupo_store:  `${module.ofertaacademica}/grupo/store`,
     apiofertaacademicagrupo_edit:   `${module.ofertaacademica}/grupo/edit`,
@@ -395,6 +397,7 @@ const apiServices = {
     apiinscripcioninscripcionprograma_update: `${module.parametros}/inscripcionprograma/update`,
     apiinscripcioninscripcionprograma_delete: `${module.parametros}/inscripcionprograma/delete`,
 
+    apiinscripcioninscripcioncurso_findestudianteforcurso:  `${module.parametros}/inscripcioncurso/findestudianteforcurso`,
     apiinscripcioninscripcioncurso_index:  `${module.parametros}/inscripcioncurso/index`,
     apiinscripcioninscripcioncurso_create: `${module.parametros}/inscripcioncurso/create`,
     apiinscripcioninscripcioncurso_store:  `${module.parametros}/inscripcioncurso/store`,
@@ -403,6 +406,8 @@ const apiServices = {
     apiinscripcioninscripcioncurso_update: `${module.parametros}/inscripcioncurso/update`,
     apiinscripcioninscripcioncurso_delete: `${module.parametros}/inscripcioncurso/delete`,
 
+    apiinscripciongrupo_findestudianteformateria:  `${module.parametros}/inscripciongrupo/findestudianteformateria`,
+    apiinscripciongrupo_findestudianteforparametrocalificacion:  `${module.parametros}/inscripciongrupo/findestudianteforparametrocalificacion`,
     apiinscripcioninscripciongrupo_index:  `${module.parametros}/inscripciongrupo/index`,
     apiinscripcioninscripciongrupo_create: `${module.parametros}/inscripciongrupo/create`,
     apiinscripcioninscripciongrupo_store:  `${module.parametros}/inscripciongrupo/store`,
@@ -427,6 +432,12 @@ const apiServices = {
     apinotacalendarioacademico_show:   `${module.nota}/calendarioacademico/show`,
     apinotacalendarioacademico_update: `${module.nota}/calendarioacademico/update`,
     apinotacalendarioacademico_delete: `${module.nota}/calendarioacademico/delete`,
+
+    apinotaasistenciagrupo_update: `${module.nota}/asistenciagrupo/update`,
+    apinotaasistenciacurso_update: `${module.nota}/asistenciacurso/update`,
+
+    apinotanotacurso_update: `${module.nota}/notacurso/update`,
+    apinotanotagrupo_update: `${module.nota}/notagrupo/update`,
 };
 
 export default apiServices;

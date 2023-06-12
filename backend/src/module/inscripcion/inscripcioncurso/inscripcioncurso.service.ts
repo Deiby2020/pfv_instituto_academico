@@ -1,14 +1,17 @@
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Injectable, Logger } from '@nestjs/common';
-import { InscripcionCursoPaginationDto } from './dto/pagination.dto';
 import { InscripcionCurso } from './entities/inscripcioncurso.entity';
+import { InscripcionCursoPaginationDto } from './dto/pagination.dto';
 import { CreateInscripcionCursoDto } from './dto/create-inscripcioncurso.dto';
 import { UpdateInscripcionCursoDto } from './dto/update-inscripcioncurso.dto';
+import { EstudianteForCursoInscripcionCursoDto } from './dto/estudiante-curso.dto';
 import { CursoService } from '../../ofertaacademica/curso/curso.service';
+import { NotacursoService } from '../../nota/notacurso/notacurso.service';
 import { EstudianteService } from '../../persona/estudiante/estudiante.service';
 import { TurnoService } from '../../estructurainstitucional/turno/turno.service';
 import { UnidadNegocioService } from '../../parametro/unidadnegocio/unidadnegocio.service';
+import { AsistenciacursoService } from '../../nota/asistenciacurso/asistenciacurso.service';
 import { ModalidadAcademicaService } from '../../parametro/modalidadacademica/modalidadacademica.service';
 import { UnidadacademicaService } from '../../estructuraacademica/unidadacademica/unidadacademica.service';
 import { GestionPeriodoService } from '../../estructurainstitucional/gestionperiodo/gestionperiodo.service';
@@ -30,11 +33,13 @@ export class InscripcionCursoService {
     private readonly estudianteService: EstudianteService,
     private readonly turnoService: TurnoService,
     private readonly cursoService: CursoService,
+    private readonly asistenciaCursoService: AsistenciacursoService,
+    private readonly notaCursoService: NotacursoService,
   ) {}
 
   async findAll( paginationDto: InscripcionCursoPaginationDto ) {
     try {
-      const { limit = 1, offset = 0, search = "", esPaginate = false, } = paginationDto;
+      const { limit = 1, offset = 0, esPaginate = false, } = paginationDto;
       let listInscripcionCurso = [];
       let totalPagination = 0;
       
@@ -47,8 +52,7 @@ export class InscripcionCursoService {
             estudiante: true, gestionperiodo: true,
           },
           where: [
-            // { fechainscripcion: ILike( '%' + search + '%', ), },
-            { curso: curso, },
+            { curso: { idcurso: paginationDto.fkidcurso, }, },
           ],
           order: { created_at: "DESC", },
         } );
@@ -58,8 +62,7 @@ export class InscripcionCursoService {
             estudiante: true, gestionperiodo: true,
           },
           where: [
-            // { fechainscripcion: ILike( '%' + search + '%', ), },
-            { curso: curso, },
+            { curso: { idcurso: paginationDto.fkidcurso, }, },
           ],
           order: { created_at: "DESC", },
         } );
@@ -72,6 +75,58 @@ export class InscripcionCursoService {
           total: totalPagination,
         },
       };
+    } catch (error) {
+      this.logger.error(error);
+      return {
+        resp: -1, error: true,
+        message: 'Hubo conflictos al consultar información con el servidor.',
+      };
+    }
+  }
+
+  async findEstudianteForCurso(request: EstudianteForCursoInscripcionCursoDto) {
+    try {
+      let list = [];
+      let total = 0;
+
+      const curso = this.cursoService.findOne( request.fkidcurso );
+      if ( curso !== null ) {
+
+        [list, total] = await this.inscripcionCursoRepository.findAndCount( {
+          where: { 
+            curso: { idcurso: request.fkidcurso, },
+          },
+          relations: {
+            estudiante: true, 
+            arrayAsistenciaCurso: true,
+            arrayNotaCurso: {
+              parametroCalificacion: true,
+            },
+          },
+          order: {  
+            estudiante: {
+              apellidoprimero: 'ASC',
+            },
+            arrayAsistenciaCurso: {
+              created_at: 'ASC',
+            },
+            arrayNotaCurso: {
+              created_at: 'ASC',
+            },
+          },
+        } );
+
+      }
+
+      return {
+        resp: 1, error: false,
+        message: 'Servicio realizado exitosamente.',
+        arrayEstudianteInscrito: list,
+        pagination: {
+          total: total,
+        },
+      };
+
     } catch (error) {
       this.logger.error(error);
       return {
@@ -164,9 +219,9 @@ export class InscripcionCursoService {
 
       const inscripcionCursoFirst = await this.inscripcionCursoRepository.findOne( {
         where: {
-          gestionperiodo: gestionPeriodo,
-          estudiante: estudiante,
-          curso: curso,
+          gestionperiodo: { idgestionperiodo: createInscripcioncursoDto.fkidgestionperiodo, },
+          estudiante: { idestudiante: createInscripcioncursoDto.fkidestudiante, },
+          curso: { idcurso: createInscripcioncursoDto.fkidcurso, },
         },
       } );
 
@@ -177,19 +232,43 @@ export class InscripcionCursoService {
         };
       }
 
-      const inscripcionCurso = this.inscripcionCursoRepository.create( {
+      const inscripcionCursoCreate = this.inscripcionCursoRepository.create( {
         ...createInscripcioncursoDto,
-        unidadadministrativa: unidadAdministrativa,
-        unidadacademica: unidadAcademica,
-        unidadnegocio: unidadNegocio,
-        estudiante: estudiante,
-        gestionperiodo: gestionPeriodo,
-        turno: turno,
-        curso: curso,
-        modalidadacademica: modalidadAcademica,
+        unidadadministrativa: { idunidadadministrativa: createInscripcioncursoDto.fkidunidadadministrativa, },
+        unidadacademica: { idunidadacademica: createInscripcioncursoDto.fkidunidadacademica, },
+        unidadnegocio: { idunidadnegocio: createInscripcioncursoDto.fkidunidadnegocio, },
+        estudiante: { idestudiante: createInscripcioncursoDto.fkidestudiante, },
+        gestionperiodo: { idgestionperiodo: createInscripcioncursoDto.fkidgestionperiodo, },
+        turno: { idturno: createInscripcioncursoDto.fkidturno, },
+        curso: { idcurso: createInscripcioncursoDto.fkidcurso, },
+        modalidadacademica: { idmodalidadacademica: createInscripcioncursoDto.fkidmodalidadacademica, },
         created_at: this.getDateTime(),
       } );
-      const inscripcionCursoStore = await this.inscripcionCursoRepository.save( inscripcionCurso );
+
+      const inscripcionCursoStore = await this.inscripcionCursoRepository.save( inscripcionCursoCreate );
+
+      const dateStringFinish = this.convertDMYForYMD(curso.fechafinal);
+      let dateInit = this.convertStringforDate(curso.fechainicio);
+
+      while ( this.convertDateToString(dateInit) <= dateStringFinish ) {
+        await this.asistenciaCursoService.storeAsistenciaDefaultForInscripcionCurso(
+          inscripcionCursoCreate.idinscripcioncurso,
+          this.convertDateToDMYString(dateInit),
+          this.getTextDayforIndex(this.getWeekDay(dateInit.getFullYear(), dateInit.getMonth(), dateInit.getDate())),
+          this.getWeekDay(dateInit.getFullYear(), dateInit.getMonth(), dateInit.getDate()),
+        );
+        dateInit.setDate( dateInit.getDate() + 1 );
+      }
+
+      for (let index = 0; index < curso.arrayCursoParametroCalificacion.length; index++) {
+        const detalle = curso.arrayCursoParametroCalificacion[index];
+        console.log(detalle)
+        await this.notaCursoService.storeNotaDefaultForInscripcionCurso(
+          inscripcionCursoCreate.idinscripcioncurso,
+          detalle,
+        );
+      }
+
       return {
         resp: 1, error: false,
         message: 'Inscripción Curso registrado éxitosamente.',
@@ -203,6 +282,56 @@ export class InscripcionCursoService {
       };
     }
   }
+
+  getWeekDay = (year: number, mounth: number, day: number) => {
+    return new Date(year, mounth, day).getDay();
+  }
+
+  getTextDayforIndex = (index: number) => {
+    const days = [
+      'Domingo',
+      'Lunes',
+      'Martes',
+      'Miércoles',
+      'Jueves',
+      'Viernes',
+      'Sábado',
+    ];
+    return days[index];
+  }
+
+  convertDMYForYMD(dateToString = "") {
+    if ( dateToString.split('/').length < 3 ) return null;
+    const [day, month, year] = dateToString.split('/');
+    return `${year}-${month}-${day}`;
+  }
+
+  convertStringforDate(dateToString = "") {
+    const [day, month, year] = dateToString.split('/');
+    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  }
+
+  convertDateToString = ( date = new Date(), separator = '-' ) => {
+    let year  = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day   = date.getDate();
+
+    let monthString = month < 10 ? `0${month}` : month;
+    let daySatring = day < 10 ? `0${day}` : day;
+
+    return year + separator + monthString + separator + daySatring;
+  }
+
+  convertDateToDMYString = ( date = new Date() ) => {
+    let year  = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day   = date.getDate();
+
+    let monthString = month < 10 ? `0${month}` : month;
+    let daySatring = day < 10 ? `0${day}` : day;
+
+    return `${daySatring}/${monthString}/${year}`
+}
 
   async findOne(idinscripcioncurso: string) {
     const inscripcionCurso = await this.inscripcionCursoRepository.findOneBy( {
@@ -270,11 +399,24 @@ export class InscripcionCursoService {
           message: 'Inscripción Curso no existe.',
         };
       }
-      await this.inscripcionCursoRepository.remove( inscripcionCurso );
+
+      const listAsistenciaEstudianteInscrito = await this.asistenciaCursoService.getEstudianteInscrito( idinscripcioncurso );
+      for (let index = 0; index < listAsistenciaEstudianteInscrito.length; index++) {
+        const element = listAsistenciaEstudianteInscrito[index];
+        await this.asistenciaCursoService.delete( element.idasistenciacurso );
+      }
+
+      const listNotasEstudianteInscrito = await this.notaCursoService.getEstudianteInscrito( idinscripcioncurso );
+      for (let index = 0; index < listNotasEstudianteInscrito.length; index++) {
+        const element = listNotasEstudianteInscrito[index];
+        await this.notaCursoService.delete( element.idnotacurso );
+      }
+
+      const inscripcionCursoDelete = await this.inscripcionCursoRepository.remove( inscripcionCurso );
       return {
         resp: 1, error: false,
         message: 'Inscripción Curso eliminado éxitosamente.',
-        inscripcionCurso: inscripcionCurso,
+        inscripcionCurso: inscripcionCursoDelete,
       };
     } catch (error) {
       this.logger.error(error);
@@ -284,4 +426,24 @@ export class InscripcionCursoService {
       };
     }
   }
+
+  async getEstudianteInscrito( fkidcurso: string ) {
+    try {
+      if ( fkidcurso === null ) return [];
+      return await this.inscripcionCursoRepository.find( {
+        relations: {
+          curso: true,
+        },
+        where: {
+          curso: {
+            idcurso: fkidcurso,
+          },
+        },
+        order: { created_at: "ASC", },
+      } );
+    } catch (error) {
+      return [];
+    }
+  }
+
 }

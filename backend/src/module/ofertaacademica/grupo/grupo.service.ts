@@ -103,14 +103,19 @@ export class GrupoService {
     try {
       const { limit = 1, offset = 0, search = "", esPaginate = false, } = paginationDto;
       let listGrupo = [];
+      let arrayGrupoPensumMateria = [];
       let totalPagination = 0;
 
       const pensum = await this.pensumService.findOne(paginationDto.fkidpensum);
 
-      const arrayGrupoPensumMateria = await this.grupoDetalleRepository.find( {
-        where: { pensum: pensum },
-        relations: { grupo: true, },
-      } );
+      if ( pensum !== null ) {
+        arrayGrupoPensumMateria = await this.grupoDetalleRepository.find( {
+          where: { pensum: {
+            idpensum: pensum.idpensum,
+          } },
+          relations: { grupo: true, },
+        } );
+      }
       
       if ( arrayGrupoPensumMateria.length > 0 ) {
         if ( esPaginate ) {
@@ -149,36 +154,61 @@ export class GrupoService {
 
   async findAllMateriaForGrupo( paginationDto: PaginationGrupoPensumDto ) {
     try {
-      const { limit = 1, offset = 0, esPaginate = false, } = paginationDto;
+      const { fkidpensum = null, fkidgrupo = null, } = paginationDto;
       let listGrupo = [];
       let totalPagination = 0;
-      const grupo = await this.findOne( paginationDto.fkidgrupo );
+
+      const grupo = await this.findOne( fkidgrupo );
+      const pensum = await this.pensumService.findOne(fkidpensum);
       
-      const pensum = await this.pensumService.findOne(paginationDto.fkidpensum);
-      
-      if ( esPaginate ) {
+      if ( pensum !== null && grupo !== null ) {
+        console.log('pensum !== null && grupo !== null');
         [listGrupo, totalPagination] = await this.grupoDetalleRepository.findAndCount( {
           select: {
             materia: { idmateria: true, codigo: true, sigla: true, nombrelargo: true, },
+            docente: { 
+              iddocente: true, nombreprincipal: true, nombreadicional: true, apellidoprimero: true, apellidosegundo: true, 
+              numeroidentificacion: true, tipoidentificacion: true,
+              arraycategoriadocumento: false, arrayestudio: false, arraymateria: false,
+              arraynacionalidad: false, arrayreferenciacontactos: false,
+            },
+            gestionPeriodo: {
+              idgestionperiodo: true, descripcion: true, fechainicio: true, fechafinal: true, 
+            },
+            created_at: false, updated_at: false, deleted_at: false, isdelete: false, concurrencia: false,
           },
-          relations: { materia: true, },
-          take: limit, skip: offset * limit,
+          relations: { materia: true, docente: true, gestionPeriodo: true, },
           where: [
-            { pensum: pensum, grupo: grupo },
+            { 
+              pensum: {
+                idpensum: paginationDto.fkidpensum,
+              }, 
+              grupo: {
+                idgrupo: paginationDto.fkidgrupo,
+              }, 
+            },
           ],
-          order: { created_at: "DESC", },
+          order: { created_at: "ASC", },
         } );
       } else {
-        [listGrupo, totalPagination] = await this.grupoDetalleRepository.findAndCount( {
-          select: {
-            materia: { idmateria: true, codigo: true, sigla: true, nombrelargo: true, },
-          },
-          relations: { materia: true, },
-          where: [
-            { pensum: pensum, grupo: grupo },
-          ],
-          order: { created_at: "DESC", },
-        } );
+        if ( pensum === null && grupo !== null ) {
+          console.log('pensum === null && grupo !== null');
+          [listGrupo, totalPagination] = await this.grupoDetalleRepository.findAndCount( {
+            select: {
+              materia: { idmateria: true, codigo: true, sigla: true, nombrelargo: true, },
+              created_at: false, updated_at: false, deleted_at: false, isdelete: false, concurrencia: false,
+            },
+            relations: { materia: true, },
+            where: [
+              { 
+                grupo: {
+                  idgrupo: paginationDto.fkidgrupo,
+                }, 
+              },
+            ],
+            order: { created_at: "ASC", },
+          } );
+        }
       }
       return {
         resp: 1, error: false,
@@ -186,6 +216,63 @@ export class GrupoService {
         arrayGrupo: listGrupo,
         pagination: {
           total: totalPagination,
+        },
+      };
+    } catch (error) {
+      this.logger.error(error);
+      return {
+        resp: -1, error: true,
+        message: 'Hubo conflictos al consultar información con el servidor.',
+      };
+    }
+  }
+
+  async findAllMateriaForDocente(paginationDto: PaginationGrupoPensumDto) {
+    try {
+      let listGrupo = [];
+      let total = 0;
+      const docente = await this.docenteService.findOne(paginationDto.fkiddocente);
+      if ( docente != null ) {
+        [listGrupo, total] = await this.grupoDetalleRepository.findAndCount( {
+          where: {
+            docente: { iddocente: paginationDto.fkiddocente, },
+          },
+          relations: {
+            grupo: true,
+            arrayGrupoMateriaDiaDetalle: {
+              dia: true,
+              arrayGrupoMateriaDiaHorario: {
+                aula: true,
+              },
+            },
+            materia: true,
+            gestionPeriodo: true,
+            divisionAcademica: true,
+            unidadAdministrativa: true,
+            unidadNegocio: true,
+            unidadAcademica: true,
+            turno: true,
+            programa: true,
+            pensum: true,
+          },
+          order: { 
+            gestionPeriodo: { created_at: 'DESC', },
+            created_at: 'DESC',
+            arrayGrupoMateriaDiaDetalle: {
+              created_at: 'ASC',
+              arrayGrupoMateriaDiaHorario: {
+                created_at: 'ASC'
+              },
+            },
+          },
+        } );
+      }
+      return {
+        resp: 1, error: false,
+        message: 'Servicio realizado exitosamente.',
+        arrayGrupo: listGrupo,
+        pagination: {
+          total: total,
         },
       };
     } catch (error) {
@@ -389,14 +476,47 @@ export class GrupoService {
           arrayGrupoMateriaDetalle: {
             arrayGrupoMateriaDiaDetalle: {
               created_at: 'ASC',
+              arrayGrupoMateriaDiaHorario: {
+                created_at: 'ASC',
+              },
             },
             arrayGrupoMateriaCalificacionDetalle: {
               created_at: 'ASC',
-            }
+            },
           },
         },
       } );
       return grupo;
+    } catch (error) {
+      return null;
+    }
+  }
+
+  async findOneDetail(idgrupomateriadetalle: number) {
+    try {
+      return await this.grupoDetalleRepository.findOne( {
+        where: { idgrupopensumdetalle: idgrupomateriadetalle, },
+        relations: { 
+          arrayGrupoMateriaDiaDetalle: {
+            dia: true,
+            arrayGrupoMateriaDiaHorario: true,
+          }, 
+          arrayGrupoMateriaCalificacionDetalle: {
+            parametroCalificacion: true,
+          },
+        },
+        order: {
+          arrayGrupoMateriaCalificacionDetalle: {
+            created_at: 'ASC',
+          },
+          arrayGrupoMateriaDiaDetalle: {
+            created_at: 'ASC',
+            arrayGrupoMateriaDiaHorario: {
+              created_at: 'ASC',
+            },
+          },
+        },
+      } );
     } catch (error) {
       return null;
     }

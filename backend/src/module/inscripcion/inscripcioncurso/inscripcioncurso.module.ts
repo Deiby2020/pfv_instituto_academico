@@ -5,9 +5,11 @@ import { InscripcionCursoService } from './inscripcioncurso.service';
 import { InscripcionCurso } from './entities/inscripcioncurso.entity';
 import { InscripcionCursoController } from './inscripcioncurso.controller';
 import { CursoModule } from '../../ofertaacademica/curso/curso.module';
+import { NotacursoModule } from '../../nota/notacurso/notacurso.module';
 import { EstudianteModule } from '../../persona/estudiante/estudiante.module';
 import { TurnoModule } from '../../estructurainstitucional/turno/turno.module';
 import { UnidadNegocioModule } from '../../parametro/unidadnegocio/unidadnegocio.module';
+import { AsistenciacursoModule } from '../../nota/asistenciacurso/asistenciacurso.module';
 import { ModalidadAcademicaModule } from '../../parametro/modalidadacademica/modalidadacademica.module';
 import { UnidadacademicaModule } from '../../estructuraacademica/unidadacademica/unidadacademica.module';
 import { GestionPeriodoModule } from '../../estructurainstitucional/gestionperiodo/gestionperiodo.module';
@@ -16,6 +18,7 @@ import { UnidadAdministrativaModule } from '../../estructuraacademica/unidadadmi
 @Module({
   controllers: [InscripcionCursoController],
   providers: [InscripcionCursoService],
+  exports: [InscripcionCursoService],
   imports: [
     TypeOrmModule.forFeature( [
       InscripcionCurso,
@@ -29,6 +32,8 @@ import { UnidadAdministrativaModule } from '../../estructuraacademica/unidadadmi
     UnidadacademicaModule,
     ModalidadAcademicaModule,
     UnidadAdministrativaModule,
+    AsistenciacursoModule,
+    NotacursoModule,
   ],
 })
 export class InscripcioncursoModule {}

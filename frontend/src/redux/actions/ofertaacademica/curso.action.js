@@ -1,7 +1,7 @@
 
 import Swal from 'sweetalert2';
 import Constants from "../../constants/constans";
-import { Functions } from "../../../utils/functions";
+import { existsData, Functions } from "../../../utils/functions";
 import ConfirmationComponent from "../../../components/confirmation";
 import { setHiddenLoading, setShowLoading } from "../common/loading.action";
 import { setHiddenSesion, setShowSesion } from '../common/sesion.action';
@@ -18,6 +18,15 @@ const setLimpiar = () => ( {
 const onChange = ( data ) => ( {
     type: Constants.curso_onChange,
     payload: data,
+} );
+
+const onAddRowParametroCalificacion = ( ) => ( {
+    type: Constants.curso_onAddRowParametroCalificacion,
+} );
+
+const onDeleteRowParametroCalificacion = ( index ) => ( {
+    type: Constants.curso_onDeleteRowParametroCalificacion,
+    payload: index,
 } );
 
 const onAddRowDocente = ( ) => ( {
@@ -154,6 +163,8 @@ const setFKIDTurno = (curso, turno) => {
         curso.descripcion = `${curso.materia} - Turno ${turno.descripcion}`;
         curso.error.fkidturno = false;
         curso.message.fkidturno = "";
+        curso.message.descripcion = "";
+        curso.error.descripcion = false;
         dispatch( onChange(curso) );
     };
 };
@@ -165,6 +176,8 @@ const setFKIDMateria = (curso, materia) => {
         curso.descripcion = `${materia.nombrelargo} - ${curso.turno}`;
         curso.error.fkidmateria = false;
         curso.message.fkidmateria = "";
+        curso.message.descripcion = "";
+        curso.error.descripcion = false;
         dispatch( onChange(curso) );
     };
 };
@@ -554,12 +567,76 @@ function onValidate( data ) {
         data.message.estado = "Campo requerido.";
         bandera = false;
     }
-    if ( data.arraydocente.length > 0 ) {
-        if ( data.arraydocente[0].fkiddocente === null ) {
-            data.arraydocente[0].error.fkiddocente   = true;
-            data.arraydocente[0].message.fkiddocente = "Campo requerido.";
-            bandera = false;
+    if ( data.arraydocente.length === 0 ) {
+        Swal.fire( {
+            position: 'top-end',
+            icon: 'warning',
+            title: "No se pudo realizar la Funcionalidad",
+            text: "Favor llenar los campos requeridos y asignar un docente requerido.",
+            showConfirmButton: false,
+            timer: 3000,
+        } );
+        return false;
+    }
+    let totaldocente = 0;
+    for (let index = 0; index < data.arraydocente.length; index++) {
+        const element = data.arraydocente[index];
+        if ( element.fkiddocente !== null ) {
+            totaldocente += 1;
         }
+    }
+    if ( totaldocente === 0 ) {
+        data.arraydocente[0].error.fkiddocente   = true;
+        data.arraydocente[0].message.fkiddocente = "Campo requerido.";
+        Swal.fire( {
+            position: 'top-end',
+            icon: 'warning',
+            title: "No se pudo realizar la Funcionalidad",
+            text: "Favor llenar los campos requeridos y asignar un docente requerido.",
+            showConfirmButton: false,
+            timer: 3000,
+        } );
+        return false;
+    }
+    if ( !existsData( data.fkidaula ) ) {
+        Swal.fire( {
+            position: 'top-end',
+            icon: 'warning',
+            title: "No se pudo realizar la Funcionalidad",
+            text: "Favor llenar los campos requeridos y asignar horario.",
+            showConfirmButton: false,
+            timer: 3000,
+        } );
+        return false;
+    }
+    if ( data.arrayparametrocalificacion.length === 0 ) {
+        Swal.fire( {
+            position: 'top-end',
+            icon: 'warning',
+            title: "No se pudo realizar la Funcionalidad",
+            text: "Favor llenar los campos requeridos y asignar calificaciones.",
+            showConfirmButton: false,
+            timer: 3000,
+        } );
+        return false;
+    }
+    let totalCalificacion = 0;
+    for (let index = 0; index < data.arrayparametrocalificacion.length; index++) {
+        const element = data.arrayparametrocalificacion[index];
+        if ( typeof element.valorporcentaje === 'number' ) {
+            totalCalificacion += parseInt(element.valorporcentaje);
+        }
+    }
+    if ( totalCalificacion < 100 ) {
+        Swal.fire( {
+            position: 'top-end',
+            icon: 'warning',
+            title: "No se pudo realizar la Funcionalidad",
+            text: "Favor llenar los campos requeridos y Asignar calificaciones con una suma de 100.",
+            showConfirmButton: false,
+            timer: 3000,
+        } );
+        return false;
     }
     if ( !bandera ) {
         Swal.fire( {
@@ -571,17 +648,6 @@ function onValidate( data ) {
             timer: 3000,
         } );
         return bandera;
-    }
-    if ( data.arraydocente.length === 0 ) {
-        Swal.fire( {
-            position: 'top-end',
-            icon: 'warning',
-            title: "No se pudo realizar la Funcionalidad",
-            text: "Al menos debe tener un docente rellenado.",
-            showConfirmButton: false,
-            timer: 3000,
-        } );
-        bandera = false;
     }
     return bandera;
 };
@@ -737,6 +803,7 @@ export const CursoActions = {
     initData, onPageCurso, getAllCurso,
     setShowData,
     onLimpiar, onChange,
+    onAddRowParametroCalificacion, onDeleteRowParametroCalificacion,
     onAddRowDocente, onDeleteRowDocente,
     setFKIDUnidadAcademica,
     setFKIDModalidadAcademica,

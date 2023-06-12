@@ -13,10 +13,14 @@ import { UnidadNegocioModule } from '../../parametro/unidadnegocio/unidadnegocio
 import { UnidadacademicaModule } from '../../estructuraacademica/unidadacademica/unidadacademica.module';
 import { GestionPeriodoModule } from '../../estructurainstitucional/gestionperiodo/gestionperiodo.module';
 import { UnidadAdministrativaModule } from '../../estructuraacademica/unidadadministrativa/unidadadministrativa.module';
+import { DocenteModule } from '../../persona/docente/docente.module';
+import { AsistenciagrupoModule } from '../../nota/asistenciagrupo/asistenciagrupo.module';
+import { NotagrupoModule } from '../../nota/notagrupo/notagrupo.module';
 
 @Module({
   controllers: [InscripcionGrupoController],
   providers: [InscripcionGrupoService],
+  exports: [InscripcionGrupoService],
   imports: [
     TypeOrmModule.forFeature( [
       InscripcionGrupo,
@@ -31,6 +35,9 @@ import { UnidadAdministrativaModule } from '../../estructuraacademica/unidadadmi
     PensumModule,
     MateriaModule,
     GrupoModule,
+    DocenteModule,
+    AsistenciagrupoModule,
+    NotagrupoModule,
   ],
 })
 export class InscripcionGrupoModule {}

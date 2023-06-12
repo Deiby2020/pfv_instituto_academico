@@ -14,6 +14,10 @@ import { PensumService } from '../../estructuraacademica/pensum/pensum.service';
 import { MateriaService } from '../../parametro/materia/materia.service';
 import { GrupoService } from '../../ofertaacademica/grupo/grupo.service';
 import { InscripcionGrupoPaginationDto } from './dto/pagination.dto';
+import { FindEstudianteForMateriaDto } from './dto/findestudianteformateria.dto';
+import { DocenteService } from '../../persona/docente/docente.service';
+import { AsistenciagrupoService } from '../../nota/asistenciagrupo/asistenciagrupo.service';
+import { NotagrupoService } from '../../nota/notagrupo/notagrupo.service';
 
 @Injectable()
 export class InscripcionGrupoService {
@@ -32,6 +36,9 @@ export class InscripcionGrupoService {
     private readonly gestionPeriodoService: GestionPeriodoService,
     private readonly unidadAcademicaService: UnidadacademicaService,
     private readonly unidadAdministrativaService: UnidadAdministrativaService,
+    private readonly docenteService: DocenteService,
+    private readonly asistenciaGrupoService: AsistenciagrupoService,
+    private readonly notaGrupoService: NotagrupoService,
   ) {}
 
   async findAll( paginationDto: InscripcionGrupoPaginationDto ) {
@@ -78,6 +85,108 @@ export class InscripcionGrupoService {
         arrayInscripcionGrupo: listInscripcionGrupo,
         pagination: {
           total: totalPagination,
+        },
+      };
+    } catch (error) {
+      this.logger.error(error);
+      return {
+        resp: -1, error: true,
+        message: 'Hubo conflictos al consultar información con el servidor.',
+      };
+    }
+  }
+
+  async findEstudianteForParametroCalificacion(fkidgrupopensumdetalle: number) {
+    try {
+      
+      let list = [];
+      let total = 0;
+
+      [list, total] = await this.inscripcionGrupoRepository.findAndCount( {
+        relations: {
+          estudiante: true,
+          arrayNotaGrupo: {
+            parametroCalificacion: true,
+          },
+        },
+        where: {
+          grupoMateriaDetalle: {
+            idgrupopensumdetalle: fkidgrupopensumdetalle,
+          },
+        },
+        order: {  
+          estudiante: {
+            apellidoprimero: 'ASC',
+          },
+          arrayNotaGrupo: {
+            created_at: 'ASC',
+          },
+        },
+      } );
+      
+      return {
+        resp: 1, error: false,
+        message: 'Servicio realizado exitosamente.',
+        arrayEstudianteInscrito: list,
+        pagination: {
+          total: total,
+        },
+      };
+      
+    } catch (error) {
+      this.logger.error(error);
+      return {
+        resp: -1, error: true,
+        message: 'Hubo conflictos al consultar información con el servidor.',
+      };
+    }
+  }
+
+  async FindEstudianteForMateriaDto(request: FindEstudianteForMateriaDto) {
+    try {
+      let list = [];
+      let total = 0;
+      try {
+        [list, total] = await this.inscripcionGrupoRepository.findAndCount( {
+          relations: {
+            estudiante: true,
+            arrayAsistenciaGrupo: true,
+          },
+          where: { 
+            unidadnegocio: { idunidadnegocio: request.fkidunidadnegocio, },
+            unidadadministrativa: { idunidadadministrativa: request.fkidunidadadministrativa, },
+            unidadacademica: { idunidadacademica: request.fkidunidadacademica, },
+            pensum: { idpensum: request.fkidpensum, },
+            grupo: { idgrupo: request.fkidgrupo, },
+            materia: { idmateria: request.fkidmateria, },
+            programa: { idprograma: request.fkidprograma, },
+            gestionperiodo: { idgestionperiodo: request.fkidgestionperiodo, },
+            docente: { iddocente: request.fkiddocente, },
+            arrayAsistenciaGrupo: {
+              year: request.yearselected,
+              mes: request.monthselected,
+            },
+          },
+          order: {  
+            estudiante: {
+              apellidoprimero: 'ASC',
+            },
+            arrayAsistenciaGrupo: {
+              day: 'ASC',
+            },
+          },
+        } );
+      } catch (error) {
+        list = [];
+        total = 0;
+      }
+      
+      return {
+        resp: 1, error: false,
+        message: 'Servicio realizado exitosamente.',
+        arrayEstudianteInscrito: list,
+        pagination: {
+          total: total,
         },
       };
     } catch (error) {
@@ -175,13 +284,37 @@ export class InscripcionGrupoService {
           message: 'Programa no existe.',
         };
       }
+      const docente = await this.docenteService.findOne(createInscripciongrupoDto.fkiddocente);
+      if ( docente === null ) {
+        return {
+          resp: 0, error: false,
+          message: 'Programa no existe.',
+        };
+      }
+      const grupoDetalle = await this.grupoService.findOneDetail(createInscripciongrupoDto.fkidgrupopensumdetalle);
+      if ( grupoDetalle === null ) {
+        return {
+          resp: 0, error: false,
+          message: 'Programa no existe.',
+        };
+      }
       const inscripcionGrupoFirst = await this.inscripcionGrupoRepository.findOne( {
         where: {
-          pensum: pensum,
-          materia: materia,
-          grupo: grupo,
-          estudiante: estudiante,
-          gestionperiodo: gestionPeriodo,
+          pensum: {
+            idpensum: createInscripciongrupoDto.fkidpensum
+          },
+          materia: {
+            idmateria: createInscripciongrupoDto.fkidmateria,
+          },
+          grupo: {
+            idgrupo: createInscripciongrupoDto.fkidgrupo,
+          },
+          estudiante: {
+            idestudiante: createInscripciongrupoDto.fkidestudiante,
+          },
+          gestionperiodo: {
+            idgestionperiodo: createInscripciongrupoDto.fkidgestionperiodo,
+          },
         },
       } );
       if ( inscripcionGrupoFirst ) {
@@ -190,20 +323,90 @@ export class InscripcionGrupoService {
           message: 'Estudiante ya se encuentra actualmente inscrito en esta materia y grupo.',
         };
       }
-      const inscripcionGrupo = this.inscripcionGrupoRepository.create( {
+      const inscripcionGrupoCreate = this.inscripcionGrupoRepository.create( {
         ...createInscripciongrupoDto,
-        unidadadministrativa: unidadAdministrativa,
-        unidadacademica: unidadAcademica,
-        unidadnegocio: unidadNegocio,
-        estudiante: estudiante,
-        gestionperiodo: gestionPeriodo,
-        pensum: pensum,
-        grupo: grupo,
-        materia: materia,
-        programa: programa,
+        unidadadministrativa: {
+          idunidadadministrativa: createInscripciongrupoDto.fkidunidadadministrativa
+        },
+        unidadacademica: {
+          idunidadacademica: createInscripciongrupoDto.fkidunidadacademica,
+        },
+        unidadnegocio: {
+          idunidadnegocio: createInscripciongrupoDto.fkidunidadnegocio,
+        },
+        estudiante: {
+          idestudiante: createInscripciongrupoDto.fkidestudiante,
+        },
+        gestionperiodo: {
+          idgestionperiodo: createInscripciongrupoDto.fkidgestionperiodo,
+        },
+        pensum: {
+          idpensum: createInscripciongrupoDto.fkidpensum,
+        },
+        grupo: {
+          idgrupo: createInscripciongrupoDto.fkidgrupo,
+        },
+        materia: {
+          idmateria: createInscripciongrupoDto.fkidmateria,
+        },
+        programa: {
+          idprograma: createInscripciongrupoDto.fkidprograma,
+        },
+        docente: {
+          iddocente: createInscripciongrupoDto.fkiddocente,
+        },
+        grupoMateriaDetalle: {
+          idgrupopensumdetalle: createInscripciongrupoDto.fkidgrupopensumdetalle,
+        },
         created_at: this.getDateTime(),
       } );
-      const inscripcionGrupoStore = await this.inscripcionGrupoRepository.save( inscripcionGrupo );
+
+      const inscripcionGrupoStore = await this.inscripcionGrupoRepository.save( inscripcionGrupoCreate );
+
+      let fechaInicio = this.convertDMYForYMD(gestionPeriodo.fechainicio);
+      let fechaFinal = this.convertDMYForYMD(gestionPeriodo.fechafinal);
+
+      while (fechaInicio <= fechaFinal) {
+        let dayinit = this.convertStringforDate(fechaInicio).getDate();
+
+        let lastday = this.getLastDay(this.convertStringforDate(fechaInicio));
+
+        const [year, month] = fechaInicio.split('-');
+        const [yearFinish, monthFinish, dayFinish] = fechaFinal.split('-');
+
+        if ( `${year}-${month}` === `${yearFinish}-${monthFinish}` ) {
+          lastday = new Date(parseInt(yearFinish), parseInt(monthFinish), parseInt(dayFinish)).getDate();
+        }
+
+        for (let index = dayinit; index <= lastday; index++) {
+          const weekDay = this.getWeekDay(parseInt(year), parseInt(month) - 1, index);
+
+          for (let key = 0; key < grupoDetalle.arrayGrupoMateriaDiaDetalle.length; key++) {
+            const element = grupoDetalle.arrayGrupoMateriaDiaDetalle[key];
+
+            if ( element.arrayGrupoMateriaDiaHorario.length > 0 ) {
+              const weekDayCurrent = this.getWeekDayByCode(element.dia.sigla);
+              if ( weekDay === weekDayCurrent ) {
+                await this.asistenciaGrupoService.storeAsistenciaDefaultForInscripcionGrupo(
+                  inscripcionGrupoCreate.idinscripciongrupo, index, parseInt(month), parseInt(year), weekDayCurrent,
+                );
+              }
+            }
+          }
+        }
+        const dateNext = new Date(parseInt(year), parseInt(month), 1);
+        fechaInicio = `${dateNext.getFullYear()}-${dateNext.getMonth()+1<10?`0${dateNext.getMonth()+1}`:dateNext.getMonth()+1}-01`
+      }
+
+      for (let index = 0; index < grupoDetalle.arrayGrupoMateriaCalificacionDetalle.length; index++) {
+        const detalle = grupoDetalle.arrayGrupoMateriaCalificacionDetalle[index];
+        await this.notaGrupoService.storeNotaDefaultForInscripcionGrupo(
+          inscripcionGrupoCreate.idinscripciongrupo,
+          detalle.parametroCalificacion.idparametrocalificacion,
+          detalle.valorporcentaje,
+        );
+      }
+
       return {
         resp: 1, error: false,
         message: 'Inscripción Grupo registrado éxitosamente.',
@@ -215,6 +418,45 @@ export class InscripcionGrupoService {
         resp: -1, error: true,
         message: 'Hubo conflictos al insertar información con el servidor.',
       };
+    }
+  }
+
+  convertDMYForYMD(dateToString = "") {
+    if ( dateToString.split('/').length < 3 ) return null;
+    const [day, month, year] = dateToString.split('/');
+    return `${year}-${month}-${day}`;
+  }
+
+  convertStringforDate(dateToString = "") {
+    if ( dateToString.split('-').length < 3 ) return null;
+    const [year, month, day] = dateToString.split('-');
+    return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+  }
+
+  getWeekDay(year: number, mounth: number, day: number) {
+    return new Date(year, mounth, day).getDay();
+  }
+
+  getLastDay(date = new Date()) {
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  }
+
+  getWeekDayByCode(code: string){
+    switch (code) {
+        case 'lu':
+            return 1;
+        case 'ma':
+            return 2;
+        case 'mi':
+            return 3;
+        case 'ju':
+            return 4;
+        case 'vi':
+            return 5;
+        case 'sá':
+            return 6;
+        default:
+            return 0;
     }
   }
 
@@ -284,6 +526,14 @@ export class InscripcionGrupoService {
           message: 'Inscripción Grupo no existe.',
         };
       }
+
+      const listEstudianteInscrito = await this.asistenciaGrupoService.getEstudianteInscrito( idinscripciongrupo );
+
+      for (let index = 0; index < listEstudianteInscrito.length; index++) {
+        const element = listEstudianteInscrito[index];
+        await this.asistenciaGrupoService.delete( element.idasistenciagrupo );
+      }
+      
       const inscripcionGrupoDelete = await this.inscripcionGrupoRepository.remove( inscripcionGrupo );
       return {
         resp: 1, error: false,

@@ -63,6 +63,10 @@ import { DateModule } from './module/config/date/date.module';
 import { ParametroCalificacionModule } from './module/nota/parametrocalificacion/parametrocalificacion.module';
 import { CalendarioacademicoModule } from './module/nota/calendarioacademico/calendarioacademico.module';
 import { AsignarrolModule } from './module/seguridad/asignarrol/asignarrol.module';
+import { AsistenciagrupoModule } from './module/nota/asistenciagrupo/asistenciagrupo.module';
+import { AsistenciacursoModule } from './module/nota/asistenciacurso/asistenciacurso.module';
+import { NotacursoModule } from './module/nota/notacurso/notacurso.module';
+import { NotagrupoModule } from './module/nota/notagrupo/notagrupo.module';
 
 // npm i -g @nestjs/cli
 // nest new project-name 
@@ -116,10 +120,9 @@ import { AsignarrolModule } from './module/seguridad/asignarrol/asignarrol.modul
     EstudianteModule, CursoModule, MotivoAperturaCierreCursoModule, GrupoModule, 
     TipoActividadModule, TipomediopublicitarioModule, EstadoNegocioModule, 
     AsesorResponsableModule, NegocioModule, ActividadModule, OportunidadModule, 
-    TipoResultadoModule, InscripcionProgramaModule, InscripcionGrupoModule, InscripcioncursoModule, 
+    TipoResultadoModule, AsistenciagrupoModule, InscripcionProgramaModule, InscripcionGrupoModule, InscripcioncursoModule, 
     ProfileModule, BitacoraModule, DateModule, ParametroCalificacionModule, CalendarioacademicoModule,
-    AuthModule,
-    AsignarrolModule,
+    AsignarrolModule, AuthModule, AsistenciacursoModule, NotacursoModule, NotagrupoModule,
   ],
   controllers: [],
   providers: [],
