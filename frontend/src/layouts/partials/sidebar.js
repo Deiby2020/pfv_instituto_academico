@@ -51,7 +51,7 @@ const SidebarComponent = (props) => {
                                 } }
                                 style={{ lineHeight: 0, height: 50, }}
                             >
-                                <i className="ion ion-ios-albums-outline"></i>
+                                <i className="ion ion-ios-people"></i>
                                 <span style={{ fontSize: 13, }}>CRM</span>
                             </a>
                         }
@@ -222,7 +222,7 @@ const SidebarComponent = (props) => {
                                 } }
                                 style={{ lineHeight: 0, height: 50, }}
                             >
-                                <i className="ion ion-ios-albums-outline"></i>
+                                <i className="ion ion-person"></i>
                                 <span style={{ fontSize: 13, }}>Persona</span>
                             </a>
                         }
