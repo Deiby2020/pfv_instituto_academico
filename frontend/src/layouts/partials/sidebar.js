@@ -22,10 +22,10 @@ const SidebarComponent = (props) => {
                     </div>
                     <div className="sidebar-user-details">
                         <div className="user-name">
-                            { props.profile.nombreprincipal ?? 'S/N' }
+                            { props.profile.nombreprincipal ?? 'S/N' } { props.profile.apellidoprimero ?? '' }
                         </div>
                         <div className="user-role">
-                            { props.profile.arrayrol?.map( (item) => `${item.rol.descripcion}, ` ) }
+                            { props.profile.arrayrol?.map( (item) => `${item.rol.descripcion}` ) }
                         </div>
                     </div>
                 </div>
@@ -51,7 +51,7 @@ const SidebarComponent = (props) => {
                                 } }
                                 style={{ lineHeight: 0, height: 50, }}
                             >
-                                <i className="ion ion-ios-people"></i>
+                                <i className="fas fa-handshake"></i>
                                 <span style={{ fontSize: 13, }}>CRM</span>
                             </a>
                         }
@@ -129,7 +129,7 @@ const SidebarComponent = (props) => {
                                 } }
                                 style={{ lineHeight: 0, height: 50, }}
                             >
-                                <i className="ion ion-ios-albums-outline"></i>
+                                <i className="fas fa-school-circle-check"></i>
                                 <span style={{ fontSize: 13, }}>Inscripción</span>
                             </a>
                         }
@@ -165,8 +165,8 @@ const SidebarComponent = (props) => {
                                 } }
                                 style={{ lineHeight: 0, height: 50, }}
                             >
-                                <i className="ion ion-ios-albums-outline"></i>
-                                <span style={{ fontSize: 13, }}>Oferta Academica</span>
+                                <i className="fas fa-layer-group"></i>
+                                <span style={{ fontSize: 13, }}>Oferta Académica</span>
                             </a>
                         }
                         className="p-0"
@@ -232,42 +232,42 @@ const SidebarComponent = (props) => {
                             <Link to={"/administrativo/index"} className="d-flex align-items-center" 
                                 style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
                             >
-                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Administrativo
+                                <i className="fas fa-user-tie" style={{ color: '#505c66', fontSize: 16, }}></i> Administrativo
                             </Link>
                         </Menu.Item>
                         <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
                             <Link to={"/docente/index"} className="d-flex align-items-center" 
                                 style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
                             >
-                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Docente
+                                <i className="fas fa-person-chalkboard" style={{ color: '#505c66', fontSize: 16, }}></i> Docente
                             </Link>
                         </Menu.Item>
                         <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
                             <Link to={"/estudiante/index"} className="d-flex align-items-center" 
                                 style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
                             >
-                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Estudiante
+                                <i className="fas fa-children" style={{ color: '#505c66', fontSize: 16, }}></i> Estudiante
                             </Link>
                         </Menu.Item>
                         <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
                             <Link to={"/cargo/index"} className="d-flex align-items-center" 
                                 style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
                             >
-                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Cargo
+                                <i className="fas fa-newspaper" style={{ color: '#505c66', fontSize: 16, }}></i> Cargo
                             </Link>
                         </Menu.Item>
                         <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
                             <Link to={"/tipoidentificacion/index"} className="d-flex align-items-center" 
                                 style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
                             >
-                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Tipo Identificación
+                                <i className="fas fa-address-card" style={{ color: '#505c66', fontSize: 16, }}></i> Tipo Identificación
                             </Link>
                         </Menu.Item>
                         <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
                             <Link to={"/categoriadocumento/index"} className="d-flex align-items-center" 
                                 style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
                             >
-                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Categoría Documento
+                                <i className="fas fa-file-signature" style={{ color: '#505c66', fontSize: 16, }}></i> Categoría Documento
                             </Link>
                         </Menu.Item>
                     </Menu.SubMenu>
@@ -279,7 +279,7 @@ const SidebarComponent = (props) => {
                                 } }
                                 style={{ lineHeight: 0, height: 50, }}
                             >
-                                <i className="ion ion-ios-albums-outline"></i>
+                                <i className="fas fa-building-columns"></i>
                                 <span style={{ fontSize: 13, }}>Estructura Institucional</span>
                             </a>
                         }
@@ -329,8 +329,8 @@ const SidebarComponent = (props) => {
                                 } }
                                 style={{ lineHeight: 0, height: 50, }}
                             >
-                                <i className="ion ion-ios-albums-outline"></i>
-                                <span style={{ fontSize: 13, }}>Estructura Academica</span>
+                                <i className="fas fa-book-open-reader"></i>
+                                <span style={{ fontSize: 13, }}>Estructura Académica</span>
                             </a>
                         }
                         className="p-0"
@@ -346,7 +346,7 @@ const SidebarComponent = (props) => {
                             <Link to={"/unidadacademica/index"} className="d-flex align-items-center" 
                                 style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
                             >
-                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Unidad Academica
+                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Unidad Académica
                             </Link>
                         </Menu.Item>
                         <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
@@ -373,7 +373,7 @@ const SidebarComponent = (props) => {
                                 } }
                                 style={{ lineHeight: 0, height: 50, }}
                             >
-                                <i className="ion ion-ios-albums-outline"></i>
+                                <i className="fas fa-book"></i>
                                 <span style={{ fontSize: 13, }}>Notas</span>
                             </a>
                         }
@@ -390,7 +390,7 @@ const SidebarComponent = (props) => {
                             <Link to={"/calendarioacademico/index"} className="d-flex align-items-center" 
                                 style={{ color: '#505c66', fontSize: 12, fontWeight: '400', }}
                             >
-                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> calendario Academico
+                                <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Calendario Académico
                             </Link>
                         </Menu.Item>
                         <Menu.Item className='p-1 pl-2' style={{ lineHeight: 0, height: 35, }}>
@@ -422,7 +422,7 @@ const SidebarComponent = (props) => {
                             </Link>
                         </Menu.Item>
                     </Menu.SubMenu>
-
+{/* 
                     <Menu.SubMenu 
                         title={
                             <a href="#" className="p-0 d-flex align-items-center"
@@ -791,7 +791,7 @@ const SidebarComponent = (props) => {
                                 <i className="ion ion-ios-circle-outline" style={{ color: '#505c66', fontSize: 16, }}></i> Histórico Convalidación
                             </Link>
                         </Menu.Item>
-                    </Menu.SubMenu>
+                    </Menu.SubMenu> */}
 
                     <Menu.SubMenu 
                         title={
@@ -801,7 +801,7 @@ const SidebarComponent = (props) => {
                                 } }
                                 style={{ lineHeight: 0, height: 50, }}
                             >
-                                <i className="ion ion-ios-albums-outline"></i>
+                                <i className="fas fa-screwdriver-wrench"></i>
                                 <span style={{ fontSize: 13, }}>Parámetros</span>
                             </a>
                         }
@@ -879,7 +879,7 @@ const SidebarComponent = (props) => {
                                 } }
                                 style={{ lineHeight: 0, height: 50, }}
                             >
-                                <i className="ion ion-ios-albums-outline"></i>
+                                <i className="fas fa-user-lock"></i>
                                 <span style={{ fontSize: 13, }}>Seguridad</span>
                             </a>
                         }

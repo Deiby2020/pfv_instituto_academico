@@ -92,7 +92,7 @@ const HeaderComponent = (props) => {
                     <a href="#" data-toggle="dropdown" className="nav-link dropdown-toggle nav-link-lg">
                         <i className="ion ion-android-person d-lg-none"></i>
                         <div className="d-sm-none d-lg-inline-block">
-                            { props.profile.showSaludo }, { props.profile.nombreprincipal ?? 'S/N' }
+                            { props.profile.showSaludo }, { props.profile.nombreprincipal ?? 'S/N' } { props.profile.apellidoprimero ?? '' }
                         </div>
                     </a>
                     <div className="dropdown-menu dropdown-menu-right">
@@ -102,7 +102,7 @@ const HeaderComponent = (props) => {
                                 navigate('/profile');
                             } }
                         >
-                            <i className="ion ion-android-person"></i> Profile
+                            <i className="ion ion-android-person"></i> Mi Perfil
                         </a>
                         <a href="#" className="dropdown-item has-icon"
                             onClick={ (evt) => {
